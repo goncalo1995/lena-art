@@ -1,0 +1,35 @@
+{
+  "Main": {
+    "locale": {
+      "label": "Português",
+      "locale": "pt"
+    },
+    "navItems": {
+      "overview": "Visão Geral",
+      "leads": "Leads & Mensagens",
+      "calendar": "Calendário",
+      "marketing": "Marketing",
+      "analytics": "Análise",
+      "account": "Perfil"
+    },
+    "navUser": {
+      "profile": "Perfil",
+      "billing": "Faturação",
+      "upgrade": "Upgrade",
+      "logout": "Sair"
+    },
+    "buttons": {
+      "cancel": "Cancelar",
+      "clear": "Limpar",
+      "save": "Guardar",
+      "saveChanges": "Guardar Alterações",
+      "saving": "A guardar..."
+    }
+  },
+  "Pages": {
+    "home": {
+      "title": "Página Inicial",
+      "description": "Página Inicial Description"
+    }
+  }
+}

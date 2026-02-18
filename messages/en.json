@@ -1,0 +1,29 @@
+{
+  "Main": {
+    "locale": {
+      "label": "English",
+      "locale": "en"
+    },
+    "navItems": {
+      "overview": "Overview",
+      "leads": "Leads & Messages",
+      "calendar": "Calendar",
+      "marketing": "Marketing",
+      "analytics": "Analytics",
+      "account": "Perfil"
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "clear": "Clear",
+      "save": "Save",
+      "saveChanges": "Save Changes",
+      "saving": "Saving..."
+    }
+  },
+  "Pages": {
+    "home": {
+      "title": "Home Page",
+      "description": "Home Page Description"
+    }
+  }
+}

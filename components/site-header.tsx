@@ -1,10 +1,10 @@
 "use client"
 
-import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
 import { ChevronDown, Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { Link } from "@/i18n/navigation"
 
 const workLinks = [
   { label: "Drawings", href: "/drawings" },

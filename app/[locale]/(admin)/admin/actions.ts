@@ -26,8 +26,8 @@ async function revalidateContent(artType?: string, slug?: string) {
   }
   
   // If using tags (more efficient)
-  revalidateTag('artworks');
-  revalidateTag('collections');
+  revalidateTag('artworks', 'max');
+  revalidateTag('collections', 'max');
 }
 
 export async function createArtwork(formData: FormData) {

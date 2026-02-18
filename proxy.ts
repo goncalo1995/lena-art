@@ -1,11 +1,15 @@
 import { updateSession } from "@/lib/supabase/proxy"
 import { type NextRequest, NextResponse } from "next/server"
+import createMiddleware from 'next-intl/middleware';
+import {routing} from '@/i18n/routing';
 
-export async function middleware(request: NextRequest) {
+export default createMiddleware(routing);
+
+export async function proxy(request: NextRequest) {
   // Only run Supabase session logic if env vars are set
   if (
     process.env.NEXT_PUBLIC_SUPABASE_URL &&
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
   ) {
     const response = await updateSession(request)
 
@@ -14,7 +18,7 @@ export async function middleware(request: NextRequest) {
       const { createServerClient } = await import("@supabase/ssr")
       const supabase = createServerClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+        process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
         {
           cookies: {
             getAll() {
@@ -49,6 +53,6 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/((?!api|trpc|_next/static|_next/image|_vercel|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 }

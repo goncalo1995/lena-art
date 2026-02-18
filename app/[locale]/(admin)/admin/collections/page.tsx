@@ -1,29 +1,21 @@
-import Link from "next/link"
-import { getAllArtworks, getAllCollections } from "@/lib/data"
+import { Link } from "@/i18n/navigation"
+import { getAllCollections } from "@/lib/data"
 import { ART_TYPE_LABELS } from "@/lib/types"
 import { Button } from "@/components/ui/button"
 import { Plus, Pencil } from "lucide-react"
-import { DeleteArtworkButton } from "@/components/admin-delete-buttons"
+import { DeleteCollectionButton } from "@/components/admin-delete-buttons"
 
-export default async function AdminArtworksPage() {
-  const [artworks, collections] = await Promise.all([
-    getAllArtworks(),
-    getAllCollections(),
-  ])
-
-  const getCollectionName = (id: string | null) => {
-    if (!id) return null
-    return collections.find((c) => c.id === id)?.title || null
-  }
+export default async function AdminCollectionsPage() {
+  const collections = await getAllCollections()
 
   return (
     <div>
       <div className="flex items-center justify-between gap-4 mb-8">
-        <h1 className="font-serif text-2xl text-foreground">Artworks</h1>
+        <h1 className="font-serif text-2xl text-foreground">Collections</h1>
         <Button asChild size="sm">
-          <Link href="/admin/artworks/new">
+          <Link href="/admin/collections/new">
             <Plus className="size-4" />
-            New Artwork
+            New Collection
           </Link>
         </Button>
       </div>
@@ -39,9 +31,6 @@ export default async function AdminArtworksPage() {
                 Type
               </th>
               <th className="px-4 py-3 text-left font-medium text-muted-foreground hidden md:table-cell">
-                Collection
-              </th>
-              <th className="px-4 py-3 text-left font-medium text-muted-foreground hidden lg:table-cell">
                 Published
               </th>
               <th className="px-4 py-3 text-right font-medium text-muted-foreground">
@@ -50,37 +39,44 @@ export default async function AdminArtworksPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
-            {artworks.map((artwork) => (
-              <tr key={artwork.id} className="hover:bg-muted/30 transition-colors">
-                <td className="px-4 py-3 text-foreground">
-                  <span className="font-medium">{artwork.title}</span>
+            {collections.map((collection) => (
+              <tr
+                key={collection.id}
+                className="hover:bg-muted/30 transition-colors"
+              >
+                <td className="px-4 py-3 text-foreground font-medium">
+                  {collection.title}
                 </td>
                 <td className="px-4 py-3 text-muted-foreground hidden sm:table-cell">
-                  {ART_TYPE_LABELS[artwork.art_type]}
+                  {ART_TYPE_LABELS[collection.art_type]}
                 </td>
-                <td className="px-4 py-3 text-muted-foreground hidden md:table-cell">
-                  {getCollectionName(artwork.collection_id) || "---"}
-                </td>
-                <td className="px-4 py-3 hidden lg:table-cell">
+                <td className="px-4 py-3 hidden md:table-cell">
                   <span
                     className={
-                      artwork.is_published
+                      collection.is_published
                         ? "text-accent"
                         : "text-muted-foreground"
                     }
                   >
-                    {artwork.is_published ? "Yes" : "No"}
+                    {collection.is_published ? "Yes" : "No"}
                   </span>
                 </td>
                 <td className="px-4 py-3 text-right">
                   <div className="flex items-center justify-end gap-2">
                     <Button asChild size="icon-sm" variant="ghost">
-                      <Link href={`/admin/artworks/${artwork.id}/edit`}>
+                      <Link
+                        href={`/admin/collections/${collection.id}/edit`}
+                      >
                         <Pencil className="size-4" />
-                        <span className="sr-only">Edit {artwork.title}</span>
+                        <span className="sr-only">
+                          Edit {collection.title}
+                        </span>
                       </Link>
                     </Button>
-                    <DeleteArtworkButton id={artwork.id} title={artwork.title} />
+                    <DeleteCollectionButton
+                      id={collection.id}
+                      title={collection.title}
+                    />
                   </div>
                 </td>
               </tr>
@@ -88,9 +84,9 @@ export default async function AdminArtworksPage() {
           </tbody>
         </table>
 
-        {artworks.length === 0 && (
+        {collections.length === 0 && (
           <p className="py-12 text-center text-muted-foreground">
-            No artworks yet. Create your first one.
+            No collections yet. Create your first one.
           </p>
         )}
       </div>

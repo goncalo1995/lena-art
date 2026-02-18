@@ -1,4 +1,4 @@
-import Link from "next/link"
+import { Link } from "@/i18n/navigation"
 import { getAllArtworks, getAllCollections } from "@/lib/data"
 import { ART_TYPE_LABELS, ART_TYPES } from "@/lib/types"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
