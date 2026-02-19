@@ -18,7 +18,7 @@ export default function BioPage() {
           <div className="flex flex-col gap-12 md:flex-row md:gap-16">
             {/* Portrait */}
             <div className="shrink-0 md:w-[340px]">
-              <div className="relative aspect-[3/4] overflow-hidden rounded-lg bg-muted">
+              <div className="relative aspect-3/4 overflow-hidden rounded-lg bg-muted">
                 <Image
                   src="/images/bio-portrait.jpg"
                   alt="Helena Colaco in her studio"

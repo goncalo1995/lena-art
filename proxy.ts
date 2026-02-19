@@ -14,7 +14,7 @@ export async function proxy(request: NextRequest) {
     const response = await updateSession(request)
 
     // Protect admin routes
-    if (request.nextUrl.pathname.startsWith("/admin")) {
+    if (request.nextUrl.pathname.startsWith("/admin") || request.nextUrl.pathname.startsWith("/pt/admin") || request.nextUrl.pathname.startsWith("/en/admin")) {
       const { createServerClient } = await import("@supabase/ssr")
       const supabase = createServerClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -33,7 +33,7 @@ export async function proxy(request: NextRequest) {
       } = await supabase.auth.getUser()
       if (!user) {
         const url = request.nextUrl.clone()
-        url.pathname = "/auth/login"
+        url.pathname = "/pt/auth/login"
         return NextResponse.redirect(url)
       }
     }
@@ -42,9 +42,9 @@ export async function proxy(request: NextRequest) {
   }
 
   // If no Supabase, block admin routes
-  if (request.nextUrl.pathname.startsWith("/admin")) {
+  if (request.nextUrl.pathname.startsWith("/admin") || request.nextUrl.pathname.startsWith("/pt/admin") || request.nextUrl.pathname.startsWith("/en/admin")) {
     const url = request.nextUrl.clone()
-    url.pathname = "/auth/login"
+    url.pathname = "/pt/auth/login"
     return NextResponse.redirect(url)
   }
 

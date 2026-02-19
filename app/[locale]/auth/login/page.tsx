@@ -4,7 +4,6 @@ import { useState } from "react"
 import { Link } from "@/i18n/navigation"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { createClient } from "@/lib/supabase/client"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
@@ -13,30 +12,33 @@ export default function LoginPage() {
   )
   const [errorMessage, setErrorMessage] = useState("")
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.SubmitEvent) {
     e.preventDefault()
     setStatus("loading")
     setErrorMessage("")
 
     try {
-      const supabase = createClient()
-      const { error } = await supabase.auth.signInWithOtp({
-        email,
-        options: {
-          emailRedirectTo:
-            process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL ||
-            `${window.location.origin}/admin`,
+      const res = await fetch("/api/admin-login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
+        body: JSON.stringify({ email }),
       })
-      if (error) {
+
+      const data = await res.json()
+
+      if (!res.ok) {
         setStatus("error")
-        setErrorMessage(error.message)
-      } else {
-        setStatus("sent")
+        setErrorMessage(data.error || "Erro ao enviar o link.")
+        return
       }
-    } catch {
+
+      setStatus("sent")
+    } catch (err) {
+      console.error("Erro:", err)
       setStatus("error")
-      setErrorMessage("Something went wrong. Please try again.")
+      setErrorMessage("Ocorreu um erro. Por favor, tenta novamente.")
     }
   }
 
@@ -53,12 +55,12 @@ export default function LoginPage() {
         {status === "sent" ? (
           <div className="text-center">
             <h1 className="font-serif text-2xl text-foreground">
-              Check your email
+              Verifica o teu email
             </h1>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-              A magic link has been sent to{" "}
-              <span className="text-foreground">{email}</span>. Click the link
-              in the email to sign in.
+              Um link mágico foi enviado para{" "}
+              <span className="text-foreground">{email}</span>. Clica no link
+              no email para fazer login.
             </p>
             <Button
               variant="outline"
@@ -68,16 +70,16 @@ export default function LoginPage() {
                 setEmail("")
               }}
             >
-              Try a different email
+              Tentar outro email
             </Button>
           </div>
         ) : (
           <>
             <h1 className="text-center font-serif text-2xl text-foreground">
-              Admin Login
+              Login de Administrador
             </h1>
             <p className="mt-3 text-center text-sm text-muted-foreground">
-              Enter your email to receive a magic link.
+              Introduz o teu email para validar que és mesmo tu!
             </p>
 
             <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-4">
@@ -90,7 +92,7 @@ export default function LoginPage() {
                 className="bg-card"
               />
               <Button type="submit" disabled={status === "loading"}>
-                {status === "loading" ? "Sending..." : "Send Magic Link"}
+                {status === "loading" ? "A enviar email..." : "Entrar"}
               </Button>
             </form>
 
