@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "supabase:types": "npx supabase gen types typescript --linked --schema public > types/database.types.ts",
+    "supabase:backup": "npx supabase db dump -f backup_$(date +%Y%m%d).sql",
+    "supabase:revert": "npx supabase migration repair --status reverted MIGRATION_ID_HERE",
+    "supabase:func:add-staff:start": "npx supabase functions serve --env-file supabase/.env.local"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -41,6 +45,7 @@
     "@supabase/supabase-js": "^2.97.0",
     "@vercel/analytics": "1.6.1",
     "autoprefixer": "^10.4.24",
+    "aws4fetch": "^1.0.20",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "1.1.1",

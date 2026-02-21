@@ -38,6 +38,11 @@ export default function AdminLayout({
             icon={<FolderOpen className="size-4" />}
             label="Collections"
           />
+          <SidebarLink
+            href="/admin/media"
+            icon={<FolderOpen className="size-4" />}
+            label="Media"
+          />
         </nav>
         <div className="flex flex-col gap-2 mt-auto pt-6 border-t border-sidebar-border">
           <Link
@@ -66,6 +71,9 @@ export default function AdminLayout({
             </Link>
             <Link href="/admin/collections" className="text-sm text-sidebar-foreground">
               Collections
+            </Link>
+            <Link href="/admin/media" className="text-sm text-sidebar-foreground">
+              Media
             </Link>
             <Link href="/" className="text-sm text-sidebar-foreground/70">
               Site

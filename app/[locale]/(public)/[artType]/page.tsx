@@ -19,7 +19,7 @@ export async function generateMetadata({
   if (!artType) return {}
   return {
     title: ART_TYPE_LABELS[artType],
-    description: `Browse ${ART_TYPE_LABELS[artType].toLowerCase()} by Helena Colaco.`,
+    description: `Browse ${ART_TYPE_LABELS[artType].toLowerCase()} by Helena Colaço.`,
   }
 }
 

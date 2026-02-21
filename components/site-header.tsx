@@ -34,7 +34,7 @@ export function SiteHeader() {
           href="/"
           className="font-serif text-xl tracking-wide text-foreground"
         >
-          Helena Colaco
+          Helena Colaço
         </Link>
 
         {/* Desktop nav */}

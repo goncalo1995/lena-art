@@ -1,9 +1,11 @@
 "use client"
 
 import { useRouter } from "next/navigation"
+import { useLocale } from 'next-intl';
 import { useState } from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { MediaPicker } from "@/components/admin/media-picker"
 import { createCollection, updateCollection } from "@/lib/actions"
 import { ART_TYPES, ART_TYPE_LABELS } from "@/lib/types"
 import type { Collection } from "@/lib/types"
@@ -14,20 +16,24 @@ interface CollectionFormProps {
 
 export function CollectionForm({ collection }: CollectionFormProps) {
   const router = useRouter()
+  const locale = useLocale()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
+  const [coverImage, setCoverImage] = useState(collection?.cover_image_url || "")
   const isEditing = !!collection
 
   async function handleSubmit(formData: FormData) {
     setLoading(true)
     setError("")
     try {
+      formData.set("cover_image_url", coverImage)
+
       if (isEditing) {
         await updateCollection(collection.id, formData)
       } else {
         await createCollection(formData)
       }
-      router.push("/admin/collections")
+      router.push(`/${locale}/admin/collections`);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Something went wrong")
       setLoading(false)
@@ -89,7 +95,7 @@ export function CollectionForm({ collection }: CollectionFormProps) {
         />
       </label>
 
-      <label className="flex flex-col gap-1.5">
+      {/* <label className="flex flex-col gap-1.5">
         <span className="text-sm text-muted-foreground">
           Cover Image URL
         </span>
@@ -98,7 +104,37 @@ export function CollectionForm({ collection }: CollectionFormProps) {
           defaultValue={collection?.cover_image_url || ""}
           placeholder="https://your-r2-bucket.r2.dev/image.jpg"
         />
-      </label>
+      </label> */}
+
+      {/* Cover Image with Preview */}
+      <div className="space-y-3">
+        <span className="text-sm text-muted-foreground">Cover Image</span>
+        
+        {coverImage && (
+          <div className="relative aspect-video w-full max-w-md rounded-lg overflow-hidden border">
+            <img
+              src={coverImage}
+              alt="Cover preview"
+              className="w-full h-full object-contain"
+            />
+            <Button
+              type="button"
+              variant="destructive"
+              size="sm"
+              className="absolute top-2 right-2"
+              onClick={() => setCoverImage("")}
+            >
+              Remove
+            </Button>
+          </div>
+        )}
+        
+        <MediaPicker
+          value={coverImage}
+          onChange={setCoverImage}
+        />
+        <input type="hidden" name="cover_image_url" value={coverImage} />
+      </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <label className="flex flex-col gap-1.5">

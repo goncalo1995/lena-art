@@ -36,9 +36,10 @@ CREATE TABLE IF NOT EXISTS artworks (
 );
 
 -- Extra media for artworks (images/videos from Cloudflare R2)
+-- Also serves as general media library when artwork_id is null
 CREATE TABLE IF NOT EXISTS artwork_media (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  artwork_id UUID NOT NULL REFERENCES artworks(id) ON DELETE CASCADE,
+  artwork_id UUID REFERENCES artworks(id) ON DELETE SET NULL,
   media_url TEXT NOT NULL,
   media_type TEXT CHECK (media_type IN ('image', 'video')),
   caption TEXT,

@@ -6,7 +6,7 @@ import { SiteFooter } from "@/components/site-footer"
 export const metadata: Metadata = {
   title: "Bio",
   description:
-    "Learn about Helena Colaco, a Portuguese multidisciplinary artist working across drawing, painting, photography and poetry.",
+    "Learn about Helena Colaço, a Portuguese multidisciplinary artist working across drawing, painting, photography and poetry.",
 }
 
 export default function BioPage() {
@@ -21,7 +21,7 @@ export default function BioPage() {
               <div className="relative aspect-3/4 overflow-hidden rounded-lg bg-muted">
                 <Image
                   src="/images/bio-portrait.jpg"
-                  alt="Helena Colaco in her studio"
+                  alt="Helena Colaço in her studio"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 340px"
@@ -33,11 +33,11 @@ export default function BioPage() {
             {/* Bio text */}
             <div className="flex flex-col justify-center">
               <h1 className="font-serif text-3xl text-foreground md:text-4xl text-balance">
-                Helena Colaco
+                Helena Colaço
               </h1>
               <div className="mt-6 flex flex-col gap-5 text-base leading-relaxed text-foreground/80">
                 <p>
-                  Helena Colaco is a Portuguese multidisciplinary artist based in
+                  Helena Colaço is a Portuguese multidisciplinary artist based in
                   Lisbon. Born in 1992, she studied Fine Arts at the Faculty of
                   Fine Arts of the University of Lisbon, where she developed a
                   deep connection to traditional techniques and a curiosity for

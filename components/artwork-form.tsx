@@ -1,12 +1,14 @@
 "use client"
 
 import { useRouter } from "next/navigation"
+import { useLocale } from 'next-intl';
 import { useState } from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { createArtwork, updateArtwork } from "@/lib/actions"
 import { ART_TYPES, ART_TYPE_LABELS } from "@/lib/types"
-import type { ArtworkWithRelations, Collection } from "@/lib/types"
+import type { ArtType, ArtworkWithRelations, Collection } from "@/lib/types"
+import { MediaPicker } from "./admin/media-picker";
 
 interface ArtworkFormProps {
   artwork?: ArtworkWithRelations | null
@@ -15,20 +17,24 @@ interface ArtworkFormProps {
 
 export function ArtworkForm({ artwork, collections }: ArtworkFormProps) {
   const router = useRouter()
+  const locale = useLocale()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
+  const [coverImage, setCoverImage] = useState(artwork?.cover_image_url || "")
   const isEditing = !!artwork
 
   async function handleSubmit(formData: FormData) {
     setLoading(true)
     setError("")
     try {
+      formData.set("cover_image_url", coverImage)
+
       if (isEditing) {
         await updateArtwork(artwork.id, formData)
       } else {
         await createArtwork(formData)
       }
-      router.push("/admin/artworks")
+      router.push(`/${locale}/admin/artworks`)
     } catch (e) {
       setError(e instanceof Error ? e.message : "Something went wrong")
       setLoading(false)
@@ -85,7 +91,7 @@ export function ArtworkForm({ artwork, collections }: ArtworkFormProps) {
             <option value="">Standalone (no collection)</option>
             {collections.map((c) => (
               <option key={c.id} value={c.id}>
-                {c.title} ({ART_TYPE_LABELS[c.art_type]})
+                {c.title} ({ART_TYPE_LABELS[c.art_type as ArtType]})
               </option>
             ))}
           </select>
@@ -119,7 +125,7 @@ export function ArtworkForm({ artwork, collections }: ArtworkFormProps) {
           />
         </label>
 
-        <label className="flex flex-col gap-1.5">
+        {/* <label className="flex flex-col gap-1.5">
           <span className="text-sm text-muted-foreground">
             Cover Image URL (Cloudflare R2)
           </span>
@@ -128,7 +134,40 @@ export function ArtworkForm({ artwork, collections }: ArtworkFormProps) {
             defaultValue={artwork?.cover_image_url || ""}
             placeholder="https://your-r2-bucket.r2.dev/image.jpg"
           />
-        </label>
+        </label> */}
+      </fieldset>
+
+      {/* Cover Image with MediaPicker */}
+      <fieldset className="flex flex-col gap-4">
+        <legend className="font-serif text-lg text-foreground mb-2">
+          Cover Image
+        </legend>
+
+        {coverImage && (
+          <div className="relative aspect-video w-full max-w-md rounded-lg overflow-hidden border">
+            <img
+              src={coverImage}
+              alt="Cover preview"
+              className="w-full h-full object-contain"
+            />
+            <Button
+              type="button"
+              variant="destructive"
+              size="sm"
+              className="absolute top-2 right-2"
+              onClick={() => setCoverImage("")}
+            >
+              Remove
+            </Button>
+          </div>
+        )}
+        
+        <MediaPicker
+          value={coverImage}
+          onChange={setCoverImage}
+          // Note: No artworkId here because this is just for the cover image
+        />
+        <input type="hidden" name="cover_image_url" value={coverImage} />
       </fieldset>
 
       <fieldset className="flex flex-col gap-4">

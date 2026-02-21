@@ -49,7 +49,7 @@ export default function LoginPage() {
           href="/"
           className="block text-center font-serif text-2xl tracking-wide text-foreground mb-10"
         >
-          Helena Colaco
+          Helena Colaço
         </Link>
 
         {status === "sent" ? (

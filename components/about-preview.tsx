@@ -8,7 +8,7 @@ export function AboutPreview() {
         About the Artist
       </h2>
       <p className="mt-6 text-base leading-relaxed text-muted-foreground md:text-lg">
-        Helena Colaco is a Portuguese multidisciplinary artist based in Lisbon.
+        Helena Colaço is a Portuguese multidisciplinary artist based in Lisbon.
         Her work moves between drawing, painting, photography and poetry,
         exploring themes of memory, landscape and the quiet poetry of everyday
         life. Each medium offers a different language for the same inner world.

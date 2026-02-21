@@ -8,7 +8,7 @@ export function SiteFooter() {
           href="/"
           className="font-serif text-lg tracking-wide text-foreground"
         >
-          Helena Colaco
+          Helena Colaço
         </Link>
         <nav className="flex flex-wrap items-center justify-center gap-6">
           <Link
@@ -43,7 +43,7 @@ export function SiteFooter() {
           </Link>
         </nav>
         <p className="text-xs text-muted-foreground">
-          {new Date().getFullYear()} Helena Colaco. All rights reserved.
+          {new Date().getFullYear()} Helena Colaço. All rights reserved.
         </p>
       </div>
     </footer>

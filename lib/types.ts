@@ -1,3 +1,25 @@
+import type { Database } from "@/types/database.types";
+
+export type Artwork = Database['public']['Tables']['artworks']['Row']
+export type Collection = Database['public']['Tables']['collections']['Row']
+export type ArtworkSection = Database['public']['Tables']['artwork_sections']['Row']
+export type ArtworkMedia = Database['public']['Tables']['artwork_media']['Row'] & {
+  artwork_id: string | null
+}
+export type NewsletterSubscriber = Database['public']['Tables']['newsletter_subscribers']['Row']
+
+// Extended type for media with artwork relation
+export type ArtworkMediaWithArtwork = ArtworkMedia & {
+  artworks: Pick<Artwork, 'id' | 'title' | 'art_type'> | null
+}
+
+// For the component props
+export interface ArtworkWithRelations extends Artwork {
+  sections: ArtworkSection[]
+  media: ArtworkMedia[]
+  collections: Collection | null
+}
+
 export type ArtType = "drawing" | "painting" | "photography" | "poem"
 
 export const ART_TYPES: ArtType[] = ["drawing", "painting", "photography", "poem"]
@@ -30,72 +52,6 @@ export const ROUTE_TO_ART_TYPE: Record<string, ArtType> = {
   poems: "poem",
 }
 
-export interface Collection {
-  id: string
-  title: string
-  slug: string
-  art_type: ArtType
-  short_description: string | null
-  description: string | null
-  cover_image_url: string | null
-  sort_order: number
-  is_published: boolean
-  created_at: string
-  updated_at: string
-  user_id: string
-}
-
-export interface Artwork {
-  id: string
-  title: string
-  slug: string
-  art_type: ArtType
-  collection_id: string | null
-  short_description: string | null
-  description: string | null
-  creation_date: string | null
-  dimensions: string | null
-  medium: string | null
-  cover_image_url: string | null
-  sort_order: number
-  is_published: boolean
-  is_featured_home: boolean
-  created_at: string
-  updated_at: string
-  user_id: string
-}
-
-export interface ArtworkMedia {
-  id: string
-  artwork_id: string
-  media_url: string
-  media_type: "image" | "video"
-  caption: string | null
-  sort_order: number
-}
-
-export interface ArtworkSection {
-  id: string
-  artwork_id: string
-  title: string | null
-  content: string
-  sort_order: number
-}
-
-export interface NewsletterSubscriber {
-  id: string
-  name: string
-  email: string
-  subscribed_at: string
-}
-
-// Extended artwork with relations
-export interface ArtworkWithRelations extends Artwork {
-  collection?: Collection | null
-  media?: ArtworkMedia[]
-  sections?: ArtworkSection[]
-}
-
 // A display item on a listing page - either a collection or standalone artwork
 export interface ListingItem {
   type: "collection" | "artwork"
@@ -104,6 +60,6 @@ export interface ListingItem {
   slug: string
   short_description: string | null
   cover_image_url: string | null
-  sort_order: number
+  sort_order: number | null
   artwork_count?: number // for collections
 }
