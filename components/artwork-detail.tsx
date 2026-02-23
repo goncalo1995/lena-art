@@ -21,7 +21,7 @@ export function ArtworkDetail({ artwork }: ArtworkDetailProps) {
       ) : (
         <>
           {artwork.cover_image_url && (
-            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg bg-muted">
+            <div className="relative aspect-4/3 w-full overflow-hidden rounded-lg bg-muted">
               <Image
                 src={artwork.cover_image_url}
                 alt={artwork.title}
@@ -92,7 +92,7 @@ export function ArtworkDetail({ artwork }: ArtworkDetailProps) {
                     <track kind="captions" />
                   </video>
                 ) : (
-                  <div className="relative aspect-[4/3]">
+                  <div className="relative aspect-4/3">
                     <Image
                       src={m.media_url}
                       alt={m.caption || artwork.title}

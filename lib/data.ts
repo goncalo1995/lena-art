@@ -15,12 +15,14 @@ import {
 // Helper: Try supabase, fallback to placeholder
 async function trySupabase() {
   try {
+    console.log("Trying supabase...")
     if (
       !process.env.NEXT_PUBLIC_SUPABASE_URL ||
       !process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
     ) {
       return null
     }
+    console.log("Creating supabase client...")
     const { createClient } = await import("./supabase/server")
     return await createClient()
   } catch {
@@ -332,7 +334,7 @@ export async function getArtworkById(
   if (supabase) {
     const { data: artwork } = await supabase
       .from("artworks")
-      .select("*")
+      .select("*, collections(*)")
       .eq("id", id)
       .single()
     if (artwork) {
@@ -348,7 +350,12 @@ export async function getArtworkById(
           .eq("artwork_id", artwork.id)
           .order("sort_order"),
       ])
-      return { ...artwork, media: media || [], sections: sections || [] }
+      return {
+        ...artwork,
+        media: media || [],
+        sections: sections || [],
+        collection: artwork.collections || null,
+      }
     }
   }
   const artwork = placeholderArtworks.find((a) => a.id === id)
@@ -357,6 +364,7 @@ export async function getArtworkById(
     ...artwork,
     media: placeholderMedia.filter((m) => m.artwork_id === id),
     sections: placeholderSections.filter((s) => s.artwork_id === id),
+    collection: placeholderCollections.find((c) => c.id === artwork.collection_id) || null,
   }
 }
 

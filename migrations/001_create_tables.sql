@@ -43,6 +43,8 @@ CREATE TABLE IF NOT EXISTS artwork_media (
   media_url TEXT NOT NULL,
   media_type TEXT CHECK (media_type IN ('image', 'video')),
   caption TEXT,
+  file_name TEXT,
+  file_size INT,
   sort_order INT DEFAULT 0,
   created_at TIMESTAMPTZ DEFAULT now()
 );

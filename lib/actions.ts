@@ -96,6 +96,7 @@ export async function createArtwork(formData: FormData) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) throw new Error("Unauthorized")
 
+  console.log("Creating artwork...", formData)
   const title = formData.get("title") as string
   const slug = slugify(title)
   const art_type = formData.get("art_type") as ArtType
@@ -106,8 +107,8 @@ export async function createArtwork(formData: FormData) {
   const dimensions = (formData.get("dimensions") as string) || null
   const medium = (formData.get("medium") as string) || null
   const cover_image_url = (formData.get("cover_image_url") as string) || null
-  const is_published = formData.get("is_published") === "true"
-  const is_featured_home = formData.get("is_featured_home") === "true"
+  const is_published = formData.has('is_published')
+  const is_featured_home = formData.has('is_featured_home')
   const sort_order = parseInt((formData.get("sort_order") as string) || "0")
 
   let collectionSlug: string | undefined;
@@ -120,7 +121,7 @@ export async function createArtwork(formData: FormData) {
     collectionSlug = collection?.slug;
   }
 
-  const { data, error } = await supabase
+ const { data, error } = await supabase
     .from("artworks")
     .insert({
       title,
@@ -180,8 +181,8 @@ export async function updateArtwork(id: string, formData: FormData) {
   const dimensions = (formData.get("dimensions") as string) || null
   const medium = (formData.get("medium") as string) || null
   const cover_image_url = (formData.get("cover_image_url") as string) || null
-  const is_published = formData.get("is_published") === "true"
-  const is_featured_home = formData.get("is_featured_home") === "true"
+  const is_published = formData.has('is_published')
+  const is_featured_home = formData.has('is_featured_home')
   const sort_order = parseInt((formData.get("sort_order") as string) || "0")
   
   // Get new collection slug if artwork is in a collection
@@ -296,7 +297,7 @@ export async function createCollection(formData: FormData) {
   const short_description = (formData.get("short_description") as string) || null
   const description = (formData.get("description") as string) || null
   const cover_image_url = (formData.get("cover_image_url") as string) || null
-  const is_published = formData.get("is_published") === "true"
+  const is_published = formData.has('is_published')
   const sort_order = parseInt((formData.get("sort_order") as string) || "0")
 
   const { data, error } = await supabase
@@ -348,7 +349,7 @@ export async function updateCollection(id: string, formData: FormData) {
   const short_description = (formData.get("short_description") as string) || null
   const description = (formData.get("description") as string) || null
   const cover_image_url = (formData.get("cover_image_url") as string) || null
-  const is_published = formData.get("is_published") === "true"
+  const is_published = formData.has('is_published')
   const sort_order = parseInt((formData.get("sort_order") as string) || "0")
 
   const { error } = await supabase
@@ -587,6 +588,12 @@ export async function updateArtworkImage(artworkId: string, oldImageUrl: string 
   }
 }
 
+export async function refreshMediaPage() {
+  for (const locale of routing.locales) {
+    revalidatePath(`/${locale}/admin/media`, 'page')
+  }
+}
+
 // ========== ARTWORK SECTIONS ==========
 
 export async function addArtworkSection(
@@ -692,7 +699,7 @@ export async function subscribeNewsletter(formData: FormData) {
   const email = formData.get("email") as string
 
   if (!name || !email) {
-    return { error: "Name and email are required." }
+    return { error: "missingFields" }
   }
 
   try {
@@ -703,7 +710,7 @@ export async function subscribeNewsletter(formData: FormData) {
 
     if (error) {
       if (error.code === "23505") {
-        return { error: "This email is already subscribed." }
+        return { error: "emailInUse" }
       }
       return { error: error.message }
     }

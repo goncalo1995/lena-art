@@ -17,14 +17,14 @@ export type ArtworkMediaWithArtwork = ArtworkMedia & {
 export interface ArtworkWithRelations extends Artwork {
   sections: ArtworkSection[]
   media: ArtworkMedia[]
-  collections: Collection | null
+  collection: Collection | null
 }
 
 export type ArtType = "drawing" | "painting" | "photography" | "poem"
 
 export const ART_TYPES: ArtType[] = ["drawing", "painting", "photography", "poem"]
 
-export const ART_TYPE_LABELS: Record<ArtType, string> = {
+export const ART_TYPE_LABELS: Record<string, string> = {
   drawing: "Drawings",
   painting: "Paintings",
   photography: "Photography",

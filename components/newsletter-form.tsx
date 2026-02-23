@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useLocale } from "next-intl"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { subscribeNewsletter } from "@/lib/actions"
@@ -10,16 +11,27 @@ export function NewsletterForm() {
     "idle" | "loading" | "success" | "error"
   >("idle")
   const [message, setMessage] = useState("")
+  const locale = useLocale()
 
   async function handleSubmit(formData: FormData) {
     setStatus("loading")
     const result = await subscribeNewsletter(formData)
     if (result.error) {
       setStatus("error")
-      setMessage(result.error)
+      let message = ""
+      if (result.error === "missingFields") {
+        message = locale === "pt" ? "O nome e email são obrigatórios" : "Name and email are required"
+      } else if (result.error === "emailInUse") {
+        message = locale === "pt" ? "Este email já está inscrito" : "This email is already subscribed"
+      } else {
+        message = result.error
+      }
+      setMessage(message)
     } else {
       setStatus("success")
-      setMessage("Thank you for subscribing!")
+      const message =
+        locale === "pt" ? "Obrigado e até breve!" : "Thank you for subscribing!"
+      setMessage(message)
     }
   }
 

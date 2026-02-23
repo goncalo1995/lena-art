@@ -293,6 +293,7 @@ export const placeholderMedia: ArtworkMedia[] = [
     media_type: "image",
     caption: "Detail of the morning light on the cork oaks",
     sort_order: 0,
+    created_at: "2024-08-20T00:00:00Z",
   },
   {
     id: "m2",
@@ -301,6 +302,7 @@ export const placeholderMedia: ArtworkMedia[] = [
     media_type: "image",
     caption: "Work in progress, studio shot",
     sort_order: 1,
+    created_at: "2024-08-20T00:00:00Z",
   },
 ]
 
@@ -311,5 +313,7 @@ export const placeholderSections: ArtworkSection[] = [
     title: "Process",
     content: "This painting began as a plein air sketch during a visit to the Alentejo region in the summer of 2023. The final work was completed in the studio over several weeks, layering glazes to achieve the luminous quality of the original morning light.",
     sort_order: 0,
+    created_at: "2024-08-20T00:00:00Z",
+    updated_at: "2024-08-20T00:00:00Z",
   },
 ]

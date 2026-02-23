@@ -29,8 +29,6 @@ export function MediaPicker({ value, onChange, onClose, artworkId }: MediaPicker
   // const [artworkMedia, setArtworkMedia] = useState<ArtworkMediaWithArtwork[]>([])
   const [loading, setLoading] = useState(false)
   const [caption, setCaption] = useState('')
-  const [selectedTab, setSelectedTab] = useState('recent')
-
 
   const supabase = createClient()
 
@@ -127,7 +125,7 @@ export function MediaPicker({ value, onChange, onClose, artworkId }: MediaPicker
           </div>
         )}
 
-        <Tabs defaultValue="url" className="flex-1">
+        <Tabs defaultValue="upload" className="flex-1">
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="upload">Upload</TabsTrigger>
             <TabsTrigger value="url">URL</TabsTrigger>
@@ -143,8 +141,6 @@ export function MediaPicker({ value, onChange, onClose, artworkId }: MediaPicker
                 handleSelect(url, type)
                 // Also refresh the recent media list
                 loadRecentMedia()
-                // Switch back to recent tab to show the new media
-                setSelectedTab('recent')
               }}
               artworkId={artworkId} 
             />

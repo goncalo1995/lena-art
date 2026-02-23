@@ -4,7 +4,7 @@ export function HeroSection() {
   return (
     <section className="relative h-[70vh] min-h-[480px] w-full overflow-hidden">
       <Image
-        src="https://vm-ok0lbwbwrv1e1agczur0la.vusercontent.net/images/hero.jpg"
+        src="https://pub-f07c1a625b1d42f4966b622eed2489fe.r2.dev/uploads/819e2d1b-2587-44f5-b19f-33218c21e165.jpg"
         alt="Helena Colaço's art studio bathed in warm afternoon light"
         fill
         className="object-cover"

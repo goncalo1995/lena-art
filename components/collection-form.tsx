@@ -149,14 +149,8 @@ export function CollectionForm({ collection }: CollectionFormProps) {
 
       <label className="flex items-center gap-2">
         <input
-          type="hidden"
-          name="is_published"
-          value="false"
-        />
-        <input
           type="checkbox"
           name="is_published"
-          value="true"
           defaultChecked={collection?.is_published ?? true}
           className="size-4 rounded border-input"
         />

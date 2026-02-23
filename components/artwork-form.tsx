@@ -217,14 +217,8 @@ export function ArtworkForm({ artwork, collections }: ArtworkFormProps) {
         <div className="flex gap-6">
           <label className="flex items-center gap-2">
             <input
-              type="hidden"
-              name="is_published"
-              value="false"
-            />
-            <input
               type="checkbox"
               name="is_published"
-              value="true"
               defaultChecked={artwork?.is_published ?? true}
               className="size-4 rounded border-input"
             />
@@ -233,20 +227,12 @@ export function ArtworkForm({ artwork, collections }: ArtworkFormProps) {
 
           <label className="flex items-center gap-2">
             <input
-              type="hidden"
-              name="is_featured_home"
-              value="false"
-            />
-            <input
               type="checkbox"
               name="is_featured_home"
-              value="true"
               defaultChecked={artwork?.is_featured_home ?? false}
               className="size-4 rounded border-input"
             />
-            <span className="text-sm text-foreground">
-              Featured on Home
-            </span>
+            <span className="text-sm text-foreground">Featured on Home</span>
           </label>
         </div>
       </fieldset>

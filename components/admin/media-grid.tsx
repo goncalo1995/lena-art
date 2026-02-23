@@ -196,7 +196,7 @@ export function MediaGrid({ media }: MediaGridProps) {
                     <p className="font-medium">{selectedItem.file_name}</p>
                   </div>
                 )}
-                {selectedItem.file_size && (
+                {selectedItem?.file_size && (
                   <div>
                     <p className="text-muted-foreground">File Size</p>
                     <p className="font-medium">{(selectedItem.file_size / 1024 / 1024).toFixed(2)} MB</p>

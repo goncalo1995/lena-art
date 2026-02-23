@@ -6,6 +6,27 @@ import {
   ArrowLeft,
 } from "lucide-react"
 import { AdminSignOut } from "@/components/admin-sign-out"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,        // Don't index this page
+    follow: false,       // Don't follow links on this page
+    nocache: true,       // Don't show cached version
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true, // Don't index images
+      'max-video-preview': -1,
+      'max-image-preview': 'none',
+      'max-snippet': -1,
+    },
+  },
+  // Also add noindex meta tag for extra safety
+  other: {
+    'X-Robots-Tag': 'noindex, nofollow',
+  },
+}
 
 export default function AdminLayout({
   children,

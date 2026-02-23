@@ -25,7 +25,6 @@ export type Database = {
           media_type: string | null
           media_url: string
           sort_order: number | null
-          user_id: string
         }
         Insert: {
           artwork_id?: string | null
@@ -37,7 +36,6 @@ export type Database = {
           media_type?: string | null
           media_url: string
           sort_order?: number | null
-          user_id?: string
         }
         Update: {
           artwork_id?: string | null
@@ -49,7 +47,6 @@ export type Database = {
           media_type?: string | null
           media_url?: string
           sort_order?: number | null
-          user_id?: string
         }
         Relationships: [
           {

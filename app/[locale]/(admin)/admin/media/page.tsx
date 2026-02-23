@@ -1,11 +1,10 @@
 // app/[locale]/admin/media/page.tsx
 import { createClient } from '@/lib/supabase/server'
-import { MediaUploader } from '@/components/admin/media-uploader'
 import { MediaGrid } from '@/components/admin/media-grid'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import type { ArtworkMediaWithArtwork } from '@/lib/types'
-import { revalidatePath } from 'next/cache'
 import { getLocale } from 'next-intl/server'
+import { MultiMediaUploader } from '@/components/admin/multi-media-uploader'
 
 export default async function MediaPage() {
   const supabase = await createClient()
@@ -24,37 +23,30 @@ export default async function MediaPage() {
     `)
     .order('created_at', { ascending: false })
 
-  // Cast to the correct type
-  const typedMedia = (allMedia as ArtworkMediaWithArtwork[]) || []
-  
   // Get images only
-  const images = typedMedia.filter(m => m.media_type === 'image')
+  const images = allMedia?.filter(m => m.media_type === 'image') || []
   
   // Get videos only
-  const videos = typedMedia.filter(m => m.media_type === 'video')
+  const videos = allMedia?.filter(m => m.media_type === 'video') || []
 
   return (
     <div className="p-6 space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-serif">Media Library</h1>
         <p className="text-sm text-muted-foreground">
-          {typedMedia.length} items total
+          {allMedia?.length || 0} items total
         </p>
       </div>
       <div className="w-full">
-        <MediaUploader 
-        onUploadComplete={async (url, type) => {
-            // When upload completes, refresh the page to show new media
-            'use server'
-            revalidatePath(`/${locale}/admin/media`)
-        }}
+        <MultiMediaUploader 
+          maxFiles={20}
         />
     </div>
 
       <Tabs defaultValue="all" className="space-y-6">
         <TabsList>
           <TabsTrigger value="all">
-            All ({typedMedia.length})
+            All ({allMedia?.length || 0})
           </TabsTrigger>
           <TabsTrigger value="images">
             Images ({images.length})
@@ -65,7 +57,7 @@ export default async function MediaPage() {
         </TabsList>
 
         <TabsContent value="all">
-          <MediaGrid media={typedMedia} />
+          <MediaGrid media={allMedia || []} />
         </TabsContent>
 
         <TabsContent value="images">
