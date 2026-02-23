@@ -11,6 +11,6 @@ Website for Helena Colaço Salazar
 - [ ] Configure custom bucket domain and add to next.config
 - [ ] Adjust home and bio images with new url
 
-- [ ] Set up analytics
-- [ ] Set up backup
+- [X] Set up analytics
+- [ ] Set up backup to cloudflare private bucket
 - [ ] Set up CI/CD
