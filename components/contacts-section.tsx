@@ -27,13 +27,13 @@ export function ContactsSection() {
             +351 912 345 678
           </a>
           <a
-            href="https://instagram.com/helenacolaco"
+            href="https://instagram.com/colaco_art"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-3 text-sm text-foreground transition-colors hover:text-primary"
           >
             <Instagram className="size-5 text-primary" />
-            @helenacolaco
+            @colaco_art
           </a>
         </div>
       </div>

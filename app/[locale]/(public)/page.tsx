@@ -1,10 +1,8 @@
-import { SiteHeader } from "@/components/site-header"
 import { HeroSection } from "@/components/hero-section"
 import { AboutPreview } from "@/components/about-preview"
 import { ArtSection } from "@/components/art-section"
 import { NewsletterForm } from "@/components/newsletter-form"
 import { ContactsSection } from "@/components/contacts-section"
-import { SiteFooter } from "@/components/site-footer"
 import { getHomeFeaturedArtworks } from "@/lib/data"
 import type { ArtType } from "@/lib/types"
 import { getTranslations, setRequestLocale } from 'next-intl/server';
@@ -36,7 +34,6 @@ const { locale } = await paramsPromise;
 
   return (
     <>
-      <SiteHeader />
       <main>
         <HeroSection />
         <AboutPreview />
@@ -53,7 +50,6 @@ const { locale } = await paramsPromise;
         <NewsletterForm />
         <ContactsSection />
       </main>
-      <SiteFooter />
     </>
   )
 }

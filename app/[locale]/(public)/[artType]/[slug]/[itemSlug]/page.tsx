@@ -1,7 +1,5 @@
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
-import { SiteHeader } from "@/components/site-header"
-import { SiteFooter } from "@/components/site-footer"
 import { BreadcrumbNav } from "@/components/breadcrumb-nav"
 import { ArtworkDetail } from "@/components/artwork-detail"
 import { getArtworkInCollection } from "@/lib/data"
@@ -39,8 +37,7 @@ export default async function CollectionItemPage({ params }: PageProps) {
 
   return (
     <>
-      <SiteHeader />
-      <main className="pt-20">
+      <main>
         <div className="mx-auto max-w-6xl px-6 py-12">
           <BreadcrumbNav
             items={[
@@ -58,7 +55,6 @@ export default async function CollectionItemPage({ params }: PageProps) {
           </div>
         </div>
       </main>
-      <SiteFooter />
     </>
   )
 }

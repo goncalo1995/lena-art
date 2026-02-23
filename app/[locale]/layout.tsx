@@ -5,7 +5,7 @@ import '../globals.css'
 import { notFound } from 'next/navigation';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
+ 
 
 const _inter = Inter({ subsets: ['latin'] })
 // const _playfair = Playfair_Display({ subsets: ['latin'] })
@@ -48,7 +48,6 @@ export default async function LocaleLayout({children, params}: Props) {
       <body className={`${_inter.className} font-sans antialiased`}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
-          <LanguageSwitcher />
         </NextIntlClientProvider>
       </body>
     </html>

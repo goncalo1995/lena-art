@@ -25,9 +25,38 @@
       "title": "Home Page",
       "description": "Home Page Description"
     },
+    "header": {
+      "brand": "Helena Colaço",
+      "nav": {
+        "bio": "Bio",
+        "work": "Work",
+        "contact": "Contact"
+      },
+      "work": {
+        "drawings": "Drawings",
+        "paintings": "Paintings",
+        "photography": "Photography",
+        "poems": "Poems"
+      },
+      "a11y": {
+        "openMenu": "Open menu",
+        "closeMenu": "Close menu"
+      }
+    },
     "ArtworkDetail": {
       "buy": "Buy",
       "gallery": "Gallery"
+    },
+    "footer": {
+      "links": {
+        "bio": "Bio",
+        "drawings": "Drawings",
+        "paintings": "Paintings",
+        "photography": "Photography",
+        "poems": "Poems"
+      },
+      "headline": "Through lines, colors, lenses, and words — a journey of self-expression, where each stroke, click, and verse unveils a new dimension of the soul.",
+      "copyright": "© {year} Helena Colaço. All rights reserved."
     }
   }
 }

@@ -31,9 +31,38 @@
       "title": "Página Inicial",
       "description": "Página Inicial Description"
     },
+    "header": {
+      "brand": "Helena Colaço",
+      "nav": {
+        "bio": "Biografia",
+        "work": "Obras",
+        "contact": "Contactos"
+      },
+      "work": {
+        "drawings": "Desenhos",
+        "paintings": "Pinturas",
+        "photography": "Fotografia",
+        "poems": "Poemas"
+      },
+      "a11y": {
+        "openMenu": "Abrir menu",
+        "closeMenu": "Fechar menu"
+      }
+    },
     "ArtworkDetail": {
       "buy": "Comprar",
       "gallery": "Galeria"
+    },
+    "footer": {
+      "links": {
+        "bio": "Biografia",
+        "drawings": "Desenhos",
+        "paintings": "Pinturas",
+        "photography": "Fotografia",
+        "poems": "Poemas"
+      },
+      "headline": "Através de linhas, cores, lentes e palavras — uma jornada de autoexpressão, onde cada traço, clique e verso revela uma nova dimensão da alma.",
+      "copyright": "© {year} Helena Colaço. Todos os direitos reservados."
     }
   }
 }

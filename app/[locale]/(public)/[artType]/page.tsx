@@ -1,7 +1,5 @@
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
-import { SiteHeader } from "@/components/site-header"
-import { SiteFooter } from "@/components/site-footer"
 import { BreadcrumbNav } from "@/components/breadcrumb-nav"
 import { ArtworkCard } from "@/components/artwork-card"
 import { getListingItems } from "@/lib/data"
@@ -43,8 +41,7 @@ export default async function ArtListingPage({ params }: PageProps) {
 
   return (
     <>
-      <SiteHeader />
-      <main className="pt-20">
+      <main>
         <div className="mx-auto max-w-6xl px-6 py-12">
           <BreadcrumbNav
             items={[{ label: "Home", href: "/" }, { label }]}
@@ -78,7 +75,6 @@ export default async function ArtListingPage({ params }: PageProps) {
           )}
         </div>
       </main>
-      <SiteFooter />
     </>
   )
 }

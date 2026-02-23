@@ -1,7 +1,5 @@
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
-import { SiteHeader } from "@/components/site-header"
-import { SiteFooter } from "@/components/site-footer"
 import { BreadcrumbNav } from "@/components/breadcrumb-nav"
 import { ArtworkDetail } from "@/components/artwork-detail"
 import { CollectionView } from "@/components/collection-view"
@@ -50,8 +48,7 @@ export default async function SlugPage({ params }: PageProps) {
   if (collectionData) {
     return (
       <>
-        <SiteHeader />
-        <main className="pt-20">
+        <main>
           <div className="mx-auto max-w-6xl px-6 py-12">
             <BreadcrumbNav
               items={[
@@ -68,7 +65,6 @@ export default async function SlugPage({ params }: PageProps) {
             </div>
           </div>
         </main>
-        <SiteFooter />
       </>
     )
   }
@@ -79,8 +75,7 @@ export default async function SlugPage({ params }: PageProps) {
 
   return (
     <>
-      <SiteHeader />
-      <main className="pt-20">
+      <main>
         <div className="mx-auto max-w-6xl px-6 py-12">
           <BreadcrumbNav
             items={[
@@ -94,7 +89,6 @@ export default async function SlugPage({ params }: PageProps) {
           </div>
         </div>
       </main>
-      <SiteFooter />
     </>
   )
 }

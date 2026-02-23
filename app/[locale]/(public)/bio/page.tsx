@@ -1,7 +1,5 @@
 import Image from "next/image"
 import type { Metadata } from "next"
-import { SiteHeader } from "@/components/site-header"
-import { SiteFooter } from "@/components/site-footer"
 
 export const metadata: Metadata = {
   title: "Bio",
@@ -12,8 +10,7 @@ export const metadata: Metadata = {
 export default function BioPage() {
   return (
     <>
-      <SiteHeader />
-      <main className="pt-20">
+      <main>
         <div className="mx-auto max-w-5xl px-6 py-16">
           <div className="flex flex-col gap-12 md:flex-row md:gap-16">
             {/* Portrait */}
@@ -69,7 +66,6 @@ export default function BioPage() {
           </div>
         </div>
       </main>
-      <SiteFooter />
     </>
   )
 }
