@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS artworks (
   dimensions TEXT,
   medium TEXT,
   cover_image_url TEXT,
+  sale_url TEXT,
   sort_order INT DEFAULT 0,
   is_published BOOLEAN DEFAULT true,
   is_featured_home BOOLEAN DEFAULT false,

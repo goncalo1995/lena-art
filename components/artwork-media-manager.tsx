@@ -55,21 +55,36 @@ export function ArtworkMediaManager({
     }
   }
 
+  if (loading) {
+    return <div>Loading...</div>
+  }
+
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
         <h2 className="font-serif text-xl text-foreground">Extra Media</h2>
-        <Button
+        {/* <Button
           size="sm"
           variant="outline"
           onClick={() => setShowForm(!showForm)}
         >
           <Plus className="size-4" />
           Add Media
-        </Button>
+        </Button> */}
+        <div className="max-w-24">
+          <MediaPicker
+            artworkId={artworkId} // This will auto-save via handleSelect in MediaPicke
+            onChange={(url) => {
+              // This is called after MediaPicker's internal handleSelect saves to DB
+              setShowForm(false)
+              setCaption("")
+              router.refresh()
+            }}
+          />
+        </div>
       </div>
 
-      {showForm && (
+      {/* {showForm && (
         <div className="flex flex-col gap-3 mb-6 rounded-lg border border-border p-4">
           <div className="flex gap-3">
             <select
@@ -89,7 +104,7 @@ export function ArtworkMediaManager({
           </div>
           
           <MediaPicker
-            artworkId={artworkId} // This will auto-save via handleSelect in MediaPicker
+            artworkId={artworkId} // This will auto-save via handleSelect in MediaPicke
             onChange={(url) => {
               // This is called after MediaPicker's internal handleSelect saves to DB
               setShowForm(false)
@@ -102,7 +117,7 @@ export function ArtworkMediaManager({
             Upload or select media - it will be automatically saved
           </p>
         </div>
-      )}
+      )} */}
 
       {media.length === 0 ? (
         <p className="text-sm text-muted-foreground">No extra media yet.</p>

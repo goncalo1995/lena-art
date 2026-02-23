@@ -1,12 +1,14 @@
 import Image from "next/image"
 import type { ArtworkWithRelations } from "@/lib/types"
 import { format } from "date-fns"
+import { getTranslations } from "next-intl/server"
 
 interface ArtworkDetailProps {
   artwork: ArtworkWithRelations
 }
 
-export function ArtworkDetail({ artwork }: ArtworkDetailProps) {
+export async function ArtworkDetail({ artwork }: ArtworkDetailProps) {
+  const t = await getTranslations()
   const isPoem = artwork.art_type === "poem"
 
   return (
@@ -55,6 +57,19 @@ export function ArtworkDetail({ artwork }: ArtworkDetailProps) {
             {artwork.description}
           </div>
         )}
+
+        {artwork.sale_url && (
+          <div className="mt-6">
+            <a
+              href={artwork.sale_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block rounded-lg bg-primary px-4 py-2 text-white hover:bg-primary/90"
+            >
+              {t("Pages.ArtworkDetail.buy")}
+            </a>
+          </div>
+        )}
       </div>
 
       {/* Extra sections */}
@@ -78,8 +93,10 @@ export function ArtworkDetail({ artwork }: ArtworkDetailProps) {
       {/* Extra media gallery */}
       {artwork.media && artwork.media.length > 0 && (
         <div className="mt-12">
-          <h2 className="font-serif text-xl text-foreground mb-6">Gallery</h2>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <h2 className="font-serif text-xl text-foreground mb-6">
+            {t("Pages.ArtworkDetail.gallery")}
+          </h2>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-1">
             {artwork.media.map((m) => (
               <div key={m.id} className="overflow-hidden rounded-lg bg-muted">
                 {m.media_type === "video" ? (

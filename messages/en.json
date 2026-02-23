@@ -24,6 +24,10 @@
     "home": {
       "title": "Home Page",
       "description": "Home Page Description"
+    },
+    "ArtworkDetail": {
+      "buy": "Buy",
+      "gallery": "Gallery"
     }
   }
 }

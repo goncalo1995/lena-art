@@ -109,6 +109,7 @@ export type Database = {
           is_featured_home: boolean | null
           is_published: boolean | null
           medium: string | null
+          sale_url: string | null
           short_description: string | null
           slug: string
           sort_order: number | null
@@ -128,6 +129,7 @@ export type Database = {
           is_featured_home?: boolean | null
           is_published?: boolean | null
           medium?: string | null
+          sale_url?: string | null
           short_description?: string | null
           slug: string
           sort_order?: number | null
@@ -147,6 +149,7 @@ export type Database = {
           is_featured_home?: boolean | null
           is_published?: boolean | null
           medium?: string | null
+          sale_url?: string | null
           short_description?: string | null
           slug?: string
           sort_order?: number | null

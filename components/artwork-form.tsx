@@ -51,11 +51,11 @@ export function ArtworkForm({ artwork, collections }: ArtworkFormProps) {
 
       <fieldset className="flex flex-col gap-4">
         <legend className="font-serif text-lg text-foreground mb-2">
-          Basic Info
+          Informações Básicas
         </legend>
 
         <label className="flex flex-col gap-1.5">
-          <span className="text-sm text-muted-foreground">Title *</span>
+          <span className="text-sm text-muted-foreground">Título *</span>
           <Input
             name="title"
             defaultValue={artwork?.title || ""}
@@ -64,7 +64,7 @@ export function ArtworkForm({ artwork, collections }: ArtworkFormProps) {
         </label>
 
         <label className="flex flex-col gap-1.5">
-          <span className="text-sm text-muted-foreground">Art Type *</span>
+          <span className="text-sm text-muted-foreground">Tipo de Arte *</span>
           <select
             name="art_type"
             defaultValue={artwork?.art_type || "painting"}
@@ -81,14 +81,14 @@ export function ArtworkForm({ artwork, collections }: ArtworkFormProps) {
 
         <label className="flex flex-col gap-1.5">
           <span className="text-sm text-muted-foreground">
-            Collection (optional)
+            Coleção (opcional)
           </span>
           <select
             name="collection_id"
             defaultValue={artwork?.collection_id || ""}
             className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm"
           >
-            <option value="">Standalone (no collection)</option>
+            <option value="">Nenhuma (sem coleção)</option>
             {collections.map((c) => (
               <option key={c.id} value={c.id}>
                 {c.title} ({ART_TYPE_LABELS[c.art_type as ArtType]})
@@ -100,12 +100,12 @@ export function ArtworkForm({ artwork, collections }: ArtworkFormProps) {
 
       <fieldset className="flex flex-col gap-4">
         <legend className="font-serif text-lg text-foreground mb-2">
-          Content
+          Conteúdo
         </legend>
 
         <label className="flex flex-col gap-1.5">
           <span className="text-sm text-muted-foreground">
-            Short Description (for cards)
+            Descrição Curta (para cards)
           </span>
           <Input
             name="short_description"
@@ -115,7 +115,7 @@ export function ArtworkForm({ artwork, collections }: ArtworkFormProps) {
 
         <label className="flex flex-col gap-1.5">
           <span className="text-sm text-muted-foreground">
-            Full Description (for detail page)
+            Descrição Completa (para página de detalhe)
           </span>
           <textarea
             name="description"
@@ -125,22 +125,22 @@ export function ArtworkForm({ artwork, collections }: ArtworkFormProps) {
           />
         </label>
 
-        {/* <label className="flex flex-col gap-1.5">
+        <label className="flex flex-col gap-1.5">
           <span className="text-sm text-muted-foreground">
-            Cover Image URL (Cloudflare R2)
+            URL de Venda (Ex: Etsy)
           </span>
           <Input
-            name="cover_image_url"
-            defaultValue={artwork?.cover_image_url || ""}
-            placeholder="https://your-r2-bucket.r2.dev/image.jpg"
+            name="sale_url"
+            defaultValue={artwork?.sale_url || ""}
+            placeholder="https://www.etsy.com/listing/..."
           />
-        </label> */}
+        </label>
       </fieldset>
 
       {/* Cover Image with MediaPicker */}
       <fieldset className="flex flex-col gap-4">
         <legend className="font-serif text-lg text-foreground mb-2">
-          Cover Image
+          Imagem
         </legend>
 
         {coverImage && (
@@ -157,7 +157,7 @@ export function ArtworkForm({ artwork, collections }: ArtworkFormProps) {
               className="absolute top-2 right-2"
               onClick={() => setCoverImage("")}
             >
-              Remove
+              Remover
             </Button>
           </div>
         )}
@@ -172,13 +172,13 @@ export function ArtworkForm({ artwork, collections }: ArtworkFormProps) {
 
       <fieldset className="flex flex-col gap-4">
         <legend className="font-serif text-lg text-foreground mb-2">
-          Details
+          Detalhes
         </legend>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <label className="flex flex-col gap-1.5">
             <span className="text-sm text-muted-foreground">
-              Creation Date
+              Data de Criação
             </span>
             <Input
               name="creation_date"
@@ -189,7 +189,7 @@ export function ArtworkForm({ artwork, collections }: ArtworkFormProps) {
 
           <label className="flex flex-col gap-1.5">
             <span className="text-sm text-muted-foreground">
-              Dimensions (e.g. 50x70cm)
+              Dimensões (ex: 50x70cm)
             </span>
             <Input
               name="dimensions"
@@ -199,13 +199,13 @@ export function ArtworkForm({ artwork, collections }: ArtworkFormProps) {
 
           <label className="flex flex-col gap-1.5">
             <span className="text-sm text-muted-foreground">
-              Medium (e.g. Oil on canvas)
+              Medium (ex: Óleo em tela)
             </span>
             <Input name="medium" defaultValue={artwork?.medium || ""} />
           </label>
 
           <label className="flex flex-col gap-1.5">
-            <span className="text-sm text-muted-foreground">Sort Order</span>
+            <span className="text-sm text-muted-foreground">Ordenação</span>
             <Input
               name="sort_order"
               type="number"
@@ -222,7 +222,7 @@ export function ArtworkForm({ artwork, collections }: ArtworkFormProps) {
               defaultChecked={artwork?.is_published ?? true}
               className="size-4 rounded border-input"
             />
-            <span className="text-sm text-foreground">Published</span>
+            <span className="text-sm text-foreground">Publicado</span>
           </label>
 
           <label className="flex items-center gap-2">
@@ -232,7 +232,7 @@ export function ArtworkForm({ artwork, collections }: ArtworkFormProps) {
               defaultChecked={artwork?.is_featured_home ?? false}
               className="size-4 rounded border-input"
             />
-            <span className="text-sm text-foreground">Featured on Home</span>
+            <span className="text-sm text-foreground">Destacado na Página Inicial</span>
           </label>
         </div>
       </fieldset>
@@ -240,17 +240,17 @@ export function ArtworkForm({ artwork, collections }: ArtworkFormProps) {
       <div className="flex gap-3">
         <Button type="submit" disabled={loading}>
           {loading
-            ? "Saving..."
+            ? "A guardar..."
             : isEditing
-              ? "Update Artwork"
-              : "Create Artwork"}
+              ? "Atualizar"
+              : "Adicionar"}
         </Button>
         <Button
           type="button"
           variant="outline"
           onClick={() => router.back()}
         >
-          Cancel
+          Cancelar
         </Button>
       </div>
     </form>

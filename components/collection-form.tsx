@@ -49,7 +49,7 @@ export function CollectionForm({ collection }: CollectionFormProps) {
       )}
 
       <label className="flex flex-col gap-1.5">
-        <span className="text-sm text-muted-foreground">Title *</span>
+        <span className="text-sm text-muted-foreground">Título *</span>
         <Input
           name="title"
           defaultValue={collection?.title || ""}
@@ -58,7 +58,7 @@ export function CollectionForm({ collection }: CollectionFormProps) {
       </label>
 
       <label className="flex flex-col gap-1.5">
-        <span className="text-sm text-muted-foreground">Art Type *</span>
+        <span className="text-sm text-muted-foreground">Tipo de Arte *</span>
         <select
           name="art_type"
           defaultValue={collection?.art_type || "painting"}
@@ -75,7 +75,7 @@ export function CollectionForm({ collection }: CollectionFormProps) {
 
       <label className="flex flex-col gap-1.5">
         <span className="text-sm text-muted-foreground">
-          Short Description
+          Descrição Curta
         </span>
         <Input
           name="short_description"
@@ -85,7 +85,7 @@ export function CollectionForm({ collection }: CollectionFormProps) {
 
       <label className="flex flex-col gap-1.5">
         <span className="text-sm text-muted-foreground">
-          Full Description
+          Descrição Completa
         </span>
         <textarea
           name="description"
@@ -108,7 +108,7 @@ export function CollectionForm({ collection }: CollectionFormProps) {
 
       {/* Cover Image with Preview */}
       <div className="space-y-3">
-        <span className="text-sm text-muted-foreground">Cover Image</span>
+        <span className="text-sm text-muted-foreground">Imagem</span>
         
         {coverImage && (
           <div className="relative aspect-video w-full max-w-md rounded-lg overflow-hidden border">
@@ -124,7 +124,7 @@ export function CollectionForm({ collection }: CollectionFormProps) {
               className="absolute top-2 right-2"
               onClick={() => setCoverImage("")}
             >
-              Remove
+              Remover
             </Button>
           </div>
         )}
@@ -138,7 +138,7 @@ export function CollectionForm({ collection }: CollectionFormProps) {
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <label className="flex flex-col gap-1.5">
-          <span className="text-sm text-muted-foreground">Sort Order</span>
+          <span className="text-sm text-muted-foreground">Ordenação</span>
           <Input
             name="sort_order"
             type="number"
@@ -154,23 +154,23 @@ export function CollectionForm({ collection }: CollectionFormProps) {
           defaultChecked={collection?.is_published ?? true}
           className="size-4 rounded border-input"
         />
-        <span className="text-sm text-foreground">Published</span>
+        <span className="text-sm text-foreground">Publicado</span>
       </label>
 
       <div className="flex gap-3">
         <Button type="submit" disabled={loading}>
           {loading
-            ? "Saving..."
+            ? "A guardar..."
             : isEditing
-              ? "Update Collection"
-              : "Create Collection"}
+              ? "Atualizar"
+              : "Criar Coleção"}
         </Button>
         <Button
           type="button"
           variant="outline"
           onClick={() => router.back()}
         >
-          Cancel
+          Cancelar
         </Button>
       </div>
     </form>

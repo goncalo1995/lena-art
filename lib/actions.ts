@@ -107,6 +107,7 @@ export async function createArtwork(formData: FormData) {
   const dimensions = (formData.get("dimensions") as string) || null
   const medium = (formData.get("medium") as string) || null
   const cover_image_url = (formData.get("cover_image_url") as string) || null
+  const sale_url = (formData.get("sale_url") as string) || null
   const is_published = formData.has('is_published')
   const is_featured_home = formData.has('is_featured_home')
   const sort_order = parseInt((formData.get("sort_order") as string) || "0")
@@ -134,6 +135,7 @@ export async function createArtwork(formData: FormData) {
       dimensions,
       medium,
       cover_image_url,
+      sale_url,
       is_published,
       is_featured_home,
       sort_order,
@@ -181,6 +183,7 @@ export async function updateArtwork(id: string, formData: FormData) {
   const dimensions = (formData.get("dimensions") as string) || null
   const medium = (formData.get("medium") as string) || null
   const cover_image_url = (formData.get("cover_image_url") as string) || null
+  const sale_url = (formData.get("sale_url") as string) || null
   const is_published = formData.has('is_published')
   const is_featured_home = formData.has('is_featured_home')
   const sort_order = parseInt((formData.get("sort_order") as string) || "0")
@@ -212,6 +215,7 @@ export async function updateArtwork(id: string, formData: FormData) {
       dimensions,
       medium,
       cover_image_url,
+      sale_url,
       is_published,
       is_featured_home,
       sort_order,

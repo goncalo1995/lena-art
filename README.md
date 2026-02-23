@@ -5,6 +5,7 @@ Website for Helena Colaço Salazar
 
 - [ ] Deploy to Vercel
 - [ ] Buy domain
+- [ ] Posthog account + Authorized Domains and update app .env
 - [ ] Setup domain in cloudflare
 - [ ] update url in robots.ts and sitemap
 - [ ] Configure custom bucket domain and add to next.config

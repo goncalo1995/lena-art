@@ -30,6 +30,10 @@
     "home": {
       "title": "Página Inicial",
       "description": "Página Inicial Description"
+    },
+    "ArtworkDetail": {
+      "buy": "Comprar",
+      "gallery": "Galeria"
     }
   }
 }
