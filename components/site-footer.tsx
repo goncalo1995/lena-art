@@ -1,10 +1,10 @@
 import { Link } from "@/i18n/navigation"
 import { Instagram } from "lucide-react"
-import { getTranslations } from "next-intl/server"
+import { getLocale, getTranslations } from "next-intl/server"
 
 export async function SiteFooter() {
-  const t = await getTranslations("Pages.footer")
-
+  const locale = await getLocale()
+  const t = await getTranslations({ locale, namespace: "Pages.footer" })
   return (
     <footer className="border-t border-border bg-secondary/50">
       <div className="mx-auto max-w-6xl px-6 py-14">
@@ -18,6 +18,7 @@ export async function SiteFooter() {
           {/* Brand */}
           <Link
             href="/"
+            locale={locale}
             className="font-serif text-lg tracking-wide text-foreground hover:text-primary transition-colors"
           >
             Helena Colaço
@@ -38,6 +39,7 @@ export async function SiteFooter() {
               <Link
                 key={link.href}
                 href={link.href}
+                locale={locale}
                 className="text-sm text-muted-foreground transition-colors hover:text-primary"
               >
                 {link.label}
@@ -55,13 +57,12 @@ export async function SiteFooter() {
             </a>
             <span className="text-muted-foreground/40">•</span>
             <a
-            href="https://instagram.com/helenacolacosalazar"
+            href="https://instagram.com/colaco_art"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-3 text-sm text-foreground transition-colors hover:text-primary"
           >
             <Instagram className="size-5 text-primary" />
-            @helenacolacosalazar
           </a>
           </address>
         </div>
@@ -69,6 +70,14 @@ export async function SiteFooter() {
         {/* Copyright */}
         <p className="mt-10 text-center text-xs text-muted-foreground">
           {t("copyright", { year: new Date().getFullYear() })}
+          <br />
+          <Link
+            href="/privacy-policy"
+            locale={locale}
+            className="text-muted-foreground hover:text-primary transition-colors"
+          >
+            {t("links.privacyPolicy")}
+          </Link>
         </p>
       </div>
     </footer>

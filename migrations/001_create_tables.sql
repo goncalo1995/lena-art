@@ -109,6 +109,13 @@ CREATE POLICY "Public read artworks" ON artworks FOR SELECT USING (is_published 
 CREATE POLICY "Public read artwork_media" ON artwork_media FOR SELECT USING (true);
 CREATE POLICY "Public read artwork_sections" ON artwork_sections FOR SELECT USING (true);
 
+-- Allow anon (public) to read published content (RLS still applies)
+GRANT USAGE ON SCHEMA public TO anon;
+GRANT SELECT ON TABLE public.collections TO anon;
+GRANT SELECT ON TABLE public.artworks TO anon;
+GRANT SELECT ON TABLE public.artwork_media TO anon;
+GRANT SELECT ON TABLE public.artwork_sections TO anon;
+
 -- Admin full access to all tables (bypasses all other policies)
 CREATE POLICY "Admin full access collections" ON collections FOR ALL USING (is_admin()) WITH CHECK (is_admin());
 CREATE POLICY "Admin full access artworks" ON artworks FOR ALL USING (is_admin()) WITH CHECK (is_admin());

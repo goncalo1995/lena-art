@@ -36,6 +36,47 @@ export async function generateMetadata({
   return {}
 }
 
+export async function generateStaticParams() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+
+  if (!url || !key) return []
+
+  const { createClient } = await import('@supabase/supabase-js')
+  const supabase = createClient(url, key)
+
+  const [{ data: artworks }, { data: collections }] = await Promise.all([
+    supabase
+      .from('artworks')
+      .select('slug, art_type, is_published')
+      .eq('is_published', true),
+    supabase
+      .from('collections')
+      .select('slug, art_type, is_published')
+      .eq('is_published', true),
+  ])
+
+  const artworkParams = (artworks || [])
+    .map((a) => {
+      const artTypeRoute = a.art_type ? (a.art_type in ART_TYPE_LABELS ? a.art_type : null) : null
+      const route = artTypeRoute ? Object.entries(ROUTE_TO_ART_TYPE).find(([, v]) => v === artTypeRoute)?.[0] : null
+      if (!route || !a.slug) return null
+      return { artType: route, slug: a.slug }
+    })
+    .filter(Boolean) as Array<{ artType: string; slug: string }>
+
+  const collectionParams = (collections || [])
+    .map((c) => {
+      const artTypeRoute = c.art_type ? (c.art_type in ART_TYPE_LABELS ? c.art_type : null) : null
+      const route = artTypeRoute ? Object.entries(ROUTE_TO_ART_TYPE).find(([, v]) => v === artTypeRoute)?.[0] : null
+      if (!route || !c.slug) return null
+      return { artType: route, slug: c.slug }
+    })
+    .filter(Boolean) as Array<{ artType: string; slug: string }>
+
+  return [...artworkParams, ...collectionParams]
+}
+
 export default async function SlugPage({ params }: PageProps) {
   const { artType: route, slug } = await params
   const artType = ROUTE_TO_ART_TYPE[route]

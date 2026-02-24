@@ -19,9 +19,9 @@ export async function generateMetadata({ params: paramsPromise }: { params: Home
 }
 
 export default async function HomePage({ params: paramsPromise }: { params: HomePageParams }) {
-const { locale } = await paramsPromise;
+  const { locale } = await paramsPromise;
   setRequestLocale(locale);
-  const t = await getTranslations('Pages.home');
+  const t = await getTranslations({ locale, namespace: 'Pages.home' });
   const artTypes: ArtType[] = ["drawing", "painting", "photography", "poem"]
   const artworksByType = await Promise.all(
     artTypes.map(async (type) => ({
@@ -29,8 +29,6 @@ const { locale } = await paramsPromise;
       artworks: await getHomeFeaturedArtworks(type),
     }))
   )
-
-  console.log("transaltion", t("title"));
 
   return (
     <>

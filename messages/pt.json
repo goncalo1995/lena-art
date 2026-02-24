@@ -31,6 +31,17 @@
       "title": "Página Inicial",
       "description": "Página Inicial Description"
     },
+    "bio": {
+      "title": "Biografia",
+      "description": "Biografia Description",
+      "content": {
+        "name": "Helena Colaço",
+        "p1": "Helena Colaço é uma artista multidisciplinar portuguesa, com base em Lisboa. Nascida em 1992, estudou Belas-Artes na Faculdade de Belas-Artes da Universidade de Lisboa, onde desenvolveu uma ligação profunda às técnicas tradicionais e uma curiosidade pela interseção entre a arte visual e a linguagem.",
+        "p2": "O seu trabalho move-se entre o desenho, a pintura, a fotografia e a poesia, explorando temas de memória, paisagem, solidão e a poesia discreta do quotidiano. Cada meio oferece uma linguagem diferente para o mesmo mundo interior -- o carvão para a intimidade, a tinta a óleo para o peso da memória, a câmara para verdades fugazes e as palavras para aquilo que as imagens não conseguem conter.",
+        "p3": "Helena expôs em Lisboa, Porto e Berlim, e a sua fotografia foi publicada em várias revistas literárias portuguesas. Sente-se particularmente atraída pela paisagem do Alentejo e pelos cantos esquecidos da vida urbana.",
+        "p4": "Quando não está a criar, Helena pode ser encontrada a caminhar junto ao Tejo, a ler poesia no seu café favorito ou a cuidar do pequeno jardim no terraço em Lisboa. Acredita que a arte é uma forma de atenção -- uma maneira de dizer: eu estive aqui e reparei."
+      }
+    },
     "header": {
       "brand": "Helena Colaço",
       "nav": {
@@ -62,10 +73,62 @@
         "drawings": "Desenhos",
         "paintings": "Pinturas",
         "photography": "Fotografia",
-        "poems": "Poemas"
+        "poems": "Poemas",
+        "privacyPolicy": "Política de Privacidade"
       },
       "headline": "Através de linhas, cores, lentes e palavras — uma jornada de autoexpressão, onde cada traço, clique e verso revela uma nova dimensão da alma.",
       "copyright": "© {year} Helena Colaço. Todos os direitos reservados."
+    },
+    "cookieConsent": {
+      "title": "Cookies e analítica",
+      "description": "Usamos cookies para funcionalidades básicas e, com a sua autorização, analítica para melhorar este website.",
+      "privacyLink": "Ler a Política de Privacidade",
+      "accept": "Aceitar analítica",
+      "reject": "Rejeitar"
+    },
+    "privacyPolicy": {
+      "meta": {
+        "title": "Política de Privacidade",
+        "description": "Como recolhemos e utilizamos dados pessoais e analítica."
+      },
+      "title": "Política de Privacidade",
+      "lastUpdated": "Última atualização: {date}",
+      "sections": {
+        "controller": {
+          "title": "Quem somos",
+          "body": "Este website é operado por Helena Colaço. Para qualquer questão relacionada com privacidade, contacte: helena@helenacolaco.com."
+        },
+        "dataCollected": {
+          "title": "Que dados recolhemos",
+          "items": {
+            "newsletter": "Newsletter: nome e endereço de email (apenas quando submete o formulário).",
+            "analytics": "Analítica: dados de utilização (páginas visitadas, interações, informação aproximada do dispositivo/navegador) via PostHog, apenas após aceitar cookies de analítica."
+          }
+        },
+        "purposes": {
+          "title": "Porque recolhemos estes dados",
+          "items": {
+            "newsletter": "Para lhe enviar atualizações caso subscreva a newsletter.",
+            "analytics": "Para compreender como o website é utilizado e melhorar conteúdos e desempenho."
+          }
+        },
+        "legalBasis": {
+          "title": "Base legal",
+          "body": "Processamos os dados da newsletter e a analítica com base no seu consentimento. Pode retirar o consentimento a qualquer momento rejeitando cookies de analítica ou contactando-nos."
+        },
+        "thirdParties": {
+          "title": "Terceiros",
+          "body": "Utilizamos a PostHog como fornecedor de analítica. A analítica só é ativada após o seu consentimento."
+        },
+        "retention": {
+          "title": "Durante quanto tempo guardamos os dados",
+          "body": "Guardamos os dados apenas durante o tempo necessário para os fins acima descritos, ou até que retire o seu consentimento."
+        },
+        "rights": {
+          "title": "Os seus direitos",
+          "body": "Pode solicitar acesso, correção ou eliminação dos seus dados pessoais, e pode retirar o consentimento a qualquer momento. Contacte: helena@helenacolaco.com."
+        }
+      }
     }
   }
 }

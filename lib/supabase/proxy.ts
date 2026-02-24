@@ -7,6 +7,11 @@ export async function updateSession(request: NextRequest) {
     request,
   })
 
+  const pathname = request.nextUrl.pathname
+  const pathnameParts = pathname.split('/').filter(Boolean)
+  const localePrefix = pathnameParts[0] === 'pt' || pathnameParts[0] === 'en' ? pathnameParts[0] : null
+  const isAdminPath = pathname.startsWith('/admin') || pathnameParts[1] === 'admin'
+
   // With Fluid compute, don't put this client in a global environment
   // variable. Always create a new one on each request.
   const supabase = createServerClient<Database>(
@@ -43,12 +48,12 @@ export async function updateSession(request: NextRequest) {
 
   if (
     // if the user is not logged in and the app path, in this case, /admin, is accessed, redirect to the login page
-    request.nextUrl.pathname.startsWith('/admin') &&
+    isAdminPath &&
     !user
   ) {
     // no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone()
-    url.pathname = '/pt/auth/login'
+    url.pathname = `/${localePrefix || 'pt'}/auth/login`
     return NextResponse.redirect(url)
   }
 

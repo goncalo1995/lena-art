@@ -25,6 +25,17 @@
       "title": "Home Page",
       "description": "Home Page Description"
     },
+    "bio": {
+      "title": "Bio",
+      "description": "Bio Page Description",
+      "content": {
+        "name": "Helena Colaço",
+        "p1": "Helena Colaço is a Portuguese multidisciplinary artist based in Lisbon. Born in 1992, she studied Fine Arts at the Faculty of Fine Arts of the University of Lisbon, where she developed a deep connection to traditional techniques and a curiosity for the intersection of visual art and language.",
+        "p2": "Her work moves between drawing, painting, photography and poetry, exploring themes of memory, landscape, solitude and the quiet poetry of everyday life. Each medium offers a different language for the same inner world -- charcoal for intimacy, oil paint for the weight of memory, the camera for fleeting truths, and words for what images cannot hold.",
+        "p3": "Helena has exhibited in Lisbon, Porto and Berlin, and her photography has been featured in several Portuguese literary journals. She is particularly drawn to the Alentejo landscape and the overlooked corners of urban life.",
+        "p4": "When she is not creating, Helena can be found walking along the Tagus, reading poetry in her favourite cafe, or tending to the small garden on her Lisbon rooftop. She believes that art is a form of attention -- a way of saying: I was here, and I noticed."
+      }
+    },
     "header": {
       "brand": "Helena Colaço",
       "nav": {
@@ -56,10 +67,62 @@
         "drawings": "Drawings",
         "paintings": "Paintings",
         "photography": "Photography",
-        "poems": "Poems"
+        "poems": "Poems",
+        "privacyPolicy": "Privacy Policy"
       },
       "headline": "Through lines, colors, lenses, and words — a journey of self-expression, where each stroke, click, and verse unveils a new dimension of the soul.",
       "copyright": "© {year} Helena Colaço. All rights reserved."
+    },
+    "cookieConsent": {
+      "title": "Cookies & analytics",
+      "description": "We use cookies for basic functionality and, with your permission, analytics to improve this website.",
+      "privacyLink": "Read the Privacy Policy",
+      "accept": "Accept analytics",
+      "reject": "Reject"
+    },
+    "privacyPolicy": {
+      "meta": {
+        "title": "Privacy Policy",
+        "description": "How we collect and use personal data and analytics."
+      },
+      "title": "Privacy Policy",
+      "lastUpdated": "Last updated: {date}",
+      "sections": {
+        "controller": {
+          "title": "Who we are",
+          "body": "This website is operated by Helena Colaço. For any privacy-related questions, contact us at helena@helenacolaco.com."
+        },
+        "dataCollected": {
+          "title": "What data we collect",
+          "items": {
+            "newsletter": "Newsletter: name and email address (only when you submit the form).",
+            "analytics": "Analytics: usage data (pages visited, interactions, approximate device/browser information) via PostHog, only after you accept analytics cookies."
+          }
+        },
+        "purposes": {
+          "title": "Why we collect it",
+          "items": {
+            "newsletter": "To send you updates if you subscribe to the newsletter.",
+            "analytics": "To understand how the website is used and improve content and performance."
+          }
+        },
+        "legalBasis": {
+          "title": "Legal basis",
+          "body": "We process newsletter data and analytics based on your consent. You can withdraw consent at any time by rejecting analytics cookies or contacting us."
+        },
+        "thirdParties": {
+          "title": "Third parties",
+          "body": "We use PostHog as our analytics provider. Analytics are only enabled after you provide consent."
+        },
+        "retention": {
+          "title": "How long we keep data",
+          "body": "We keep data for as long as necessary for the purposes described above, or until you withdraw consent."
+        },
+        "rights": {
+          "title": "Your rights",
+          "body": "You may request access, correction, or deletion of your personal data, and you can withdraw consent at any time. Contact us at helena@helenacolaco.com."
+        }
+      }
     }
   }
 }
