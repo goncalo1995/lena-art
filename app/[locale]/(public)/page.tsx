@@ -40,7 +40,8 @@ export default async function HomePage({ params: paramsPromise }: { params: Home
             <ArtSection
               key={type}
               artType={type}
-              description=""
+              label={t(`artwork.${type}.title`)}
+              description={t(`artwork.${type}.description`)}
               artworks={artworks}
             />
           ))}

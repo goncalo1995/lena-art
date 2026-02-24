@@ -34,7 +34,7 @@ export async function SiteFooter() {
               { href: "/drawings", label: t("links.drawings") },
               { href: "/paintings", label: t("links.paintings") },
               { href: "/photography", label: t("links.photography") },
-              { href: "/poems", label: t("links.poems") },
+              { href: "/poetry", label: t("links.poetry") },
             ].map((link) => (
               <Link
                 key={link.href}

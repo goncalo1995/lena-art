@@ -1,6 +1,8 @@
 import Image from "next/image"
 import type { Metadata } from "next"
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/navigation";
 
 export const metadata: Metadata = {
   title: "Bio",
@@ -13,27 +15,26 @@ export default async function BioPage() {
   return (
     <>
       <main>
-        <div className="mx-auto max-w-5xl px-6 py-16">
+        <div className="mx-auto max-w-4xl px-6 py-16">
           <div className="flex flex-col gap-12 md:flex-row md:gap-16">
-            {/* Portrait */}
-            <div className="shrink-0 md:w-[340px]">
-              <div className="relative aspect-3/4 overflow-hidden rounded-lg bg-muted">
+            {/* Bio text */}
+            <div className="flex flex-col justify-center">
+              <h1 className="font-serif text-3xl text-foreground md:text-3xl text-balance">
+                {t('title')}
+              </h1>
+              <h2 className="text-lg text-foreground/80">
+                {t('content.name')}
+              </h2>
+              <div className="relative aspect-video rounded-lg bg-muted">
                 <Image
-                  src="/images/bio-portrait.jpg"
-                  alt="Helena Colaço in her studio"
+                  src="/images/autoretrato.jpg"
+                  alt="Helena Colaço - Autoretrato"
                   fill
                   className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 340px"
+                  sizes="(max-width: 768px) 100vw, 100%"
                   priority
                 />
               </div>
-            </div>
-
-            {/* Bio text */}
-            <div className="flex flex-col justify-center">
-              <h1 className="font-serif text-3xl text-foreground md:text-4xl text-balance">
-                {t('title')}
-              </h1>
               <div className="mt-6 flex flex-col gap-5 text-base leading-relaxed text-foreground/80">
                 <p>
                   {t('content.p1')}
@@ -46,6 +47,15 @@ export default async function BioPage() {
                 </p>
                 <p>
                   {t('content.p4')}
+                </p>
+                <p>
+                  {t('content.p5')}
+                </p>
+                <p>
+                  {t('content.p6')}
+                </p>
+                <p>
+                  {t('content.p7')}
                 </p>
               </div>
             </div>

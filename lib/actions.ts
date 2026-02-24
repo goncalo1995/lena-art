@@ -1,12 +1,10 @@
 "use server"
 
 import { revalidatePath, revalidateTag } from "next/cache"
-import { ART_TYPE_ROUTES } from "./types"
 import type { ArtType } from "./types"
 import { routing } from "@/i18n/routing";
 import { cleanupArtworkMedia, cleanupSingleFile } from "./cleanup";
 
-const artTypeRoutes = ['drawings', 'paintings', 'photography', 'poems'];
 
 async function getSupabaseClient() {
   const { createClient } = await import("./supabase/server")
@@ -423,6 +421,9 @@ export async function addArtworkMedia(artworkId: string | null, formData: FormDa
   const media_url = formData.get("media_url") as string
   const media_type = formData.get("media_type") as "image" | "video"
   const caption = (formData.get("caption") as string) || null
+  const file_name = formData.get("file_name") as string
+  const file_size = formData.get("file_size") as string
+  const file_size_number = parseInt(file_size)
   const sort_order = parseInt((formData.get("sort_order") as string) || "0")
 
   try {
@@ -445,6 +446,8 @@ export async function addArtworkMedia(artworkId: string | null, formData: FormDa
         media_url,
         media_type,
         caption,
+        file_name,
+        file_size: file_size_number,
         sort_order,
       })
 

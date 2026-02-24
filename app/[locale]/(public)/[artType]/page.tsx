@@ -26,7 +26,7 @@ export function generateStaticParams() {
     { artType: "drawings" },
     { artType: "paintings" },
     { artType: "photography" },
-    { artType: "poems" },
+    { artType: "poetry" },
   ]
 }
 

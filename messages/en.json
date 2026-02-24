@@ -17,23 +17,70 @@
       "clear": "Clear",
       "save": "Save",
       "saveChanges": "Save Changes",
-      "saving": "Saving..."
+      "saving": "Saving...",
+      "viewAll": "View All"
     }
   },
   "Pages": {
     "home": {
-      "title": "Home Page",
-      "description": "Home Page Description"
+      "title": "Helena Colaço | Artist",
+      "description": "Helena Colaço is an artist based in Lisbon, Portugal. She creates art that explores the relationship between color, form, and emotion.",
+      "tagline": "Artist · Lisbon, Portugal",
+      "aboutTitle": "About the Artist",
+      "aboutDescription": "With a life shaped by artistic exploration, from theatre to painting, photography, and poetry, she has built a rich and multidisciplinary creative path. Her work draws deeply from personal experience, performance, and visual storytelling, continually evolving between Lisbon and the south of Portugal.",
+      "viewBio": "View Bio",
+      "artwork": {
+        "drawing": {
+          "title": "Drawing",
+          "description": "Intimate studies in charcoal, graphite and ink that capture the essence of a moment."
+        },
+        "painting": {
+          "title": "Painting",
+          "description": "Paintings that explore the relationship between color, form, and emotion."
+        },
+        "photography": {
+          "title": "Photography",
+          "description": "Photographs that capture the essence of a moment."
+        },
+        "poem": {
+          "title": "Poetry",
+          "description": "Words shaped into small vessels of feeling, written alongside the visual work."
+        }
+      },
+      "newsletter": {
+        "title": "Stay in Touch",
+        "description": "Subscribe to our newsletter to stay updated with the latest creations, exhibitions and events.",
+        "success": "Thank you for subscribing!",
+        "fields": {
+          "namePlaceholder": "Your name",
+          "emailPlaceholder": "Your email"
+        },
+        "submit": "Subscribe",
+        "errors": {
+          "missingFields": "Name and email are required",
+          "emailInUse": "This email is already subscribed",
+          "unknown": "An unknown error occurred"
+        }
+      },
+      "contacts": {
+        "title": "Get in Touch",
+        "description": "For commissions, collaborations or just to say hello."
+      }
     },
     "bio": {
       "title": "Bio",
       "description": "Bio Page Description",
       "content": {
-        "name": "Helena Colaço",
-        "p1": "Helena Colaço is a Portuguese multidisciplinary artist based in Lisbon. Born in 1992, she studied Fine Arts at the Faculty of Fine Arts of the University of Lisbon, where she developed a deep connection to traditional techniques and a curiosity for the intersection of visual art and language.",
-        "p2": "Her work moves between drawing, painting, photography and poetry, exploring themes of memory, landscape, solitude and the quiet poetry of everyday life. Each medium offers a different language for the same inner world -- charcoal for intimacy, oil paint for the weight of memory, the camera for fleeting truths, and words for what images cannot hold.",
-        "p3": "Helena has exhibited in Lisbon, Porto and Berlin, and her photography has been featured in several Portuguese literary journals. She is particularly drawn to the Alentejo landscape and the overlooked corners of urban life.",
-        "p4": "When she is not creating, Helena can be found walking along the Tagus, reading poetry in her favourite cafe, or tending to the small garden on her Lisbon rooftop. She believes that art is a form of attention -- a way of saying: I was here, and I noticed."
+        "name": "Helena Colaço Salazar",
+        "p1": "From an early age, she revealed a strong interest in the arts, enjoying drawing, photography, dance and other sports. At the age of thirteen she lost her father, an event that spontaneously led her to write poetry and draw, later choosing the arts field in high school.",
+        "p2": "She began her career in theatre, where she worked as an actress for eleven years.",
+        "p3": "In 2005 she returned to drawing through the development of the character Kelly, from Wayne Jordan’s play The Drowned World. From this experience came the public exhibition The Imaginary World of Kelly. Later, in 2010, she presented her first solo painting exhibition, Appearances, also inspired by a theatre play with the same name, staged at Sociedade de Instrução Guilherme Cossoul.",
+        "p4": "Her desire to explore new forms of expression beyond acting led her to study New Painting Techniques at the National Society of Fine Arts, as well as Photography at the Portuguese Institute of Photography.",
+        "p5": "She completed internships as a photojournalist at the newspapers Público and i, and also photographed theatre plays, concerts, vernissages, architecture and developed authorial photography projects.",
+        "p6": "In 2014 she moved to Tróia, where she lived for three years working on the concept of Identity, which later took her on a nomadic path between 2017 and 2023. That year she returned to Tróia and began preparing her next solo painting exhibition, From My Mother Paintings, presented at Fábrica do Braço de Prata, in Lisbon, in 2025. Over these years she also participated in several collective exhibitions of photography and painting.",
+        "p7": "Today she divides her time between Lisbon and the south of Portugal, continuously expanding her creative practice as a visual artist.",
+        "viewWork": "View Work",
+        "contact": "Contact"
       }
     },
     "header": {
@@ -47,7 +94,7 @@
         "drawings": "Drawings",
         "paintings": "Paintings",
         "photography": "Photography",
-        "poems": "Poems"
+        "poetry": "Poetry"
       },
       "a11y": {
         "openMenu": "Open menu",
@@ -67,7 +114,7 @@
         "drawings": "Drawings",
         "paintings": "Paintings",
         "photography": "Photography",
-        "poems": "Poems",
+        "poetry": "Poetry",
         "privacyPolicy": "Privacy Policy"
       },
       "headline": "Through lines, colors, lenses, and words — a journey of self-expression, where each stroke, click, and verse unveils a new dimension of the soul.",

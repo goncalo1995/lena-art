@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     template: '%s | Helena Colaço',
   },
   description:
-    'Portfolio of Helena Colaço - Drawings, Paintings, Photography and Poems.',
+    'Portfolio of Helena Colaço - Drawings, Paintings, Photography and Poetry.',
 }
 
 const locales = ['en', 'pt'];
@@ -44,7 +44,7 @@ export default async function LocaleLayout({children, params}: Props) {
   const messages = await getMessages({ locale });
   
   return (
-    <html lang={locale}>
+    <html lang={locale} data-scroll-behavior="smooth">
       <body className={`${_inter.className} font-sans antialiased`}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}

@@ -1,20 +1,19 @@
 import { Link } from "@/i18n/navigation"
 import { Button } from "@/components/ui/button"
+import { getTranslations } from "next-intl/server"
 
-export function AboutPreview() {
+export async function AboutPreview() {
+  const t = await getTranslations("Pages.home")
   return (
     <section className="mx-auto max-w-3xl px-6 py-20 text-center">
       <h2 className="font-serif text-3xl text-foreground md:text-4xl text-balance">
-        About the Artist
+        {t("aboutTitle")}
       </h2>
       <p className="mt-6 text-base leading-relaxed text-muted-foreground md:text-lg">
-        Helena Colaço is a Portuguese multidisciplinary artist based in Lisbon.
-        Her work moves between drawing, painting, photography and poetry,
-        exploring themes of memory, landscape and the quiet poetry of everyday
-        life. Each medium offers a different language for the same inner world.
+        {t("aboutDescription")}
       </p>
       <Button asChild className="mt-8" variant="outline" size="lg">
-        <Link href="/bio">See Full Bio</Link>
+        <Link href="/bio">{t("viewBio")}</Link>
       </Button>
     </section>
   )

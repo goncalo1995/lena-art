@@ -5,8 +5,10 @@ import { useLocale } from "next-intl"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { subscribeNewsletter } from "@/lib/actions"
+import { useTranslations } from "next-intl"
 
 export function NewsletterForm() {
+  const t = useTranslations("Pages.home")
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
   >("idle")
@@ -20,17 +22,16 @@ export function NewsletterForm() {
       setStatus("error")
       let message = ""
       if (result.error === "missingFields") {
-        message = locale === "pt" ? "O nome e email são obrigatórios" : "Name and email are required"
+        message = t("newsletter.errors.missingFields")
       } else if (result.error === "emailInUse") {
-        message = locale === "pt" ? "Este email já está inscrito" : "This email is already subscribed"
+        message = t("newsletter.errors.emailInUse")
       } else {
-        message = result.error
+        message = t("newsletter.errors.unknown")
       }
       setMessage(message)
     } else {
       setStatus("success")
-      const message =
-        locale === "pt" ? "Obrigado e até breve!" : "Thank you for subscribing!"
+      const message = t("newsletter.success")
       setMessage(message)
     }
   }
@@ -39,11 +40,10 @@ export function NewsletterForm() {
     <section className="bg-secondary/50 py-16">
       <div className="mx-auto max-w-xl px-6 text-center">
         <h2 className="font-serif text-2xl text-foreground md:text-3xl">
-          Stay in Touch
+          {t("newsletter.title")}
         </h2>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">
-          Subscribe to receive occasional updates about new work, exhibitions
-          and writings.
+          {t("newsletter.description")}
         </p>
 
         {status === "success" ? (
@@ -52,14 +52,14 @@ export function NewsletterForm() {
           <form action={handleSubmit} className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Input
               name="name"
-              placeholder="Your name"
+              placeholder={t("newsletter.fields.namePlaceholder")}
               required
               className="bg-background"
             />
             <Input
               name="email"
               type="email"
-              placeholder="Your email"
+              placeholder={t("newsletter.fields.emailPlaceholder")}
               required
               className="bg-background"
             />

@@ -28,7 +28,7 @@ export const ART_TYPE_LABELS: Record<string, string> = {
   drawing: "Drawings",
   painting: "Paintings",
   photography: "Photography",
-  poem: "Poems",
+  poem: "Poetry",
 }
 
 export const ART_TYPE_SINGULAR: Record<ArtType, string> = {
@@ -42,14 +42,14 @@ export const ART_TYPE_ROUTES: Record<ArtType, string> = {
   drawing: "drawings",
   painting: "paintings",
   photography: "photography",
-  poem: "poems",
+  poem: "poetry",
 }
 
 export const ROUTE_TO_ART_TYPE: Record<string, ArtType> = {
   drawings: "drawing",
   paintings: "painting",
   photography: "photography",
-  poems: "poem",
+  poetry: "poem",
 }
 
 // A display item on a listing page - either a collection or standalone artwork

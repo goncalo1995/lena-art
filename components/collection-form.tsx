@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation"
 import { useLocale } from 'next-intl';
-import { useState } from "react"
+import { useState, SubmitEvent } from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { MediaPicker } from "@/components/admin/media-picker"
@@ -40,8 +40,13 @@ export function CollectionForm({ collection }: CollectionFormProps) {
     }
   }
 
+  async function onSubmit(event: SubmitEvent<HTMLFormElement>) {
+    event.preventDefault()
+    await handleSubmit(new FormData(event.currentTarget))
+  }
+
   return (
-    <form action={handleSubmit} className="flex flex-col gap-6 max-w-2xl">
+    <form onSubmit={onSubmit} className="flex flex-col gap-6 max-w-2xl">
       {error && (
         <p className="text-sm text-destructive bg-destructive/10 px-4 py-2 rounded-md">
           {error}

@@ -2,6 +2,9 @@
 import { MetadataRoute } from 'next'
 import { ART_TYPE_ROUTES, type ArtType } from '@/lib/types'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://helenacolaco.com'
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -21,7 +24,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/drawings',
     '/paintings',
     '/photography',
-    '/poems',
+    '/poetry',
   ]
   
   // Generate for each locale

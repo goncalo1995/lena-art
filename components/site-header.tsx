@@ -18,7 +18,7 @@ export function SiteHeader() {
       { label: t("work.drawings"), href: "/drawings" },
       { label: t("work.paintings"), href: "/paintings" },
       { label: t("work.photography"), href: "/photography" },
-      { label: t("work.poems"), href: "/poems" },
+      { label: t("work.poetry"), href: "/poetry" },
     ],
     [t]
   )

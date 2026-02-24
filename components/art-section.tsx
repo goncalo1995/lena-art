@@ -4,28 +4,18 @@ import { ArtworkCard } from "./artwork-card"
 import type { Artwork } from "@/lib/types"
 import { ART_TYPE_ROUTES, ART_TYPE_LABELS } from "@/lib/types"
 import type { ArtType } from "@/lib/types"
+import { getTranslations } from "next-intl/server"
 
 interface ArtSectionProps {
   artType: ArtType
+  label: string
   description: string
   artworks: Artwork[]
 }
 
-const sectionDescriptions: Record<ArtType, string> = {
-  drawing:
-    "Intimate studies in charcoal, graphite and ink that capture the essence of a moment.",
-  painting:
-    "Oil and acrylic works exploring colour, light and the landscapes of memory.",
-  photography:
-    "Moments of quiet beauty found in the everyday streets and corners of the city.",
-  poem:
-    "Words shaped into small vessels of feeling, written alongside the visual work.",
-}
-
-export function ArtSection({ artType, artworks }: ArtSectionProps) {
+export async function ArtSection({ artType, label, description, artworks }: ArtSectionProps) {
+  const t = await getTranslations("Main.buttons")
   const route = ART_TYPE_ROUTES[artType]
-  const label = ART_TYPE_LABELS[artType]
-  const description = sectionDescriptions[artType]
   const isPoem = artType === "poem"
 
   return (
@@ -44,7 +34,7 @@ export function ArtSection({ artType, artworks }: ArtSectionProps) {
             href={`/${route}`}
             className="flex items-center gap-1.5 text-sm text-primary transition-colors hover:text-primary/80 shrink-0"
           >
-            View all
+            {t("viewAll")}
             <ArrowRight className="size-4" />
           </Link>
         </div>

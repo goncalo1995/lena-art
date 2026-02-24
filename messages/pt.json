@@ -23,23 +23,70 @@
       "clear": "Limpar",
       "save": "Guardar",
       "saveChanges": "Guardar Alterações",
-      "saving": "A guardar..."
+      "saving": "A guardar...",
+      "viewAll": "Ver Todos"
     }
   },
   "Pages": {
     "home": {
-      "title": "Página Inicial",
-      "description": "Página Inicial Description"
+      "title": "Helena Colaço | Artista",
+      "description": "Helena Colaço é uma artista baseada em Lisboa, Portugal. Cria arte que explora a relação entre cor, forma e emoção.",
+      "tagline": "Artista · Lisboa, Portugal",
+      "aboutTitle": "Sobre a Artista",
+      "aboutDescription": "Com uma vida moldada pela exploração artística — do teatro à pintura, passando pela fotografia e poesia — construiu um percurso criativo rico e multidisciplinar. A sua obra nasce de experiências pessoais, da performance e da narrativa visual, num processo em constante evolução entre Lisboa e o sul de Portugal.",
+      "viewBio": "Ver Biografia",
+      "artwork": {
+        "drawing": {
+          "title": "Desenho",
+          "description": "Estudos íntimos em carvão, grafite e tinta que capturam a essência de um momento."
+        },
+        "painting": {
+          "title": "Pintura",
+          "description": "Pinturas que exploram a relação entre cor, forma e emoção."
+        },
+        "photography": {
+          "title": "Fotografia",
+          "description": "Fotografias que capturam a essência de um momento."
+        },
+        "poem": {
+          "title": "Poesia",
+          "description": "Palavras moldadas em pequenos recipientes de sentimento, escritas ao lado das obras visuais."
+        }
+      },
+      "newsletter": {
+        "title": "Newsletter",
+        "description": "Subscreva e fique a par das últimas criações, exposições e eventos.",
+        "success": "Obrigado e até breve!",
+        "fields": {
+          "namePlaceholder": "O seu nome",
+          "emailPlaceholder": "O seu email"
+        },
+        "submit": "Subscrever",
+        "errors": {
+          "missingFields": "O nome e email são obrigatórios",
+          "emailInUse": "Este email já está inscrito",
+          "unknown": "Ocorreu um erro desconhecido"
+        }
+      },
+      "contacts": {
+        "title": "Contactos",
+        "description": "Para colaborações, vendas ou apenas para dizer olá."
+      }
     },
     "bio": {
       "title": "Biografia",
       "description": "Biografia Description",
       "content": {
-        "name": "Helena Colaço",
-        "p1": "Helena Colaço é uma artista multidisciplinar portuguesa, com base em Lisboa. Nascida em 1992, estudou Belas-Artes na Faculdade de Belas-Artes da Universidade de Lisboa, onde desenvolveu uma ligação profunda às técnicas tradicionais e uma curiosidade pela interseção entre a arte visual e a linguagem.",
-        "p2": "O seu trabalho move-se entre o desenho, a pintura, a fotografia e a poesia, explorando temas de memória, paisagem, solidão e a poesia discreta do quotidiano. Cada meio oferece uma linguagem diferente para o mesmo mundo interior -- o carvão para a intimidade, a tinta a óleo para o peso da memória, a câmara para verdades fugazes e as palavras para aquilo que as imagens não conseguem conter.",
-        "p3": "Helena expôs em Lisboa, Porto e Berlim, e a sua fotografia foi publicada em várias revistas literárias portuguesas. Sente-se particularmente atraída pela paisagem do Alentejo e pelos cantos esquecidos da vida urbana.",
-        "p4": "Quando não está a criar, Helena pode ser encontrada a caminhar junto ao Tejo, a ler poesia no seu café favorito ou a cuidar do pequeno jardim no terraço em Lisboa. Acredita que a arte é uma forma de atenção -- uma maneira de dizer: eu estive aqui e reparei."
+        "name": "Helena Colaço Salazar",
+        "p1": "Desde muito jovem revelou interesse pelas artes, gostando de desenhar, ver fotografias, dançar e praticar outros desportos. Aos treze anos perdeu o pai, acontecimento que a levou, de forma espontânea, a escrever poemas e a desenhar, escolhendo a área artística no ensino secundário.",
+        "p2": "Iniciou o seu percurso no teatro, onde trabalhou como atriz durante onze anos.",
+        "p3": "Em 2005 regressou ao desenho através do desenvolvimento da personagem Kelly, da peça de Wayne Jordan, The Drowned World. Desta experiência nasceu a exposição pública de desenhos intitulada O Mundo Imaginário de Kelly. Mais tarde, em 2010, apresentou a sua primeira exposição individual de pintura, Aparências, igualmente resultado de uma peça de teatro com o mesmo nome, apresentada na Sociedade de Instrução Guilherme Cossoul.",
+        "p4": "O desejo de explorar novas formas de expressão para além da representação levou-a a estudar Novas Técnicas de Pintura na Sociedade Nacional de Belas Artes e a frequentar o curso de Fotografia do Instituto Português de Fotografia.",
+        "p5": "Realizou estágios como fotojornalista nos jornais Público e i, tendo também fotografado peças de teatro, concertos, inaugurações, arquitetura e desenvolvido trabalhos de fotografia de autor.",
+        "p6": "Em 2014 mudou-se para Tróia, onde viveu três anos a desenvolver o conceito de Identidade, que a conduziu a um período de vida nómada entre 2017 e 2023. Nesse ano regressou a Tróia e começou a preparar a sua nova exposição individual de pintura, Das Pinturas da Minha Mãe, apresentada na Fábrica do Braço de Prata, em Lisboa, em 2025. Participou também em diversas exposições coletivas de fotografia e pintura ao longo desses anos.",
+        "p7": "Atualmente divide o seu tempo entre Lisboa e o sul de Portugal, expandindo continuamente as suas competências criativas enquanto artista plástica.",
+        "viewWork": "Ver Obras",
+        "contact": "Contacto"
       }
     },
     "header": {
@@ -53,7 +100,7 @@
         "drawings": "Desenhos",
         "paintings": "Pinturas",
         "photography": "Fotografia",
-        "poems": "Poemas"
+        "poetry": "Poesia"
       },
       "a11y": {
         "openMenu": "Abrir menu",
@@ -73,7 +120,7 @@
         "drawings": "Desenhos",
         "paintings": "Pinturas",
         "photography": "Fotografia",
-        "poems": "Poemas",
+        "poetry": "Poesia",
         "privacyPolicy": "Política de Privacidade"
       },
       "headline": "Através de linhas, cores, lentes e palavras — uma jornada de autoexpressão, onde cada traço, clique e verso revela uma nova dimensão da alma.",

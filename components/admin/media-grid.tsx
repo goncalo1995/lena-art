@@ -9,6 +9,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { 
   Dialog, 
   DialogContent, 
+  DialogDescription, 
   DialogHeader, 
   DialogTitle,
 } from '@/components/ui/dialog'
@@ -35,7 +36,7 @@ export function MediaGrid({ media }: MediaGridProps) {
   }
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Delete this media item? It will be removed from any artworks using it.')) return
+    if (!confirm('Delete this media item? It will give error if any artwork is using it.')) return
     try {
       const result = await deleteArtworkMedia(id)
       if (result && typeof result === 'object' && 'success' in result && result.success === false) {
@@ -192,7 +193,7 @@ export function MediaGrid({ media }: MediaGridProps) {
               {/* Thumbnail */}
               <button
                 onClick={() => openDetails(item)}
-                className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-md bg-muted"
+                className="relative h-16 w-16 shrink-0 overflow-hidden rounded-md bg-muted"
               >
                 {item.media_type === 'video' ? (
                   <video
@@ -206,6 +207,7 @@ export function MediaGrid({ media }: MediaGridProps) {
                     alt={item.caption || 'Media'}
                     fill
                     className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 100px"
                   />
                 )}
               </button>
@@ -262,6 +264,9 @@ export function MediaGrid({ media }: MediaGridProps) {
         <DialogContent className="max-w-4xl">
           <DialogHeader>
             <DialogTitle>Media Details</DialogTitle>
+            <DialogDescription>
+              View and manage your media files
+            </DialogDescription>
           </DialogHeader>
           
           {selectedItem && (
@@ -280,7 +285,7 @@ export function MediaGrid({ media }: MediaGridProps) {
                     alt={selectedItem.caption || 'Media'}
                     fill
                     className="object-contain"
-                    sizes="(max-width: 768px) 100vw, 900px"
+                    sizes="(max-width: 768px) 50vw, (max-width: 1200px) 50vw"
                   />
                 )}
               </div>
