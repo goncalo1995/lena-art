@@ -49,6 +49,9 @@ export default async function ArtListingPage({ params }: PageProps) {
           <h1 className="mt-6 font-serif text-3xl text-foreground md:text-4xl">
             {label}
           </h1>
+          <p className="mt-2 text-muted-foreground">
+            {items.length} {items.length === 1 ? "work" : "works"}
+          </p>
 
           <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {items.map((item) => (

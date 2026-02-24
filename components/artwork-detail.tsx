@@ -10,67 +10,74 @@ interface ArtworkDetailProps {
 export async function ArtworkDetail({ artwork }: ArtworkDetailProps) {
   const t = await getTranslations()
   const isPoem = artwork.art_type === "poem"
+  const showTitle = artwork.title && artwork.title.trim() !== "" && artwork.title !== "Untitled"
 
   return (
-    <article className="mx-auto max-w-4xl">
-      {/* Main image or poem display */}
+    <article className="mx-auto max-w-5xl">
       {isPoem ? (
         <div className="rounded-lg bg-secondary/50 px-8 py-12 md:px-16 md:py-16">
           <div className="font-serif text-lg leading-loose text-foreground whitespace-pre-line md:text-xl">
             {artwork.description}
           </div>
+          {showTitle && (
+            <h1 className="mt-10 font-serif text-2xl text-foreground md:text-3xl text-balance">
+              {artwork.title}
+            </h1>
+          )}
         </div>
       ) : (
-        <>
-          {artwork.cover_image_url && (
-            <div className="relative aspect-4/3 w-full overflow-hidden rounded-lg bg-muted">
-              <Image
-                src={artwork.cover_image_url}
-                alt={artwork.title}
-                fill
-                className="object-contain"
-                sizes="(max-width: 768px) 100vw, 900px"
-                priority
-              />
+        <div className="grid gap-12 md:grid-cols-2">
+          <div className="space-y-4">
+            {artwork.cover_image_url && (
+              <div className="relative aspect-4/3 w-full overflow-hidden rounded-lg bg-muted">
+                <Image
+                  src={artwork.cover_image_url}
+                  alt={artwork.title}
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 768px) 100vw, 900px"
+                  priority
+                />
+              </div>
+            )}
+          </div>
+
+          <div className="space-y-6">
+            <div>
+              <h1 className="font-serif text-3xl text-foreground md:text-4xl text-balance">
+                {artwork.title}
+              </h1>
+
+              <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
+                {artwork.creation_date && (
+                  <span>{format(new Date(artwork.creation_date), "MMMM yyyy")}</span>
+                )}
+                {artwork.medium && <span>{artwork.medium}</span>}
+                {artwork.dimensions && <span>{artwork.dimensions}</span>}
+              </div>
             </div>
-          )}
-        </>
-      )}
 
-      {/* Title and metadata */}
-      <div className="mt-8">
-        <h1 className="font-serif text-3xl text-foreground md:text-4xl text-balance">
-          {artwork.title}
-        </h1>
+            {artwork.description && (
+              <div className="text-base leading-relaxed text-foreground/80 whitespace-pre-line">
+                {artwork.description}
+              </div>
+            )}
 
-        <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
-          {artwork.creation_date && (
-            <span>{format(new Date(artwork.creation_date), "MMMM yyyy")}</span>
-          )}
-          {artwork.medium && <span>{artwork.medium}</span>}
-          {artwork.dimensions && <span>{artwork.dimensions}</span>}
+            {artwork.sale_url && (
+              <div>
+                <a
+                  href={artwork.sale_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block rounded-lg bg-primary px-4 py-2 text-white hover:bg-primary/90"
+                >
+                  {t("Pages.ArtworkDetail.buy")}
+                </a>
+              </div>
+            )}
+          </div>
         </div>
-
-        {/* Description (for non-poems, or as extended description for poems) */}
-        {!isPoem && artwork.description && (
-          <div className="mt-6 text-base leading-relaxed text-foreground/80 whitespace-pre-line">
-            {artwork.description}
-          </div>
-        )}
-
-        {artwork.sale_url && (
-          <div className="mt-6">
-            <a
-              href={artwork.sale_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block rounded-lg bg-primary px-4 py-2 text-white hover:bg-primary/90"
-            >
-              {t("Pages.ArtworkDetail.buy")}
-            </a>
-          </div>
-        )}
-      </div>
+      )}
 
       {/* Extra sections */}
       {artwork.sections && artwork.sections.length > 0 && (

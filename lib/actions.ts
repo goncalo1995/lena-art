@@ -95,9 +95,12 @@ export async function createArtwork(formData: FormData) {
   if (!user) throw new Error("Unauthorized")
 
   console.log("Creating artwork...", formData)
-  const title = formData.get("title") as string
-  const slug = slugify(title)
   const art_type = formData.get("art_type") as ArtType
+  const rawTitle = (formData.get("title") as string) || ""
+  const title = rawTitle.trim()
+  const isPoem = art_type === "poem"
+  const finalTitle = title || (isPoem ? "Untitled" : title)
+  const slug = title ? slugify(title) : isPoem ? `poem-${Date.now()}` : slugify(title)
   const collection_id = (formData.get("collection_id") as string) || null
   const short_description = (formData.get("short_description") as string) || null
   const description = (formData.get("description") as string) || null
@@ -123,7 +126,7 @@ export async function createArtwork(formData: FormData) {
  const { data, error } = await supabase
     .from("artworks")
     .insert({
-      title,
+      title: finalTitle,
       slug,
       art_type,
       collection_id,
@@ -171,9 +174,12 @@ export async function updateArtwork(id: string, formData: FormData) {
     .eq("id", id)
     .single()
 
-  const title = formData.get("title") as string
-  const slug = slugify(title)
   const art_type = formData.get("art_type") as ArtType // Assuming this doesn't change
+  const rawTitle = (formData.get("title") as string) || ""
+  const title = rawTitle.trim()
+  const isPoem = art_type === "poem"
+  const finalTitle = title || (isPoem ? "Untitled" : title)
+  const slug = title ? slugify(title) : isPoem ? (oldArtwork?.slug || `poem-${Date.now()}`) : slugify(title)
   const collection_id = (formData.get("collection_id") as string) || null
   const short_description = (formData.get("short_description") as string) || null
   const description = (formData.get("description") as string) || null
@@ -203,7 +209,7 @@ export async function updateArtwork(id: string, formData: FormData) {
   const { error } = await supabase
     .from("artworks")
     .update({
-      title,
+      title: finalTitle,
       slug,
       art_type,
       collection_id,

@@ -60,11 +60,10 @@ export function ArtworkForm({ artwork, collections }: ArtworkFormProps) {
         </legend>
 
         <label className="flex flex-col gap-1.5">
-          <span className="text-sm text-muted-foreground">Título *</span>
+          <span className="text-sm text-muted-foreground">Título</span>
           <Input
             name="title"
             defaultValue={artwork?.title || ""}
-            required
           />
         </label>
 
