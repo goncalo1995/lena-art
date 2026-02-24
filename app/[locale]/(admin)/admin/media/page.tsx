@@ -2,7 +2,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { MediaGrid } from '@/components/admin/media-grid'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import type { ArtworkMediaWithArtwork } from '@/lib/types'
 import { getLocale } from 'next-intl/server'
 import { MultiMediaUploader } from '@/components/admin/multi-media-uploader'
 

@@ -250,7 +250,7 @@ export function MultiMediaUploader({
                 className="flex items-center gap-3 p-3 border rounded-lg bg-card"
               >
                 {/* File icon based on type */}
-                <div className="flex-shrink-0 w-8 h-8 bg-muted rounded flex items-center justify-center text-xs">
+                <div className="shrink-0 w-8 h-8 bg-muted rounded flex items-center justify-center text-xs">
                   {file.file.name.split('.').pop()}
                 </div>
 

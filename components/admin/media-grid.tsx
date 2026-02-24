@@ -5,6 +5,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import { Textarea } from '@/components/ui/textarea'
 import { 
   Dialog, 
   DialogContent, 
@@ -12,7 +13,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { Copy, Trash2, ExternalLink, Image as ImageIcon, Video } from 'lucide-react'
-import { deleteArtworkMedia } from '@/lib/actions'
+import { deleteArtworkMedia, updateArtworkMediaCaption } from '@/lib/actions'
 import { useRouter } from 'next/navigation'
 import type { ArtworkMedia } from '@/lib/types'
 
@@ -24,11 +25,25 @@ export function MediaGrid({ media }: MediaGridProps) {
   const router = useRouter()
   const [selectedItem, setSelectedItem] = useState<ArtworkMedia | null>(null)
   const [copied, setCopied] = useState(false)
+  const [view, setView] = useState<'grid' | 'list'>('grid')
+  const [captionDraft, setCaptionDraft] = useState('')
+  const [savingCaption, setSavingCaption] = useState(false)
+
+  const openDetails = (item: ArtworkMedia) => {
+    setSelectedItem(item)
+    setCaptionDraft(item.caption || '')
+  }
 
   const handleDelete = async (id: string) => {
     if (!confirm('Delete this media item? It will be removed from any artworks using it.')) return
     try {
-      await deleteArtworkMedia(id)
+      const result = await deleteArtworkMedia(id)
+      if (result && typeof result === 'object' && 'success' in result && result.success === false) {
+        if ((result as any).error === 'inUse') {
+          alert('This file is still being used elsewhere. Remove other usages first, then delete again.')
+          return
+        }
+      }
       router.refresh()
     } catch (error) {
       console.error('Failed to delete:', error)
@@ -61,89 +76,189 @@ export function MediaGrid({ media }: MediaGridProps) {
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
-        {media.map((item) => (
-          <div
-            key={item.id}
-            className="group relative aspect-square rounded-lg overflow-hidden border bg-muted cursor-pointer"
-            onClick={() => setSelectedItem(item)}
+      {/* View toggle */}
+      <div className="flex justify-end mb-4">
+        <div className="inline-flex rounded-lg border bg-background p-1">
+          <button
+            onClick={() => setView('grid')}
+            className={`px-3 py-1.5 text-sm rounded-md transition ${
+              view === 'grid'
+                ? 'bg-foreground text-background'
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
           >
-            {item.media_type === 'video' ? (
-              <div className="relative w-full h-full">
-                <video 
-                  src={item.media_url} 
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute top-2 left-2 bg-black/50 text-white p-1 rounded">
-                  <Video className="w-4 h-4" />
-                </div>
-              </div>
-            ) : (
-              <>
-                <Image
-                  src={item.media_url}
-                  alt={item.caption || 'Media'}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform"
-                  sizes="(max-width: 768px) 50vw, 200px"
-                />
-                <div className="absolute top-2 left-2 bg-black/50 text-white p-1 rounded">
-                  <ImageIcon className="w-4 h-4" />
-                </div>
-              </>
-            )}
-            
-            {/* Hover overlay */}
-            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-              <Button
-                size="icon"
-                variant="secondary"
-                className="h-8 w-8"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  copyToClipboard(item.media_url)
-                }}
+            Grid
+          </button>
+          <button
+            onClick={() => setView('list')}
+            className={`px-3 py-1.5 text-sm rounded-md transition ${
+              view === 'list'
+                ? 'bg-foreground text-background'
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            List
+          </button>
+        </div>
+      </div>
+
+      {/* GRID VIEW */}
+      {view === 'grid' && (
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+          {media.map((item) => (
+            <div
+              key={item.id}
+              className="flex flex-col rounded-lg overflow-hidden border bg-muted"
+            >
+              {/* Preview */}
+              <button
+                type="button"
+                onClick={() => openDetails(item)}
+                className="relative aspect-square w-full overflow-hidden"
               >
-                <Copy className="h-4 w-4" />
-              </Button>
-              {item.file_name && (
+                {item.media_type === 'video' ? (
+                  <>
+                    <video
+                      src={item.media_url}
+                      className="w-full h-full object-cover"
+                      muted
+                    />
+                    <div className="absolute top-2 left-2 bg-black/60 text-white p-1 rounded">
+                      <Video className="w-4 h-4" />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <Image
+                      src={item.media_url}
+                      alt={item.caption || 'Media'}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 50vw, 200px"
+                    />
+                    <div className="absolute top-2 left-2 bg-black/60 text-white p-1 rounded">
+                      <ImageIcon className="w-4 h-4" />
+                    </div>
+                  </>
+                )}
+              </button>
+
+              {/* Caption */}
+              {(item.caption || item.file_name) && (
+                <div className="px-3 py-2">
+                  <p className="text-xs text-muted-foreground truncate">
+                    {item.caption || item.file_name}
+                  </p>
+                </div>
+              )}
+
+              {/* Sticky actions */}
+              <div className="mt-auto flex items-center justify-between gap-1 px-2 py-2 border-t bg-background">
                 <Button
                   size="icon"
-                  variant="secondary"
-                  className="h-8 w-8"
-                  asChild
-                  onClick={(e) => e.stopPropagation()}
+                  variant="ghost"
+                  onClick={() => copyToClipboard(item.media_url)}
                 >
+                  <Copy className="h-4 w-4" />
+                </Button>
+
+                <Button size="icon" variant="ghost" asChild>
                   <Link href={item.media_url} target="_blank">
                     <ExternalLink className="h-4 w-4" />
                   </Link>
                 </Button>
-              )}
-              <Button
-                size="icon"
-                variant="destructive"
-                className="h-8 w-8"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  handleDelete(item.id)
-                }}
-              >
-                <Trash2 className="h-4 w-4" />
-              </Button>
-            </div>
 
-            {/* Caption badge */}
-            {item.caption && (
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-2">
-                <p className="text-xs text-white truncate">{item.caption}</p>
+                <Button
+                  size="icon"
+                  variant="destructive"
+                  onClick={() => handleDelete(item.id)}
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
               </div>
-            )}
-          </div>
-        ))}
-      </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* LIST VIEW */}
+      {view === 'list' && (
+        <div className="space-y-2">
+          {media.map((item) => (
+            <div
+              key={item.id}
+              className="flex items-center gap-4 rounded-lg border bg-background p-3"
+            >
+              {/* Thumbnail */}
+              <button
+                onClick={() => openDetails(item)}
+                className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-md bg-muted"
+              >
+                {item.media_type === 'video' ? (
+                  <video
+                    src={item.media_url}
+                    className="h-full w-full object-cover"
+                    muted
+                  />
+                ) : (
+                  <Image
+                    src={item.media_url}
+                    alt={item.caption || 'Media'}
+                    fill
+                    className="object-cover"
+                  />
+                )}
+              </button>
+
+              {/* Info */}
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium truncate">
+                  {item.caption || item.file_name || 'Untitled'}
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  {item.media_type} · {formatDate(item.created_at)}
+                </p>
+              </div>
+
+              {/* Actions */}
+              <div className="flex items-center gap-1">
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  onClick={() => copyToClipboard(item.media_url)}
+                >
+                  <Copy className="h-4 w-4" />
+                </Button>
+
+                <Button size="icon" variant="ghost" asChild>
+                  <Link href={item.media_url} target="_blank">
+                    <ExternalLink className="h-4 w-4" />
+                  </Link>
+                </Button>
+
+                <Button
+                  size="icon"
+                  variant="destructive"
+                  onClick={() => handleDelete(item.id)}
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Detail Dialog */}
-      <Dialog open={!!selectedItem} onOpenChange={() => setSelectedItem(null)}>
+      <Dialog
+        open={!!selectedItem}
+        onOpenChange={(open) => {
+          if (!open) {
+            setSelectedItem(null)
+            setCaptionDraft('')
+          }
+        }}
+      >
         <DialogContent className="max-w-4xl">
           <DialogHeader>
             <DialogTitle>Media Details</DialogTitle>
@@ -184,19 +299,43 @@ export function MediaGrid({ media }: MediaGridProps) {
                     {formatDate(selectedItem.created_at)}
                   </p>
                 </div>
-                {selectedItem.caption && (
-                  <div className="col-span-2">
+                <div className="col-span-2 space-y-2">
+                  <div className="flex items-center justify-between gap-3">
                     <p className="text-muted-foreground">Caption</p>
-                    <p className="font-medium">{selectedItem.caption}</p>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      disabled={savingCaption}
+                      onClick={async () => {
+                        setSavingCaption(true)
+                        try {
+                          const nextCaption = captionDraft.trim() ? captionDraft.trim() : null
+                          await updateArtworkMediaCaption(selectedItem.id, nextCaption)
+                          setSelectedItem({ ...selectedItem, caption: nextCaption })
+                          router.refresh()
+                        } catch (error) {
+                          console.error('Failed to update caption:', error)
+                        } finally {
+                          setSavingCaption(false)
+                        }
+                      }}
+                    >
+                      {savingCaption ? 'Saving...' : 'Save'}
+                    </Button>
                   </div>
-                )}
+                  <Textarea
+                    value={captionDraft}
+                    onChange={(e) => setCaptionDraft(e.target.value)}
+                    placeholder="Add a caption (optional)"
+                  />
+                </div>
                 {selectedItem.file_name && (
                   <div className="col-span-2">
                     <p className="text-muted-foreground">File Name</p>
                     <p className="font-medium">{selectedItem.file_name}</p>
                   </div>
                 )}
-                {selectedItem?.file_size && (
+                {selectedItem.file_size && (
                   <div>
                     <p className="text-muted-foreground">File Size</p>
                     <p className="font-medium">{(selectedItem.file_size / 1024 / 1024).toFixed(2)} MB</p>

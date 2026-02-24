@@ -54,6 +54,9 @@
       "gallery": "Galeria"
     },
     "footer": {
+      "aria": {
+        "navigation": "Navegação do rodapé"
+      },
       "links": {
         "bio": "Biografia",
         "drawings": "Desenhos",

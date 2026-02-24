@@ -465,6 +465,58 @@ export async function addArtworkMedia(artworkId: string | null, formData: FormDa
   }
 }
 
+export async function updateArtworkMediaCaption(id: string, caption: string | null) {
+  const supabase = await getSupabaseClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) throw new Error("Unauthorized")
+
+  const { data: media, error: fetchError } = await supabase
+    .from("artwork_media")
+    .select("artwork_id")
+    .eq("id", id)
+    .maybeSingle()
+
+  if (fetchError) throw new Error(fetchError.message)
+
+  const { error: updateError } = await supabase
+    .from("artwork_media")
+    .update({ caption })
+    .eq("id", id)
+
+  if (updateError) throw new Error(updateError.message)
+
+  // Revalidate based on whether it was linked to an artwork
+  if (media?.artwork_id) {
+    const { data: artwork, error: artworkError } = await supabase
+      .from("artworks")
+      .select(
+        `
+          art_type,
+          slug,
+          collections!left(slug)
+        `
+      )
+      .eq("id", media.artwork_id)
+      .single()
+
+    if (artworkError) {
+      console.error("Failed to fetch artwork for revalidation:", artworkError)
+    } else if (artwork) {
+      await revalidateAllLocales({
+        artType: artwork.art_type,
+        collectionSlug: artwork.collections?.slug,
+        slug: artwork.slug,
+      })
+    }
+  } else {
+    for (const locale of routing.locales) {
+      revalidatePath(`/${locale}/admin/media`)
+    }
+  }
+
+  return { success: true }
+}
+
 export async function deleteArtworkMedia(id: string) {
   const supabase = await getSupabaseClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -487,6 +539,34 @@ export async function deleteArtworkMedia(id: string) {
 
     // Store info before delete
     const { artwork_id, media_url } = media
+
+    // Safety: block deletion if the same URL is still referenced elsewhere.
+    // Otherwise we'd delete the R2 object and leave broken DB references.
+    const [{ data: otherRefs, error: otherRefsError }, { data: coverRefs, error: coverRefsError }] =
+      await Promise.all([
+        supabase
+          .from("artwork_media")
+          .select("id")
+          .eq("media_url", media_url)
+          .neq("id", id)
+          .limit(1),
+        supabase
+          .from("artworks")
+          .select("id")
+          .eq("cover_image_url", media_url)
+          .limit(1),
+      ])
+
+    if (otherRefsError) throw new Error(otherRefsError.message)
+    if (coverRefsError) throw new Error(coverRefsError.message)
+
+    const isReferencedElsewhere = (otherRefs?.length || 0) > 0 || (coverRefs?.length || 0) > 0
+    if (isReferencedElsewhere) {
+      return {
+        success: false,
+        error: "inUse",
+      }
+    }
 
     // Delete from Supabase first (so if R2 fails, DB is clean)
     const { error: deleteError } = await supabase

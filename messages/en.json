@@ -48,6 +48,9 @@
       "gallery": "Gallery"
     },
     "footer": {
+      "aria": {
+        "navigation": "Footer navigation"
+      },
       "links": {
         "bio": "Bio",
         "drawings": "Drawings",
