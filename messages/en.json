@@ -4,14 +4,6 @@
       "label": "English",
       "locale": "en"
     },
-    "navItems": {
-      "overview": "Overview",
-      "leads": "Leads & Messages",
-      "calendar": "Calendar",
-      "marketing": "Marketing",
-      "analytics": "Analytics",
-      "account": "Perfil"
-    },
     "buttons": {
       "cancel": "Cancel",
       "clear": "Clear",
@@ -19,6 +11,9 @@
       "saveChanges": "Save Changes",
       "saving": "Saving...",
       "viewAll": "View All"
+    },
+    "breadcrumb": {
+      "home": "Home"
     }
   },
   "Pages": {
@@ -104,6 +99,9 @@
     "ArtworkDetail": {
       "buy": "Buy",
       "gallery": "Gallery"
+    },
+    "collection": {
+      "noWorks": "No works in this collection yet."
     },
     "footer": {
       "aria": {

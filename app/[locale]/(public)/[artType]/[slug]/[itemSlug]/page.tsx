@@ -3,20 +3,21 @@ import type { Metadata } from "next"
 import { BreadcrumbNav } from "@/components/breadcrumb-nav"
 import { ArtworkDetail } from "@/components/artwork-detail"
 import { getArtworkInCollection } from "@/lib/data"
-import { ROUTE_TO_ART_TYPE, ART_TYPE_LABELS } from "@/lib/types"
+import { ROUTE_TO_ART_TYPE } from "@/lib/types"
+import { getTranslations } from "next-intl/server"
 
 interface PageProps {
-  params: Promise<{ artType: string; slug: string; itemSlug: string }>
+  params: Promise<{ locale: string; artType: string; slug: string; itemSlug: string }>
 }
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const { artType: route, slug, itemSlug } = await params
+  const { locale, artType: route, slug, itemSlug } = await params
   const artType = ROUTE_TO_ART_TYPE[route]
   if (!artType) return {}
 
-  const data = await getArtworkInCollection(slug, itemSlug, artType)
+  const data = await getArtworkInCollection(slug, itemSlug, artType, locale)
   if (!data) return {}
 
   return {
@@ -54,14 +55,16 @@ export async function generateStaticParams() {
 }
 
 export default async function CollectionItemPage({ params }: PageProps) {
-  const { artType: route, slug, itemSlug } = await params
+  const tMain = await getTranslations('Main')
+  const tPages = await getTranslations('Pages')
+  const { locale, artType: route, slug, itemSlug } = await params
   const artType = ROUTE_TO_ART_TYPE[route]
   if (!artType) notFound()
 
-  const data = await getArtworkInCollection(slug, itemSlug, artType)
+  const data = await getArtworkInCollection(slug, itemSlug, artType, locale)
   if (!data) notFound()
 
-  const label = ART_TYPE_LABELS[artType]
+  const label = tPages(`header.work.${route}`)
 
   return (
     <>
@@ -69,7 +72,7 @@ export default async function CollectionItemPage({ params }: PageProps) {
         <div className="mx-auto max-w-6xl px-6 py-12">
           <BreadcrumbNav
             items={[
-              { label: "Home", href: "/" },
+              { label: tMain('breadcrumb.home'), href: "/" },
               { label, href: `/${route}` },
               {
                 label: data.collection.title,

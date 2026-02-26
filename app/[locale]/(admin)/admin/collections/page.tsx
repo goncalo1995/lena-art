@@ -11,11 +11,11 @@ export default async function AdminCollectionsPage() {
   return (
     <div>
       <div className="flex items-center justify-between gap-4 mb-8">
-        <h1 className="font-serif text-2xl text-foreground">Collections</h1>
+        <h1 className="font-serif text-2xl text-foreground">Coleções</h1>
         <Button asChild size="sm">
           <Link href="/admin/collections/new">
             <Plus className="size-4" />
-            New Collection
+            Nova Coleção
           </Link>
         </Button>
       </div>
@@ -25,16 +25,16 @@ export default async function AdminCollectionsPage() {
           <thead className="bg-muted/50">
             <tr>
               <th className="px-4 py-3 text-left font-medium text-muted-foreground">
-                Title
+                Título
               </th>
               <th className="px-4 py-3 text-left font-medium text-muted-foreground hidden sm:table-cell">
-                Type
+                Tipo
               </th>
               <th className="px-4 py-3 text-left font-medium text-muted-foreground hidden md:table-cell">
-                Published
+                Publicado
               </th>
               <th className="px-4 py-3 text-right font-medium text-muted-foreground">
-                Actions
+                Ações
               </th>
             </tr>
           </thead>
@@ -69,7 +69,7 @@ export default async function AdminCollectionsPage() {
                       >
                         <Pencil className="size-4" />
                         <span className="sr-only">
-                          Edit {collection.title}
+                          Editar {collection.title}
                         </span>
                       </Link>
                     </Button>
@@ -86,7 +86,7 @@ export default async function AdminCollectionsPage() {
 
         {collections.length === 0 && (
           <p className="py-12 text-center text-muted-foreground">
-            No collections yet. Create your first one.
+            Não há coleções ainda. Crie a sua primeira.
           </p>
         )}
       </div>

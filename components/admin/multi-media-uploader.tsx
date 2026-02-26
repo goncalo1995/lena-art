@@ -209,9 +209,9 @@ export function MultiMediaUploader({
             <Upload className="w-6 h-6 text-muted-foreground" />
           </div>
           <div>
-            <p className="text-sm font-medium">Click to upload multiple files</p>
+            <p className="text-sm font-medium">Arraste e solte ou clique para fazer upload de múltiplos arquivos</p>
             <p className="text-xs text-muted-foreground mt-1">
-              PNG, JPG, GIF, WEBP, MP4 up to {maxFileSize}MB each (max {maxFiles} files)
+              PNG, JPG, GIF, WEBP, MP4 up to {maxFileSize}MB cada (max {maxFiles} ficheiros)
             </p>
           </div>
         </label>
@@ -222,7 +222,7 @@ export function MultiMediaUploader({
         <div className="space-y-3">
           <div className="flex justify-between items-center">
             <h3 className="text-sm font-medium">
-              {files.length} file{files.length !== 1 ? 's' : ''} selected
+              {files.length} ficheiro{files.length !== 1 ? 's' : ''} selecionado{files.length !== 1 ? 's' : ''}
             </h3>
             <div className="flex gap-2">
               <Button
@@ -231,14 +231,14 @@ export function MultiMediaUploader({
                 onClick={clearCompleted}
                 disabled={!files.some(f => f.status === 'success')}
               >
-                Clear completed
+                Limpar concluídos
               </Button>
               <Button
                 size="sm"
                 onClick={uploadAll}
                 disabled={isUploading || !files.some(f => f.status === 'pending')}
               >
-                {isUploading ? 'Uploading...' : 'Upload all'}
+                {isUploading ? 'A fazer upload...' : 'Fazer upload de todos'}
               </Button>
             </div>
           </div>

@@ -1,16 +1,17 @@
 import { ArtworkCard } from "./artwork-card"
 import type { Artwork, Collection, ArtType } from "@/lib/types"
 import { ART_TYPE_ROUTES } from "@/lib/types"
-
+import { getTranslations } from "next-intl/server"
 interface CollectionViewProps {
   collection: Collection
   artworks: Artwork[]
 }
 
-export function CollectionView({
+export async function CollectionView({
   collection,
   artworks,
 }: CollectionViewProps) {
+  const t = await getTranslations("Pages.collection")
   const route = ART_TYPE_ROUTES[collection.art_type as ArtType]
   const isPoem = collection.art_type === "poem"
 
@@ -40,7 +41,7 @@ export function CollectionView({
 
       {artworks.length === 0 && (
         <p className="mt-10 text-center text-muted-foreground">
-          No works in this collection yet.
+          {t("noWorks")}
         </p>
       )}
     </div>

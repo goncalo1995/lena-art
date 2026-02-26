@@ -104,16 +104,20 @@ export type Database = {
           created_at: string | null
           creation_date: string | null
           description: string | null
+          description_en: string | null
           dimensions: string | null
           id: string
           is_featured_home: boolean | null
           is_published: boolean | null
           medium: string | null
+          medium_en: string | null
           sale_url: string | null
           short_description: string | null
+          short_description_en: string | null
           slug: string
           sort_order: number | null
           title: string
+          title_en: string | null
           updated_at: string | null
           user_id: string
         }
@@ -124,16 +128,20 @@ export type Database = {
           created_at?: string | null
           creation_date?: string | null
           description?: string | null
+          description_en?: string | null
           dimensions?: string | null
           id?: string
           is_featured_home?: boolean | null
           is_published?: boolean | null
           medium?: string | null
+          medium_en?: string | null
           sale_url?: string | null
           short_description?: string | null
+          short_description_en?: string | null
           slug: string
           sort_order?: number | null
           title: string
+          title_en?: string | null
           updated_at?: string | null
           user_id: string
         }
@@ -144,16 +152,20 @@ export type Database = {
           created_at?: string | null
           creation_date?: string | null
           description?: string | null
+          description_en?: string | null
           dimensions?: string | null
           id?: string
           is_featured_home?: boolean | null
           is_published?: boolean | null
           medium?: string | null
+          medium_en?: string | null
           sale_url?: string | null
           short_description?: string | null
+          short_description_en?: string | null
           slug?: string
           sort_order?: number | null
           title?: string
+          title_en?: string | null
           updated_at?: string | null
           user_id?: string
         }
@@ -173,12 +185,15 @@ export type Database = {
           cover_image_url: string | null
           created_at: string | null
           description: string | null
+          description_en: string | null
           id: string
           is_published: boolean | null
           short_description: string | null
+          short_description_en: string | null
           slug: string
           sort_order: number | null
           title: string
+          title_en: string | null
           updated_at: string | null
           user_id: string
         }
@@ -187,12 +202,15 @@ export type Database = {
           cover_image_url?: string | null
           created_at?: string | null
           description?: string | null
+          description_en?: string | null
           id?: string
           is_published?: boolean | null
           short_description?: string | null
+          short_description_en?: string | null
           slug: string
           sort_order?: number | null
           title: string
+          title_en?: string | null
           updated_at?: string | null
           user_id: string
         }
@@ -201,12 +219,15 @@ export type Database = {
           cover_image_url?: string | null
           created_at?: string | null
           description?: string | null
+          description_en?: string | null
           id?: string
           is_published?: boolean | null
           short_description?: string | null
+          short_description_en?: string | null
           slug?: string
           sort_order?: number | null
           title?: string
+          title_en?: string | null
           updated_at?: string | null
           user_id?: string
         }

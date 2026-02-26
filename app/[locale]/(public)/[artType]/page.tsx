@@ -3,21 +3,24 @@ import type { Metadata } from "next"
 import { BreadcrumbNav } from "@/components/breadcrumb-nav"
 import { ArtworkCard } from "@/components/artwork-card"
 import { getListingItems } from "@/lib/data"
-import { ROUTE_TO_ART_TYPE, ART_TYPE_LABELS } from "@/lib/types"
+import { ROUTE_TO_ART_TYPE } from "@/lib/types"
+import { getTranslations } from 'next-intl/server';
 
 interface PageProps {
-  params: Promise<{ artType: string }>
+  params: Promise<{ locale: string; artType: string }>
 }
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
+  const t = await getTranslations('Pages')
   const { artType: route } = await params
   const artType = ROUTE_TO_ART_TYPE[route]
   if (!artType) return {}
+  const label = t(`header.work.${route}`)
   return {
-    title: ART_TYPE_LABELS[artType],
-    description: `Browse ${ART_TYPE_LABELS[artType].toLowerCase()} by Helena Colaço.`,
+    title: label,
+    description: `Browse ${label.toLowerCase()} by Helena Colaço.`,
   }
 }
 
@@ -31,12 +34,14 @@ export function generateStaticParams() {
 }
 
 export default async function ArtListingPage({ params }: PageProps) {
-  const { artType: route } = await params
+  const t = await getTranslations('Main')
+  const tPages = await getTranslations('Pages')
+  const { locale, artType: route } = await params
   const artType = ROUTE_TO_ART_TYPE[route]
   if (!artType) notFound()
 
-  const items = await getListingItems(artType)
-  const label = ART_TYPE_LABELS[artType]
+  const items = await getListingItems(artType, locale)
+  const label = tPages(`header.work.${route}`)
   const isPoem = artType === "poem"
 
   return (
@@ -44,7 +49,7 @@ export default async function ArtListingPage({ params }: PageProps) {
       <main>
         <div className="mx-auto max-w-6xl px-6 py-12">
           <BreadcrumbNav
-            items={[{ label: "Home", href: "/" }, { label }]}
+            items={[{ label: t('breadcrumb.home'), href: "/" }, { label }]}
           />
           <h1 className="mt-6 font-serif text-3xl text-foreground md:text-4xl">
             {label}

@@ -31,13 +31,6 @@ export const ART_TYPE_LABELS: Record<string, string> = {
   poem: "Poetry",
 }
 
-export const ART_TYPE_SINGULAR: Record<ArtType, string> = {
-  drawing: "Drawing",
-  painting: "Painting",
-  photography: "Photography",
-  poem: "Poem",
-}
-
 export const ART_TYPE_ROUTES: Record<ArtType, string> = {
   drawing: "drawings",
   painting: "paintings",

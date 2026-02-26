@@ -5,7 +5,7 @@ import { NewsletterForm } from "@/components/newsletter-form"
 import { ContactsSection } from "@/components/contacts-section"
 import { getHomeFeaturedArtworks } from "@/lib/data"
 import type { ArtType } from "@/lib/types"
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 
 type HomePageParams = Promise<{ locale: string; }>;
 
@@ -19,9 +19,7 @@ export async function generateMetadata({ params: paramsPromise }: { params: Home
 }
 
 export default async function HomePage({ params: paramsPromise }: { params: HomePageParams }) {
-  const { locale } = await paramsPromise;
-  setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: 'Pages.home' });
+  const t = await getTranslations('Pages.home');
   const artTypes: ArtType[] = ["drawing", "painting", "photography", "poem"]
   const artworksByType = await Promise.all(
     artTypes.map(async (type) => ({

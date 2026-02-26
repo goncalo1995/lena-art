@@ -1,14 +1,16 @@
 import { Link } from "@/i18n/navigation"
-import { getAllArtworks, getAllCollections } from "@/lib/data"
+import { getAllArtworks, getAllCollections, getSubscribers, getSubscribersCount } from "@/lib/data"
 import { ART_TYPE_LABELS, ART_TYPES } from "@/lib/types"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
 export default async function AdminDashboardPage() {
-  const [artworks, collections] = await Promise.all([
+  const [artworks, collections, subscribers] = await Promise.all([
     getAllArtworks(),
     getAllCollections(),
+    getSubscribers(5)
   ])
 
   const countsByType = ART_TYPES.map((type) => ({
@@ -20,18 +22,18 @@ export default async function AdminDashboardPage() {
   return (
     <div>
       <div className="flex items-center justify-between gap-4 mb-8">
-        <h1 className="font-serif text-2xl text-foreground">Dashboard</h1>
+        <h1 className="font-serif text-2xl text-foreground">Visão Geral</h1>
         <div className="flex gap-3">
           <Button asChild size="sm">
             <Link href="/admin/artworks/new">
               <Plus className="size-4" />
-              New Artwork
+              Nova Obra
             </Link>
           </Button>
           <Button asChild size="sm" variant="outline">
             <Link href="/admin/collections/new">
               <Plus className="size-4" />
-              New Collection
+              Nova Coleção
             </Link>
           </Button>
         </div>
@@ -52,15 +54,15 @@ export default async function AdminDashboardPage() {
         ))}
       </div>
 
-      <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">Recent Artworks</CardTitle>
+            <CardTitle className="text-base">Obras Recentes</CardTitle>
           </CardHeader>
           <CardContent>
             {artworks.length === 0 ? (
               <p className="text-sm text-muted-foreground">
-                No artworks yet.
+                Ainda não há obras.
               </p>
             ) : (
               <ul className="flex flex-col gap-3">
@@ -82,12 +84,12 @@ export default async function AdminDashboardPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">Collections</CardTitle>
+            <CardTitle className="text-base">Coleções</CardTitle>
           </CardHeader>
           <CardContent>
             {collections.length === 0 ? (
               <p className="text-sm text-muted-foreground">
-                No collections yet.
+                Ainda não há coleções.
               </p>
             ) : (
               <ul className="flex flex-col gap-3">
@@ -99,6 +101,42 @@ export default async function AdminDashboardPage() {
                     <span className="text-foreground truncate">{c.title}</span>
                     <span className="text-muted-foreground shrink-0 ml-4">
                       {ART_TYPE_LABELS[c.art_type]}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Últimos Subscritores</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {subscribers.length === 0 ? (
+              <p className="text-sm text-muted-foreground">
+                Ainda não há subscritores.
+              </p>
+            ) : (
+              <ul className="flex flex-col gap-3">
+                {subscribers.slice(0, 5).map((s) => (
+                  <li
+                    key={s.id}
+                    className="flex items-center justify-between text-sm"
+                  >
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <span className="text-foreground truncate">{s.name}</span>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>{s.email}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                    <span className="text-muted-foreground shrink-0 ml-4">
+                      {s.subscribed_at
+                        ? new Date(s.subscribed_at).toLocaleDateString("pt-PT")
+                        : "N/A"}
                     </span>
                   </li>
                 ))}

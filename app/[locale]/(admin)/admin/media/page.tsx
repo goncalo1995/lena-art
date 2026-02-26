@@ -31,9 +31,9 @@ export default async function MediaPage() {
   return (
     <div className="p-6 space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-serif">Media Library</h1>
+        <h1 className="text-2xl font-serif">Imagens e Vídeos</h1>
         <p className="text-sm text-muted-foreground">
-          {allMedia?.length || 0} items total
+          {allMedia?.length || 0} items
         </p>
       </div>
       <div className="w-full">
@@ -45,13 +45,13 @@ export default async function MediaPage() {
       <Tabs defaultValue="all" className="space-y-6">
         <TabsList>
           <TabsTrigger value="all">
-            All ({allMedia?.length || 0})
+            Todos ({allMedia?.length || 0})
           </TabsTrigger>
           <TabsTrigger value="images">
-            Images ({images.length})
+            Imagens ({images.length})
           </TabsTrigger>
           <TabsTrigger value="videos">
-            Videos ({videos.length})
+            Vídeos ({videos.length})
           </TabsTrigger>
         </TabsList>
 

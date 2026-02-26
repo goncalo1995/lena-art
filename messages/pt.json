@@ -4,20 +4,6 @@
       "label": "Português",
       "locale": "pt"
     },
-    "navItems": {
-      "overview": "Visão Geral",
-      "leads": "Leads & Mensagens",
-      "calendar": "Calendário",
-      "marketing": "Marketing",
-      "analytics": "Análise",
-      "account": "Perfil"
-    },
-    "navUser": {
-      "profile": "Perfil",
-      "billing": "Faturação",
-      "upgrade": "Upgrade",
-      "logout": "Sair"
-    },
     "buttons": {
       "cancel": "Cancelar",
       "clear": "Limpar",
@@ -25,6 +11,9 @@
       "saveChanges": "Guardar Alterações",
       "saving": "A guardar...",
       "viewAll": "Ver Todos"
+    },
+    "breadcrumb": {
+      "home": "Início"
     }
   },
   "Pages": {
@@ -110,6 +99,9 @@
     "ArtworkDetail": {
       "buy": "Comprar",
       "gallery": "Galeria"
+    },
+    "collection": {
+      "noWorks": "Ainda não há obras nesta coleção."
     },
     "footer": {
       "aria": {

@@ -2,11 +2,11 @@ import type { NextConfig } from "next";
 import createNextIntlPlugin from 'next-intl/plugin';
 
 const nextConfig: NextConfig = {
-  experimental: {
-    // serverActions: {
-    //   bodySizeLimit: '5mb',
-    // },
-  },
+  // experimental: {
+  //   serverActions: {
+  //     bodySizeLimit: '5mb',
+  //   },
+  // },
   typescript: {
     // ignoreBuildErrors: true,
   },
@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'images.helenacolaco.pt',
+        hostname: 'media.helenacolaco.com',
       },
       {
         protocol: 'https',
@@ -22,11 +22,6 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**', // Permitir qualquer caminho nesse hostname
       },
-      // Pode adicionar mais hostnames aqui, como os do Pexels para as imagens dummy
-      {
-        protocol: 'https',
-        hostname: 'vm-ok0lbwbwrv1e1agczur0la.vusercontent.net',
-      }
     ],
   },
 }

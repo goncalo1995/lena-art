@@ -36,18 +36,18 @@ export function MediaGrid({ media }: MediaGridProps) {
   }
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Delete this media item? It will give error if any artwork is using it.')) return
+    if (!confirm('Apagar este ficheiro? Pode dar erro se alguma obra estiver a usá-lo.')) return
     try {
       const result = await deleteArtworkMedia(id)
       if (result && typeof result === 'object' && 'success' in result && result.success === false) {
         if ((result as any).error === 'inUse') {
-          alert('This file is still being used elsewhere. Remove other usages first, then delete again.')
+          alert('Este ficheiro ainda está a ser usado noutro lugar. Remova as outras utilizações primeiro, depois apague novamente.')
           return
         }
       }
       router.refresh()
     } catch (error) {
-      console.error('Failed to delete:', error)
+      console.error('Falha ao apagar:', error)
     }
   }
 
@@ -67,9 +67,9 @@ export function MediaGrid({ media }: MediaGridProps) {
     return (
       <div className="text-center py-12 border rounded-lg bg-muted/10">
         <ImageIcon className="w-12 h-12 mx-auto text-muted-foreground mb-3" />
-        <p className="text-muted-foreground">No media uploaded yet</p>
+        <p className="text-muted-foreground">Ainda sem ficheiros</p>
         <p className="text-sm text-muted-foreground mt-1">
-          Upload images or videos in artwork forms
+          Faça upload de imagens ou vídeos nos formulários de arte
         </p>
       </div>
     )
@@ -88,7 +88,7 @@ export function MediaGrid({ media }: MediaGridProps) {
                 : 'text-muted-foreground hover:text-foreground'
             }`}
           >
-            Grid
+            Grelha
           </button>
           <button
             onClick={() => setView('list')}
@@ -98,7 +98,7 @@ export function MediaGrid({ media }: MediaGridProps) {
                 : 'text-muted-foreground hover:text-foreground'
             }`}
           >
-            List
+            Lista
           </button>
         </div>
       </div>
@@ -263,9 +263,9 @@ export function MediaGrid({ media }: MediaGridProps) {
       >
         <DialogContent className="max-w-4xl">
           <DialogHeader>
-            <DialogTitle>Media Details</DialogTitle>
+            <DialogTitle>Detalhes</DialogTitle>
             <DialogDescription>
-              View and manage your media files
+              Ver e gerir os seus ficheiros
             </DialogDescription>
           </DialogHeader>
           
@@ -293,20 +293,20 @@ export function MediaGrid({ media }: MediaGridProps) {
               {/* Info */}
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div>
-                  <p className="text-muted-foreground">Type</p>
+                  <p className="text-muted-foreground">Tipo</p>
                   <p className="font-medium capitalize">
                     {selectedItem.media_type || 'image'}
                   </p>
                 </div>
                 <div>
-                  <p className="text-muted-foreground">Uploaded</p>
+                  <p className="text-muted-foreground">Data de upload</p>
                   <p className="font-medium">
                     {formatDate(selectedItem.created_at)}
                   </p>
                 </div>
                 <div className="col-span-2 space-y-2">
                   <div className="flex items-center justify-between gap-3">
-                    <p className="text-muted-foreground">Caption</p>
+                    <p className="text-muted-foreground">Legenda</p>
                     <Button
                       size="sm"
                       variant="outline"
@@ -336,13 +336,13 @@ export function MediaGrid({ media }: MediaGridProps) {
                 </div>
                 {selectedItem.file_name && (
                   <div className="col-span-2">
-                    <p className="text-muted-foreground">File Name</p>
+                    <p className="text-muted-foreground">Nome do ficheiro</p>
                     <p className="font-medium">{selectedItem.file_name}</p>
                   </div>
                 )}
                 {selectedItem.file_size && (
                   <div>
-                    <p className="text-muted-foreground">File Size</p>
+                    <p className="text-muted-foreground">Tamanho do ficheiro</p>
                     <p className="font-medium">{(selectedItem.file_size / 1024 / 1024).toFixed(2)} MB</p>
                   </div>
                 )}

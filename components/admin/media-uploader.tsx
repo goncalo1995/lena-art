@@ -168,7 +168,7 @@ export function MediaUploader({ onUploadComplete, artworkId }: MediaUploaderProp
               </svg>
             </div>
             <div>
-              <p className="text-sm font-medium">Click to upload</p>
+              <p className="text-sm font-medium">Arraste e solte ou clique para fazer upload</p>
               <p className="text-xs text-muted-foreground mt-1">
                 PNG, JPG, GIF, WEBP, MP4 up to 10MB
               </p>

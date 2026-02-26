@@ -68,6 +68,14 @@ export function ArtworkForm({ artwork, collections }: ArtworkFormProps) {
         </label>
 
         <label className="flex flex-col gap-1.5">
+          <span className="text-sm text-muted-foreground">Título (EN)</span>
+          <Input
+            name="title_en"
+            defaultValue={(artwork as any)?.title_en || ""}
+          />
+        </label>
+
+        <label className="flex flex-col gap-1.5">
           <span className="text-sm text-muted-foreground">Tipo de Arte *</span>
           <select
             name="art_type"
@@ -119,11 +127,33 @@ export function ArtworkForm({ artwork, collections }: ArtworkFormProps) {
 
         <label className="flex flex-col gap-1.5">
           <span className="text-sm text-muted-foreground">
+            Descrição Curta (EN)
+          </span>
+          <Input
+            name="short_description_en"
+            defaultValue={(artwork as any)?.short_description_en || ""}
+          />
+        </label>
+
+        <label className="flex flex-col gap-1.5">
+          <span className="text-sm text-muted-foreground">
             Descrição Completa (para página de detalhe)
           </span>
           <textarea
             name="description"
             defaultValue={artwork?.description || ""}
+            rows={5}
+            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+          />
+        </label>
+
+        <label className="flex flex-col gap-1.5">
+          <span className="text-sm text-muted-foreground">
+            Descrição Completa (EN)
+          </span>
+          <textarea
+            name="description_en"
+            defaultValue={(artwork as any)?.description_en || ""}
             rows={5}
             className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
           />
@@ -206,6 +236,13 @@ export function ArtworkForm({ artwork, collections }: ArtworkFormProps) {
               Medium (ex: Óleo em tela)
             </span>
             <Input name="medium" defaultValue={artwork?.medium || ""} />
+          </label>
+
+          <label className="flex flex-col gap-1.5">
+            <span className="text-sm text-muted-foreground">
+              Medium (EN)
+            </span>
+            <Input name="medium_en" defaultValue={(artwork as any)?.medium_en || ""} />
           </label>
 
           <label className="flex flex-col gap-1.5">

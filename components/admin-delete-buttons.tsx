@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation"
 import { Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { deleteArtwork, deleteCollection } from "@/lib/actions"
+import { deleteArtwork, deleteCollection, deleteSubscriberById } from "@/lib/actions"
 
 export function DeleteArtworkButton({
   id,
@@ -15,19 +15,19 @@ export function DeleteArtworkButton({
   const router = useRouter()
 
   async function handleDelete() {
-    if (!confirm(`Delete "${title}"? This cannot be undone.`)) return
+    if (!confirm(`Apagar "${title}"? Esta ação é irreversível.`)) return
     try {
       await deleteArtwork(id)
       router.refresh()
     } catch (e) {
-      alert(e instanceof Error ? e.message : "Failed to delete")
+      alert(e instanceof Error ? e.message : "Falha ao apagar")
     }
   }
 
   return (
     <Button size="icon-sm" variant="ghost" onClick={handleDelete}>
       <Trash2 className="size-4 text-destructive" />
-      <span className="sr-only">Delete {title}</span>
+      <span className="sr-only">Apagar {title}</span>
     </Button>
   )
 }
@@ -44,7 +44,7 @@ export function DeleteCollectionButton({
   async function handleDelete() {
     if (
       !confirm(
-        `Delete collection "${title}"? Artworks in this collection will become standalone.`
+        `Apagar coleção "${title}"? As obras nesta coleção tornar-se-ão independentes.`
       )
     )
       return
@@ -52,14 +52,41 @@ export function DeleteCollectionButton({
       await deleteCollection(id)
       router.refresh()
     } catch (e) {
-      alert(e instanceof Error ? e.message : "Failed to delete")
+      alert(e instanceof Error ? e.message : "Falha ao apagar")
     }
   }
 
   return (
     <Button size="icon-sm" variant="ghost" onClick={handleDelete}>
       <Trash2 className="size-4 text-destructive" />
-      <span className="sr-only">Delete {title}</span>
+      <span className="sr-only">Apagar {title}</span>
+    </Button>
+  )
+}
+
+export function DeleteSubscriberButton({
+  id,
+  email,
+}: {
+  id: string
+  email: string
+}) {
+  const router = useRouter()
+
+  async function handleDelete() {
+    if (!confirm(`Apagar inscrito "${email}"? Esta ação é irreversível.`)) return
+    try {
+      await deleteSubscriberById(id)
+      router.refresh()
+    } catch (e) {
+      alert(e instanceof Error ? e.message : "Falha ao apagar")
+    }
+  }
+
+  return (
+    <Button size="icon-sm" variant="ghost" onClick={handleDelete}>
+      <Trash2 className="size-4 text-destructive" />
+      <span className="sr-only">Apagar {email}</span>
     </Button>
   )
 }

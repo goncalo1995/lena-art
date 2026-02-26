@@ -100,13 +100,17 @@ export async function createArtwork(formData: FormData) {
   const title = rawTitle.trim()
   const isPoem = art_type === "poem"
   const finalTitle = title || (isPoem ? "Untitled" : title)
+  const title_en = (formData.get("title_en") as string) || null
   const slug = title ? slugify(title) : isPoem ? `poem-${Date.now()}` : slugify(title)
   const collection_id = (formData.get("collection_id") as string) || null
   const short_description = (formData.get("short_description") as string) || null
+  const short_description_en = (formData.get("short_description_en") as string) || null
   const description = (formData.get("description") as string) || null
+  const description_en = (formData.get("description_en") as string) || null
   const creation_date = (formData.get("creation_date") as string) || null
   const dimensions = (formData.get("dimensions") as string) || null
   const medium = (formData.get("medium") as string) || null
+  const medium_en = (formData.get("medium_en") as string) || null
   const cover_image_url = (formData.get("cover_image_url") as string) || null
   const sale_url = (formData.get("sale_url") as string) || null
   const is_published = formData.has('is_published')
@@ -127,14 +131,18 @@ export async function createArtwork(formData: FormData) {
     .from("artworks")
     .insert({
       title: finalTitle,
+      title_en,
       slug,
       art_type,
       collection_id,
       short_description,
+      short_description_en,
       description,
+      description_en,
       creation_date,
       dimensions,
       medium,
+      medium_en,
       cover_image_url,
       sale_url,
       is_published,
@@ -182,15 +190,20 @@ export async function updateArtwork(id: string, formData: FormData) {
   const slug = title ? slugify(title) : isPoem ? (oldArtwork?.slug || `poem-${Date.now()}`) : slugify(title)
   const collection_id = (formData.get("collection_id") as string) || null
   const short_description = (formData.get("short_description") as string) || null
+  const short_description_en = (formData.get("short_description_en") as string) || null
   const description = (formData.get("description") as string) || null
+  const description_en = (formData.get("description_en") as string) || null
   const creation_date = (formData.get("creation_date") as string) || null
   const dimensions = (formData.get("dimensions") as string) || null
   const medium = (formData.get("medium") as string) || null
+  const medium_en = (formData.get("medium_en") as string) || null
   const cover_image_url = (formData.get("cover_image_url") as string) || null
   const sale_url = (formData.get("sale_url") as string) || null
   const is_published = formData.has('is_published')
   const is_featured_home = formData.has('is_featured_home')
   const sort_order = parseInt((formData.get("sort_order") as string) || "0")
+
+  const title_en = (formData.get("title_en") as string) || null
   
   // Get new collection slug if artwork is in a collection
   let newCollectionSlug: string | undefined;
@@ -210,14 +223,18 @@ export async function updateArtwork(id: string, formData: FormData) {
     .from("artworks")
     .update({
       title: finalTitle,
+      title_en,
       slug,
       art_type,
       collection_id,
       short_description,
+      short_description_en,
       description,
+      description_en,
       creation_date,
       dimensions,
       medium,
+      medium_en,
       cover_image_url,
       sale_url,
       is_published,
@@ -300,10 +317,13 @@ export async function createCollection(formData: FormData) {
   if (!user) throw new Error("Unauthorized")
 
   const title = formData.get("title") as string
+  const title_en = (formData.get("title_en") as string) || null
   const slug = slugify(title)
   const art_type = formData.get("art_type") as ArtType
   const short_description = (formData.get("short_description") as string) || null
+  const short_description_en = (formData.get("short_description_en") as string) || null
   const description = (formData.get("description") as string) || null
+  const description_en = (formData.get("description_en") as string) || null
   const cover_image_url = (formData.get("cover_image_url") as string) || null
   const is_published = formData.has('is_published')
   const sort_order = parseInt((formData.get("sort_order") as string) || "0")
@@ -312,10 +332,13 @@ export async function createCollection(formData: FormData) {
     .from("collections")
     .insert({
       title,
+      title_en,
       slug,
       art_type,
       short_description,
+      short_description_en,
       description,
+      description_en,
       cover_image_url,
       is_published,
       sort_order,
@@ -352,10 +375,13 @@ export async function updateCollection(id: string, formData: FormData) {
     .single()
 
   const title = formData.get("title") as string
+  const title_en = (formData.get("title_en") as string) || null
   const newSlug = slugify(title)
   const art_type = formData.get("art_type") as ArtType // Assuming doesn't change
   const short_description = (formData.get("short_description") as string) || null
+  const short_description_en = (formData.get("short_description_en") as string) || null
   const description = (formData.get("description") as string) || null
+  const description_en = (formData.get("description_en") as string) || null
   const cover_image_url = (formData.get("cover_image_url") as string) || null
   const is_published = formData.has('is_published')
   const sort_order = parseInt((formData.get("sort_order") as string) || "0")
@@ -364,10 +390,13 @@ export async function updateCollection(id: string, formData: FormData) {
     .from("collections")
     .update({
       title,
+      title_en,
       slug: newSlug,
       art_type,
       short_description,
+      short_description_en,
       description,
+      description_en,
       cover_image_url,
       is_published,
       sort_order,
@@ -817,3 +846,9 @@ export async function subscribeNewsletter(formData: FormData) {
   }
 }
 
+export async function deleteSubscriberById(id: string): Promise<void> {
+  const supabase = await getSupabaseClient()
+  if (supabase) {
+    await supabase.from("newsletter_subscribers").delete().eq("id", id)
+  }
+}

@@ -3,8 +3,8 @@ Website for Helena Colaço Salazar
 
 ## Checklist prod
 
-- [ ] Deploy to Vercel
-- [ ] Buy domain
+- [X] Deploy to Vercel
+- [X] Buy domain
 - [ ] Posthog account + Authorized Domains and update app .env
 - [ ] Setup domain in cloudflare
 - [ ] setup domain in vercel

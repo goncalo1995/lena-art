@@ -63,6 +63,14 @@ export function CollectionForm({ collection }: CollectionFormProps) {
       </label>
 
       <label className="flex flex-col gap-1.5">
+        <span className="text-sm text-muted-foreground">Título (EN)</span>
+        <Input
+          name="title_en"
+          defaultValue={(collection as any)?.title_en || ""}
+        />
+      </label>
+
+      <label className="flex flex-col gap-1.5">
         <span className="text-sm text-muted-foreground">Tipo de Arte *</span>
         <select
           name="art_type"
@@ -90,11 +98,33 @@ export function CollectionForm({ collection }: CollectionFormProps) {
 
       <label className="flex flex-col gap-1.5">
         <span className="text-sm text-muted-foreground">
+          Descrição Curta (EN)
+        </span>
+        <Input
+          name="short_description_en"
+          defaultValue={(collection as any)?.short_description_en || ""}
+        />
+      </label>
+
+      <label className="flex flex-col gap-1.5">
+        <span className="text-sm text-muted-foreground">
           Descrição Completa
         </span>
         <textarea
           name="description"
           defaultValue={collection?.description || ""}
+          rows={4}
+          className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+        />
+      </label>
+
+      <label className="flex flex-col gap-1.5">
+        <span className="text-sm text-muted-foreground">
+          Descrição Completa (EN)
+        </span>
+        <textarea
+          name="description_en"
+          defaultValue={(collection as any)?.description_en || ""}
           rows={4}
           className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
         />

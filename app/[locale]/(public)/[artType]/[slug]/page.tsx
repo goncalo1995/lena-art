@@ -4,20 +4,21 @@ import { BreadcrumbNav } from "@/components/breadcrumb-nav"
 import { ArtworkDetail } from "@/components/artwork-detail"
 import { CollectionView } from "@/components/collection-view"
 import { getCollectionBySlug, getArtworkBySlug } from "@/lib/data"
-import { ROUTE_TO_ART_TYPE, ART_TYPE_LABELS } from "@/lib/types"
+import { ROUTE_TO_ART_TYPE } from "@/lib/types"
+import { getTranslations } from "next-intl/server"
 
 interface PageProps {
-  params: Promise<{ artType: string; slug: string }>
+  params: Promise<{ locale: string; artType: string; slug: string }>
 }
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const { artType: route, slug } = await params
+  const { locale, artType: route, slug } = await params
   const artType = ROUTE_TO_ART_TYPE[route]
   if (!artType) return {}
 
-  const collectionData = await getCollectionBySlug(slug, artType)
+  const collectionData = await getCollectionBySlug(slug, artType, locale)
   if (collectionData) {
     return {
       title: collectionData.collection.title,
@@ -25,7 +26,7 @@ export async function generateMetadata({
     }
   }
 
-  const artwork = await getArtworkBySlug(slug, artType)
+  const artwork = await getArtworkBySlug(slug, artType, locale)
   if (artwork) {
     return {
       title: artwork.title,
@@ -58,8 +59,9 @@ export async function generateStaticParams() {
 
   const artworkParams = (artworks || [])
     .map((a) => {
-      const artTypeRoute = a.art_type ? (a.art_type in ART_TYPE_LABELS ? a.art_type : null) : null
-      const route = artTypeRoute ? Object.entries(ROUTE_TO_ART_TYPE).find(([, v]) => v === artTypeRoute)?.[0] : null
+      const route = a.art_type
+        ? Object.entries(ROUTE_TO_ART_TYPE).find(([, v]) => v === a.art_type)?.[0]
+        : null
       if (!route || !a.slug) return null
       return { artType: route, slug: a.slug }
     })
@@ -67,8 +69,9 @@ export async function generateStaticParams() {
 
   const collectionParams = (collections || [])
     .map((c) => {
-      const artTypeRoute = c.art_type ? (c.art_type in ART_TYPE_LABELS ? c.art_type : null) : null
-      const route = artTypeRoute ? Object.entries(ROUTE_TO_ART_TYPE).find(([, v]) => v === artTypeRoute)?.[0] : null
+      const route = c.art_type
+        ? Object.entries(ROUTE_TO_ART_TYPE).find(([, v]) => v === c.art_type)?.[0]
+        : null
       if (!route || !c.slug) return null
       return { artType: route, slug: c.slug }
     })
@@ -78,14 +81,16 @@ export async function generateStaticParams() {
 }
 
 export default async function SlugPage({ params }: PageProps) {
-  const { artType: route, slug } = await params
+  const tMain = await getTranslations('Main')
+  const tPages = await getTranslations('Pages')
+  const { locale, artType: route, slug } = await params
   const artType = ROUTE_TO_ART_TYPE[route]
   if (!artType) notFound()
 
-  const label = ART_TYPE_LABELS[artType]
+  const label = tPages(`header.work.${route}`)
 
   // Try collection first
-  const collectionData = await getCollectionBySlug(slug, artType)
+  const collectionData = await getCollectionBySlug(slug, artType, locale)
   if (collectionData) {
     return (
       <>
@@ -93,7 +98,7 @@ export default async function SlugPage({ params }: PageProps) {
           <div className="mx-auto max-w-6xl px-6 py-12">
             <BreadcrumbNav
               items={[
-                { label: "Home", href: "/" },
+                { label: tMain('breadcrumb.home'), href: "/" },
                 { label, href: `/${route}` },
                 { label: collectionData.collection.title },
               ]}
@@ -111,7 +116,7 @@ export default async function SlugPage({ params }: PageProps) {
   }
 
   // Try standalone artwork
-  const artwork = await getArtworkBySlug(slug, artType)
+  const artwork = await getArtworkBySlug(slug, artType, locale)
   if (!artwork) notFound()
 
   return (
@@ -120,7 +125,7 @@ export default async function SlugPage({ params }: PageProps) {
         <div className="mx-auto max-w-6xl px-6 py-12">
           <BreadcrumbNav
             items={[
-              { label: "Home", href: "/" },
+              { label: tMain('breadcrumb.home'), href: "/" },
               { label, href: `/${route}` },
               { label: artwork.title },
             ]}

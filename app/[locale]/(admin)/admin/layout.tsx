@@ -4,6 +4,7 @@ import {
   Image as ImageIcon,
   FolderOpen,
   ArrowLeft,
+  Mail,
 } from "lucide-react"
 import { AdminSignOut } from "@/components/admin-sign-out"
 import { Metadata } from "next"
@@ -41,28 +42,33 @@ export default function AdminLayout({
           href="/admin"
           className="font-serif text-lg tracking-wide text-sidebar-foreground mb-8"
         >
-          Admin Panel
+          Painel de Gestão
         </Link>
         <nav className="flex flex-1 flex-col gap-1">
           <SidebarLink
             href="/admin"
             icon={<LayoutDashboard className="size-4" />}
-            label="Dashboard"
+            label="Visão Geral"
           />
           <SidebarLink
             href="/admin/artworks"
             icon={<ImageIcon className="size-4" />}
-            label="Artworks"
+            label="Obras"
           />
           <SidebarLink
             href="/admin/collections"
             icon={<FolderOpen className="size-4" />}
-            label="Collections"
+            label="Coleções"
           />
           <SidebarLink
             href="/admin/media"
             icon={<FolderOpen className="size-4" />}
-            label="Media"
+            label="Mídia"
+          />
+          <SidebarLink
+            href="/admin/subscribers"
+            icon={<Mail className="size-4" />}
+            label="Subscritores"
           />
         </nav>
         <div className="flex flex-col gap-2 mt-auto pt-6 border-t border-sidebar-border">
@@ -71,7 +77,7 @@ export default function AdminLayout({
             className="flex items-center gap-2 text-sm text-sidebar-foreground/70 hover:text-sidebar-foreground transition-colors"
           >
             <ArrowLeft className="size-4" />
-            View Site
+            Ver Site
           </Link>
           <AdminSignOut />
         </div>
@@ -84,17 +90,17 @@ export default function AdminLayout({
             href="/admin"
             className="font-serif text-lg tracking-wide text-sidebar-foreground"
           >
-            Admin
+            Painel
           </Link>
           <nav className="flex items-center gap-4">
             <Link href="/admin/artworks" className="text-sm text-sidebar-foreground">
-              Artworks
+              Obras
             </Link>
             <Link href="/admin/collections" className="text-sm text-sidebar-foreground">
-              Collections
+              Coleções
             </Link>
             <Link href="/admin/media" className="text-sm text-sidebar-foreground">
-              Media
+              Mídia
             </Link>
             <Link href="/" className="text-sm text-sidebar-foreground/70">
               Site
