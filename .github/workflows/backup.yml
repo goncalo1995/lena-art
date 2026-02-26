@@ -1,0 +1,68 @@
+name: Database Backup
+
+on:
+  schedule:
+    # Run daily at 3 AM UTC
+    - cron: "0 3 * * *"
+  # Allow manual trigger
+  workflow_dispatch:
+  # Optional: Allow webhook trigger for "Backup Now" button
+  repository_dispatch:
+    types: [backup-now]
+
+jobs:
+  backup:
+    name: Backup Database to R2
+    runs-on: ubuntu-latest
+    # Prevent concurrent backups
+    concurrency:
+      group: database-backup
+      cancel-in-progress: false
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            postgresql-client \
+            rclone \
+            jq \
+            bc
+
+      - name: Verify tools
+        run: |
+          pg_dump --version
+          rclone version
+          jq --version
+          bc --version
+
+      - name: Configure rclone for Cloudflare R2
+        run: |
+          rclone config create r2 s3 \
+            provider Cloudflare \
+            access_key_id ${{ secrets.R2_ACCESS_KEY }} \
+            secret_access_key ${{ secrets.R2_SECRET_KEY }} \
+            endpoint ${{ secrets.R2_ENDPOINT }} \
+            --non-interactive
+
+      - name: Test R2 connection
+        run: |
+          rclone lsd r2: || echo "Bucket may need creation"
+          # Create bucket if it doesn't exist
+          rclone mkdir r2:db-backups 2>/dev/null || true
+
+      - name: Run backup
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          chmod +x scripts/backup-db.sh
+          scripts/backup-db.sh
+
+      - name: List recent backups
+        if: always()
+        run: |
+          echo "Recent backups:"
+          rclone lsf r2:db-backups/daily/ --max-depth 1 | tail -n 5
