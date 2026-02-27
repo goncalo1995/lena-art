@@ -16,12 +16,12 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'media.helenacolaco.com',
       },
-      {
-        protocol: 'https',
-        hostname: 'pub-f07c1a625b1d42f4966b622eed2489fe.r2.dev',
-        port: '',
-        pathname: '/**', // Permitir qualquer caminho nesse hostname
-      },
+      // {
+      //   protocol: 'https',
+      //   hostname: 'pub-f07c1a625b1d42f4966b622eed2489fe.r2.dev',
+      //   port: '',
+      //   pathname: '/**', // Permitir qualquer caminho nesse hostname
+      // },
     ],
   },
 }

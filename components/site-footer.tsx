@@ -50,10 +50,10 @@ export async function SiteFooter() {
           {/* Contact / Social */}
           <address className="not-italic flex items-center gap-4 text-sm">
             <a
-              href="mailto:helena@helenacolaco.com"
+              href="mailto:colaco.art@yahoo.com"
               className="text-muted-foreground hover:text-primary transition-colors"
             >
-              helena@helenacolaco.com
+              colaco.art@yahoo.com
             </a>
             <span className="text-muted-foreground/40">•</span>
             <a

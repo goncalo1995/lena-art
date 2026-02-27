@@ -16,11 +16,11 @@ export async function ContactsSection() {
 
         <div className="mt-10 flex flex-col items-center gap-6 sm:flex-row sm:justify-center sm:gap-12">
           <a
-            href="mailto:helena@helenacolaco.com"
+            href="mailto:colaco.art@yahoo.com"
             className="flex items-center gap-3 text-sm text-foreground transition-colors hover:text-primary"
           >
             <Mail className="size-5 text-primary" />
-            helena@helenacolaco.com
+            colaco.art@yahoo.com
           </a>
           <a
             href="tel:+351913846901"

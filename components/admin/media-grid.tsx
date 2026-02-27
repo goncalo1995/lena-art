@@ -144,11 +144,11 @@ export function MediaGrid({ media }: MediaGridProps) {
                 )}
               </button>
 
-              {/* Caption */}
+              {/* File name or caption */}
               {(item.caption || item.file_name) && (
                 <div className="px-3 py-2">
                   <p className="text-xs text-muted-foreground truncate">
-                    {item.caption || item.file_name}
+                    {item.file_name || item.caption}
                   </p>
                 </div>
               )}
@@ -215,8 +215,13 @@ export function MediaGrid({ media }: MediaGridProps) {
               {/* Info */}
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium truncate">
-                  {item.caption || item.file_name || 'Untitled'}
+                  {item.file_name || 'Untitled'}
                 </p>
+                {item.caption && (
+                  <p className="text-xs truncate">
+                    {item.caption}
+                  </p>
+                )}
                 <p className="text-xs text-muted-foreground">
                   {item.media_type} · {formatDate(item.created_at)}
                 </p>

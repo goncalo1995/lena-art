@@ -25,7 +25,7 @@ export async function cleanupSingleFile(url: string) {
   
   try {
     const urlObj = new URL(url);
-    // URL format: https://pub-f07c1a625b1d42f4966b622eed2489fe.r2.dev/uploads/filename.jpg
+    // URL format: https://media.helenacolaco.com/uploads/filename.jpg
     const pathParts = urlObj.pathname.split('/')
     const key = pathParts.slice(1).join('/') // Remove the leading slash
     

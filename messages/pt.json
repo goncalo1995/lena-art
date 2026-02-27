@@ -119,53 +119,53 @@
       "copyright": "© {year} Helena Colaço. Todos os direitos reservados."
     },
     "cookieConsent": {
-      "title": "Cookies e analítica",
-      "description": "Usamos cookies para funcionalidades básicas e, com a sua autorização, analítica para melhorar este website.",
-      "privacyLink": "Ler a Política de Privacidade",
-      "accept": "Aceitar analítica",
-      "reject": "Rejeitar"
+      "title": "Cookies e Analytics",
+      "description": "Utilizamos cookies para funcionalidades essenciais e, mediante a sua autorização, para análise de tráfego e melhoria deste website.",
+      "privacyLink": "Saiba mais na Política de Privacidade",
+      "accept": "Aceitar cookies de análise",
+      "reject": "Apenas cookies necessários"
     },
     "privacyPolicy": {
       "meta": {
         "title": "Política de Privacidade",
-        "description": "Como recolhemos e utilizamos dados pessoais e analítica."
+        "description": "Saiba como recolhemos, utilizamos e protegemos os seus dados pessoais."
       },
       "title": "Política de Privacidade",
       "lastUpdated": "Última atualização: {date}",
       "sections": {
         "controller": {
           "title": "Quem somos",
-          "body": "Este website é operado por Helena Colaço. Para qualquer questão relacionada com privacidade, contacte: helena@helenacolaco.com."
+          "body": "Este website é gerido por Helena Colaço. Para questões relacionadas com privacidade ou proteção de dados, contacte-nos através de: colaco.art@yahoo.com"
         },
         "dataCollected": {
           "title": "Que dados recolhemos",
           "items": {
-            "newsletter": "Newsletter: nome e endereço de email (apenas quando submete o formulário).",
-            "analytics": "Analítica: dados de utilização (páginas visitadas, interações, informação aproximada do dispositivo/navegador) via PostHog, apenas após aceitar cookies de analítica."
+            "newsletter": "Newsletter: nome e endereço de email (apenas quando subscreve voluntariamente).",
+            "analytics": "Dados de análise: informação anónima sobre a sua navegação (páginas visitadas, interações, tipo de dispositivo e navegador) através da PostHog, exclusivamente após consentimento."
           }
         },
         "purposes": {
-          "title": "Porque recolhemos estes dados",
+          "title": "Finalidade do tratamento",
           "items": {
-            "newsletter": "Para lhe enviar atualizações caso subscreva a newsletter.",
-            "analytics": "Para compreender como o website é utilizado e melhorar conteúdos e desempenho."
+            "newsletter": "Enviar atualizações e conteúdos informativos aos subscritores da newsletter.",
+            "analytics": "Compreender padrões de utilização, otimizar conteúdos e melhorar a experiência no website."
           }
         },
         "legalBasis": {
           "title": "Base legal",
-          "body": "Processamos os dados da newsletter e a analítica com base no seu consentimento. Pode retirar o consentimento a qualquer momento rejeitando cookies de analítica ou contactando-nos."
+          "body": "O tratamento de dados para a newsletter e para análise estatística baseia-se no seu consentimento explícito. Pode retirar o consentimento em qualquer momento, rejeitando cookies de análise ou contactando-nos diretamente."
         },
         "thirdParties": {
-          "title": "Terceiros",
-          "body": "Utilizamos a PostHog como fornecedor de analítica. A analítica só é ativada após o seu consentimento."
+          "title": "Partilha com terceiros",
+          "body": "Utilizamos a PostHog como plataforma de análise de dados. A partilha de informação apenas ocorre após obtenção do seu consentimento explícito."
         },
         "retention": {
-          "title": "Durante quanto tempo guardamos os dados",
-          "body": "Guardamos os dados apenas durante o tempo necessário para os fins acima descritos, ou até que retire o seu consentimento."
+          "title": "Prazo de conservação dos dados",
+          "body": "Conservamos os dados apenas pelo período necessário para cumprir as finalidades descritas, ou até que retire o seu consentimento."
         },
         "rights": {
           "title": "Os seus direitos",
-          "body": "Pode solicitar acesso, correção ou eliminação dos seus dados pessoais, e pode retirar o consentimento a qualquer momento. Contacte: helena@helenacolaco.com."
+          "body": "Tem direito a aceder, retificar, limitar ou solicitar a eliminação dos seus dados pessoais, bem como retirar o consentimento a qualquer momento. Para exercer estes direitos, contacte: colaco.art@yahoo.com"
         }
       }
     }
