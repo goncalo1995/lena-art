@@ -21,7 +21,7 @@ export function CookieConsentBanner() {
   if (!visible) return null
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50">
+    <div className="fixed inset-x-0 bottom-0 z-49">
       <div className="mx-auto max-w-6xl px-4 pb-4">
         <div className="rounded-xl border bg-background/95 backdrop-blur-md p-4 shadow-lg">
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     'Portfolio of Helena Colaço - Drawings, Paintings, Photography and Poetry.',
 }
 
-const locales = ['en', 'pt'];
+const locales = ['pt', 'en'];
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));

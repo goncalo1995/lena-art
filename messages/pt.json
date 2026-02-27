@@ -120,10 +120,10 @@
     },
     "cookieConsent": {
       "title": "Cookies e Analytics",
-      "description": "Utilizamos cookies para funcionalidades essenciais e, mediante a sua autorização, para análise de tráfego e melhoria deste website.",
-      "privacyLink": "Saiba mais na Política de Privacidade",
-      "accept": "Aceitar cookies de análise",
-      "reject": "Apenas cookies necessários"
+      "description": "Utilizamos cookies essenciais para o funcionamento do site. Com a sua autorização, utilizamos o PostHog para analisar o tráfego de forma anónima e melhorar a sua experiência.",
+      "privacyLink": "Ver Política de Privacidade",
+      "accept": "Aceitar cookies",
+      "reject": "Apenas necessários"
     },
     "privacyPolicy": {
       "meta": {
