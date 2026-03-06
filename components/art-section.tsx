@@ -1,9 +1,8 @@
 import { Link } from "@/i18n/navigation"
 import { ArrowRight } from "lucide-react"
 import { ArtworkCard } from "./artwork-card"
-import type { Artwork } from "@/lib/types"
+import type { Artwork, ArtType, ArtworkWithCollectionSlug } from "@/lib/types"
 import { ART_TYPE_ROUTES } from "@/lib/types"
-import type { ArtType } from "@/lib/types"
 import { getTranslations } from "next-intl/server"
 import HorizontalScroll from "@/components/HorizontalScroll"
 
@@ -11,7 +10,7 @@ interface ArtSectionProps {
   artType: ArtType
   label: string
   description: string
-  artworks: Artwork[]
+  artworks: ArtworkWithCollectionSlug[]
 }
 
 export async function ArtSection({ artType, label, description, artworks }: ArtSectionProps) {
@@ -44,7 +43,7 @@ export async function ArtSection({ artType, label, description, artworks }: ArtS
             title={artwork.title}
             shortDescription={artwork.short_description}
             coverImageUrl={artwork.cover_image_url}
-            href={`/${route}/${artwork.slug}`}
+            href={`/${route}/${artwork.collections?.slug ? artwork.collections.slug + '/' : ''}${artwork.slug}`}
             isPoem={isPoem}
             className="w-[280px] shrink-0"
           />

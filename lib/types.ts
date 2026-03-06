@@ -13,6 +13,10 @@ export type ArtworkMediaWithArtwork = ArtworkMedia & {
   artworks: Pick<Artwork, 'id' | 'title' | 'art_type'> | null
 }
 
+export type ArtworkWithCollectionSlug = Artwork & {
+  collections?: Pick<Collection, 'slug'> | null
+}
+
 // For the component props
 export interface ArtworkWithRelations extends Artwork {
   sections: ArtworkSection[]

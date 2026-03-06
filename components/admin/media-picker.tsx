@@ -75,7 +75,6 @@ export function MediaPicker({ value, onChange, onClose, artworkId }: MediaPicker
     const cleanUrl = url.replace(/([^:]\/)\/+/g, '$1')
     
     // If we have an artworkId, save to Supabase automatically
-    console.log("debug add media", { artworkId, cleanUrl })
     if (artworkId && cleanUrl && !cleanUrl.startsWith('blob:')) {
       try {
         const formData = new FormData()

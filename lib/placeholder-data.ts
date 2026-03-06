@@ -1,4 +1,4 @@
-import type { Artwork, Collection, ArtworkMedia, ArtworkSection } from "./types"
+import type { Artwork, Collection, ArtworkMedia, ArtworkSection, ArtworkWithCollectionSlug } from "./types"
 
 const USER_ID = "00000000-0000-0000-0000-000000000000"
 
@@ -56,7 +56,7 @@ export const placeholderCollections: Collection[] = [
   },
 ]
 
-export const placeholderArtworks: Artwork[] = [
+export const placeholderArtworks: ArtworkWithCollectionSlug[] = [
   // Paintings - in collection
   {
     id: "a1",

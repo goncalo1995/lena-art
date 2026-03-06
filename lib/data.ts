@@ -1,6 +1,7 @@
 import type {
   ArtType,
   Artwork,
+  ArtworkWithCollectionSlug,
   ArtworkWithRelations,
   Collection,
   ListingItem,
@@ -46,12 +47,12 @@ async function trySupabase() {
 
 export async function getHomeFeaturedArtworks(
   artType: ArtType
-): Promise<Artwork[]> {
+): Promise<ArtworkWithCollectionSlug[]> {
   const supabase = await trySupabase()
   if (supabase) {
     const { data } = await supabase
       .from("artworks")
-      .select("*")
+      .select("*, collections(slug)")
       .eq("art_type", artType)
       .eq("is_published", true)
       .eq("is_featured_home", true)

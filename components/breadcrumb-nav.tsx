@@ -1,5 +1,5 @@
 import { Link } from "@/i18n/navigation"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronLeft, ChevronRight, Home } from "lucide-react"
 
 interface BreadcrumbItem {
   label: string
@@ -12,11 +12,11 @@ interface BreadcrumbNavProps {
 
 export function BreadcrumbNav({ items }: BreadcrumbNavProps) {
   // Find the most recent link for the back button
-  const backLink = [...items].reverse().find((item) => item.href)
+  // const backLink = [...items].reverse().find((item) => item.href)
 
   return (
     <nav className="flex items-center gap-2 text-sm text-muted-foreground" aria-label="Breadcrumb">
-      {backLink && (
+      {/* {backLink && (
         <Link
           href={backLink.href!}
           className="flex items-center gap-1 text-primary transition-colors hover:text-primary/80 mr-2"
@@ -24,11 +24,18 @@ export function BreadcrumbNav({ items }: BreadcrumbNavProps) {
           <ChevronLeft className="size-4" />
           <span className="sr-only">Back</span>
         </Link>
-      )}
+      )} */}
       {items.map((item, i) => (
         <span key={i} className="flex items-center gap-2">
           {i > 0 && <ChevronRight className="size-3.5 text-border" />}
-          {item.href ? (
+          {item.href === '/' ? (
+            <Link
+              href={item.href}
+              className="transition-colors hover:text-primary"
+            >
+              <Home className="size-4" />
+            </Link>
+          ) : item.href ? (
             <Link
               href={item.href}
               className="transition-colors hover:text-primary"

@@ -43,19 +43,22 @@ export async function ArtworkDetail({ artwork }: ArtworkDetailProps) {
           </div>
 
           <div className="space-y-6">
-            <div>
+              {artwork.creation_date && (
+                <span className="text-xs uppercase tracking-wider text-muted-foreground">
+                  {format(new Date(artwork.creation_date), "yyyy")}
+                </span>
+              )}
+
               <h1 className="font-serif text-3xl text-foreground md:text-4xl text-balance">
                 {artwork.title}
               </h1>
 
-              <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
-                {artwork.creation_date && (
-                  <span>{format(new Date(artwork.creation_date), "MMMM yyyy")}</span>
-                )}
-                {artwork.medium && <span>{artwork.medium}</span>}
-                {artwork.dimensions && <span>{artwork.dimensions}</span>}
-              </div>
-            </div>
+              {(artwork.dimensions || artwork.medium) && (
+                <div className="flex gap-6 text-sm text-muted-foreground border-y py-4">
+                  {artwork.medium && <span>{artwork.medium}</span>}
+                  {artwork.dimensions && <span>{artwork.dimensions}</span>}
+                </div>
+              )}
 
             {artwork.description && (
               <div className="text-base leading-relaxed text-foreground/80 whitespace-pre-line">

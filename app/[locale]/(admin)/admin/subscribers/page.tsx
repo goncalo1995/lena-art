@@ -1,4 +1,5 @@
 import { DeleteSubscriberButton } from "@/components/admin-delete-buttons"
+import { Button } from "@/components/ui/button"
 import { getSubscribers, getSubscribersCount } from "@/lib/data"
 
 export default async function AdminSubscribersPage() {
@@ -11,6 +12,11 @@ export default async function AdminSubscribersPage() {
     <div>
       <div className="flex items-center justify-between gap-4 mb-8">
         <h1 className="font-serif text-2xl text-foreground">{subscribersCount} Subscritores</h1>
+        <Button variant="outline" asChild>
+          <a href="/api/admin/subscribers/export">
+            Exportar todos
+          </a>
+        </Button>
       </div>
 
       <div className="overflow-x-auto rounded-lg border border-border">
