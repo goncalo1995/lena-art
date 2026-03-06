@@ -96,6 +96,11 @@
         "closeMenu": "Close menu"
       }
     },
+    "artworkType": {
+      "meta": {
+        "description": "Browse {work} by artist Helena Colaço."
+      }
+    },
     "ArtworkDetail": {
       "buy": "Buy",
       "gallery": "Gallery"

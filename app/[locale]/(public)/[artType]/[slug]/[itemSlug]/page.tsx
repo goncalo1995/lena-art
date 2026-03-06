@@ -20,9 +20,24 @@ export async function generateMetadata({
   const data = await getArtworkInCollection(slug, itemSlug, artType, locale)
   if (!data) return {}
 
+  const title = locale === 'pt' ? data.artwork.title : data.artwork.title_en || data.artwork.title
+  const description = locale === 'pt' ? data.artwork.short_description : data.artwork.short_description_en || data.artwork.short_description
+  const imageUrl = data.artwork.cover_image_url
+  
   return {
-    title: data.artwork.title,
-    description: data.artwork.short_description || undefined,
+    title: title,
+    description: description || undefined,
+    openGraph: {
+      title: title,
+      description: description || undefined,
+      images: imageUrl ? [{ url: imageUrl }] : [],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: title,
+      description: description || undefined,
+      images: imageUrl ? [imageUrl] : [],
+    },
   }
 }
 

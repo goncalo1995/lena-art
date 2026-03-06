@@ -20,7 +20,7 @@ export async function generateMetadata({
   const label = t(`header.work.${route}`)
   return {
     title: label,
-    description: `Browse ${label.toLowerCase()} by Helena Colaço.`,
+    description: t('artworkType.meta.description', { work: label }),
   }
 }
 

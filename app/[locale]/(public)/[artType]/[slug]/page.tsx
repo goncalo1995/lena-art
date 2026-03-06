@@ -20,17 +20,47 @@ export async function generateMetadata({
 
   const collectionData = await getCollectionBySlug(slug, artType, locale)
   if (collectionData) {
+    const title = locale === 'pt' ? collectionData.collection.title : collectionData.collection.title_en || collectionData.collection.title
+    const description = locale === 'pt' ? collectionData.collection.short_description : collectionData.collection.short_description_en || collectionData.collection.short_description
+    const imageUrl = collectionData.collection.cover_image_url
+    
     return {
-      title: collectionData.collection.title,
-      description: collectionData.collection.short_description || undefined,
+      title: title,
+      description: description || undefined,
+      openGraph: {
+        title: title,
+        description: description || undefined,
+        images: imageUrl ? [{ url: imageUrl }] : [],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: title,
+        description: description || undefined,
+        images: imageUrl ? [imageUrl] : [],
+      },
     }
   }
 
   const artwork = await getArtworkBySlug(slug, artType, locale)
   if (artwork) {
+    const title = locale === 'pt' ? artwork.title : artwork.title_en || artwork.title
+    const description = locale === 'pt' ? artwork.short_description : artwork.short_description_en || artwork.short_description
+    const imageUrl = artwork.cover_image_url
+    
     return {
-      title: artwork.title,
-      description: artwork.short_description || undefined,
+      title: title,
+      description: description || undefined,
+      openGraph: {
+        title: title,
+        description: description || undefined,
+        images: imageUrl ? [{ url: imageUrl }] : [],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: title,
+        description: description || undefined,
+        images: imageUrl ? [imageUrl] : [],
+      },
     }
   }
 
