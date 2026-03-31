@@ -6,7 +6,6 @@ import { ContactsSection } from "@/components/contacts-section"
 import { getHomeFeaturedArtworks } from "@/lib/data"
 import type { ArtType } from "@/lib/types"
 import { getTranslations } from 'next-intl/server';
-import ComingSoon from "@/components/ComingSoon"
 
 type HomePageParams = Promise<{ locale: string; }>;
 
@@ -32,8 +31,7 @@ export default async function HomePage({ params: paramsPromise }: { params: Home
   return (
     <>
       <main>
-        <ComingSoon />
-        {/* <HeroSection />
+        <HeroSection />
         <AboutPreview />
         <div className="divide-y divide-border">
           {artworksByType.map(({ type, artworks }) => (
@@ -47,7 +45,7 @@ export default async function HomePage({ params: paramsPromise }: { params: Home
           ))}
         </div>
         <NewsletterForm />
-        <ContactsSection /> */}
+        <ContactsSection />
       </main>
     </>
   )

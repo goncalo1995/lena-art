@@ -14,3 +14,8 @@ Website for Helena Colaço Salazar
 
 - [X] Set up analytics
 - [ ] trigger google search to index the site
+
+## Maybe
+- [ ] favicon
+- [ ] preciso colleçoes como features na home ou apenas obras específicas?
+- [ ] share button para partilhar link facilmente + imagem share whatsapp

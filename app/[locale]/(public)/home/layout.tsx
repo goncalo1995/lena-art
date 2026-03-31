@@ -7,16 +7,14 @@ import { PosthogInit } from "@/components/posthog-init"
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      {/* <SiteHeader />
+      <SiteHeader />
       <PosthogInit />
-      <div className="pt-16 md:pt-20"> */}
-      <div className="min-h-screen">
+      <div className="pt-16 md:pt-20">
         {children}
       </div>
-      {/* </div>
       <LanguageSwitcher />
       <SiteFooter />
-      <CookieConsentBanner /> */}
+      <CookieConsentBanner />
     </>
   )
 }

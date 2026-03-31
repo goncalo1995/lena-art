@@ -16,6 +16,10 @@ const PUBLIC_FILE_PATTERNS = [
   // add others if needed: apple-touch-icon, browserconfig.xml, etc.
 ];
 
+function isAdminRoute(pathname: string) {
+  return pathname.startsWith("/admin") || pathname.startsWith("/pt/admin") || pathname.startsWith("/en/admin");
+}
+
 export default async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
@@ -46,7 +50,7 @@ export default async function proxy(request: NextRequest) {
     })
 
     // Protect admin routes
-    if (request.nextUrl.pathname.startsWith("/admin") || request.nextUrl.pathname.startsWith("/pt/admin") || request.nextUrl.pathname.startsWith("/en/admin")) {
+    if (isAdminRoute(request.nextUrl.pathname)) {
       const { createServerClient } = await import("@supabase/ssr")
       const supabase = createServerClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -74,7 +78,7 @@ export default async function proxy(request: NextRequest) {
   }
 
   // If no Supabase, block admin routes
-  if (request.nextUrl.pathname.startsWith("/admin") || request.nextUrl.pathname.startsWith("/pt/admin") || request.nextUrl.pathname.startsWith("/en/admin")) {
+  if (isAdminRoute(request.nextUrl.pathname)) {
     const url = request.nextUrl.clone()
     url.pathname = "/pt/auth/login"
     return NextResponse.redirect(url)
