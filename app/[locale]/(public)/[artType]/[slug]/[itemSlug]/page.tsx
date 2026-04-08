@@ -2,9 +2,10 @@ import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { BreadcrumbNav } from "@/components/breadcrumb-nav"
 import { ArtworkDetail } from "@/components/artwork-detail"
-import { getArtworkInCollection } from "@/lib/data"
+import { getArtworkInCollectionStatic } from "@/lib/data"
 import { ROUTE_TO_ART_TYPE } from "@/lib/types"
 import { getTranslations } from "next-intl/server"
+import { routing } from "@/i18n/routing"
 
 interface PageProps {
   params: Promise<{ locale: string; artType: string; slug: string; itemSlug: string }>
@@ -17,7 +18,7 @@ export async function generateMetadata({
   const artType = ROUTE_TO_ART_TYPE[route]
   if (!artType) return {}
 
-  const data = await getArtworkInCollection(slug, itemSlug, artType, locale)
+  const data = await getArtworkInCollectionStatic(slug, itemSlug, artType, locale)
   if (!data) return {}
 
   const title = locale === 'pt' ? data.artwork.title : data.artwork.title_en || data.artwork.title
@@ -66,17 +67,19 @@ export async function generateStaticParams() {
     })
     .filter(Boolean) as Array<{ artType: string; slug: string; itemSlug: string }>
 
-  return params
+  return params.flatMap((param) =>
+    routing.locales.map((locale) => ({ ...param, locale }))
+  )
 }
 
 export default async function CollectionItemPage({ params }: PageProps) {
-  const tMain = await getTranslations('Main')
-  const tPages = await getTranslations('Pages')
   const { locale, artType: route, slug, itemSlug } = await params
+  const tMain = await getTranslations({ locale, namespace: 'Main' })
+  const tPages = await getTranslations({ locale, namespace: 'Pages' })
   const artType = ROUTE_TO_ART_TYPE[route]
   if (!artType) notFound()
 
-  const data = await getArtworkInCollection(slug, itemSlug, artType, locale)
+  const data = await getArtworkInCollectionStatic(slug, itemSlug, artType, locale)
   if (!data) notFound()
 
   const label = tPages(`header.work.${route}`)

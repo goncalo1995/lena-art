@@ -63,6 +63,10 @@
       }
     },
     "bio": {
+      "meta": {
+        "title": "Biografia - Helena Colaço",
+        "description": "Conheça Helena Colaço, uma artista multidisciplinar portuguesa que trabalha em desenho, pintura, fotografia e poesia."
+      },
       "title": "Biografia",
       "description": "Biografia Description",
       "content": {

@@ -3,9 +3,10 @@ import type { Metadata } from "next"
 import { BreadcrumbNav } from "@/components/breadcrumb-nav"
 import { ArtworkDetail } from "@/components/artwork-detail"
 import { CollectionView } from "@/components/collection-view"
-import { getCollectionBySlug, getArtworkBySlug } from "@/lib/data"
+import { getCollectionBySlugStatic, getArtworkBySlugStatic } from "@/lib/data"
 import { ROUTE_TO_ART_TYPE } from "@/lib/types"
 import { getTranslations } from "next-intl/server"
+import { routing } from "@/i18n/routing"
 
 interface PageProps {
   params: Promise<{ locale: string; artType: string; slug: string }>
@@ -18,7 +19,7 @@ export async function generateMetadata({
   const artType = ROUTE_TO_ART_TYPE[route]
   if (!artType) return {}
 
-  const collectionData = await getCollectionBySlug(slug, artType, locale)
+  const collectionData = await getCollectionBySlugStatic(slug, artType, locale)
   if (collectionData) {
     const title = locale === 'pt' ? collectionData.collection.title : collectionData.collection.title_en || collectionData.collection.title
     const description = locale === 'pt' ? collectionData.collection.short_description : collectionData.collection.short_description_en || collectionData.collection.short_description
@@ -41,7 +42,7 @@ export async function generateMetadata({
     }
   }
 
-  const artwork = await getArtworkBySlug(slug, artType, locale)
+  const artwork = await getArtworkBySlugStatic(slug, artType, locale)
   if (artwork) {
     const title = locale === 'pt' ? artwork.title : artwork.title_en || artwork.title
     const description = locale === 'pt' ? artwork.short_description : artwork.short_description_en || artwork.short_description
@@ -107,20 +108,24 @@ export async function generateStaticParams() {
     })
     .filter(Boolean) as Array<{ artType: string; slug: string }>
 
-  return [...artworkParams, ...collectionParams]
+  const allParams = [...artworkParams, ...collectionParams]
+  
+  return allParams.flatMap((param) =>
+    routing.locales.map((locale) => ({ ...param, locale }))
+  )
 }
 
 export default async function SlugPage({ params }: PageProps) {
-  const tMain = await getTranslations('Main')
-  const tPages = await getTranslations('Pages')
   const { locale, artType: route, slug } = await params
+  const tMain = await getTranslations({ locale, namespace: 'Main' })
+  const tPages = await getTranslations({ locale, namespace: 'Pages' })
   const artType = ROUTE_TO_ART_TYPE[route]
   if (!artType) notFound()
 
   const label = tPages(`header.work.${route}`)
 
   // Try collection first
-  const collectionData = await getCollectionBySlug(slug, artType, locale)
+  const collectionData = await getCollectionBySlugStatic(slug, artType, locale)
   if (collectionData) {
     return (
       <>
@@ -146,7 +151,7 @@ export default async function SlugPage({ params }: PageProps) {
   }
 
   // Try standalone artwork
-  const artwork = await getArtworkBySlug(slug, artType, locale)
+  const artwork = await getArtworkBySlugStatic(slug, artType, locale)
   if (!artwork) notFound()
 
   return (

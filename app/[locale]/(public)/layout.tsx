@@ -1,10 +1,16 @@
-import { SiteHeader } from "@/components/site-header"
-import LanguageSwitcher from "@/components/LanguageSwitcher"
-import { SiteFooter } from "@/components/site-footer"
-import { CookieConsentBanner } from "@/components/cookie-consent-banner"
-import { PosthogInit } from "@/components/posthog-init"
+// import { SiteHeader } from "@/components/site-header"
+// import LanguageSwitcher from "@/components/LanguageSwitcher"
+// import { SiteFooter } from "@/components/site-footer"
+// import { CookieConsentBanner } from "@/components/cookie-consent-banner"
+// import { PosthogInit } from "@/components/posthog-init"
 
-export default function PublicLayout({ children }: { children: React.ReactNode }) {
+interface PublicLayoutProps {
+  children: React.ReactNode
+  params: Promise<{ locale: string }>
+}
+
+export default async function PublicLayout({ children, params }: PublicLayoutProps) {
+  const { locale } = await params
   return (
     <>
       {/* <SiteHeader />
@@ -15,7 +21,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
       </div>
       {/* </div>
       <LanguageSwitcher />
-      <SiteFooter />
+      <SiteFooter locale={locale} />
       <CookieConsentBanner /> */}
     </>
   )

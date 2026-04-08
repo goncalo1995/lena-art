@@ -2,14 +2,22 @@ import Image from "next/image"
 import type { Metadata } from "next"
 import { getTranslations } from 'next-intl/server';
 
-export const metadata: Metadata = {
-  title: "Bio",
-  description:
-    "Learn about Helena Colaço, a Portuguese multidisciplinary artist working across drawing, painting, photography and poetry.",
+export function generateStaticParams() {
+  return [{ locale: 'pt' }, { locale: 'en' }]
 }
 
-export default async function BioPage() {
-  const t = await getTranslations('Pages.bio')
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'Pages.bio' })
+  return {
+    title: t('meta.title'),
+    description: t('meta.description'),
+  }
+}
+
+export default async function BioPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'Pages.bio' })
   return (
     <>
       <main>

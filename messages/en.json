@@ -63,6 +63,10 @@
       }
     },
     "bio": {
+      "meta": {
+        "title": "Biography - Helena Colaço",
+        "description": "Learn about Helena Colaço, a Portuguese multidisciplinary artist working across drawing, painting, photography and poetry."
+      },
       "title": "Bio",
       "description": "Bio Page Description",
       "content": {

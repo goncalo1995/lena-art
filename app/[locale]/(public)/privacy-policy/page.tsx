@@ -1,5 +1,9 @@
 import { getTranslations } from 'next-intl/server'
 
+export function generateStaticParams() {
+  return [{ locale: 'pt' }, { locale: 'en' }]
+}
+
 type PrivacyPolicyParams = Promise<{ locale: string }>
 
 export async function generateMetadata({ params }: { params: PrivacyPolicyParams }) {
@@ -12,8 +16,9 @@ export async function generateMetadata({ params }: { params: PrivacyPolicyParams
   }
 }
 
-export default async function PrivacyPolicyPage() {
-  const t = await getTranslations('Pages.privacyPolicy')
+export default async function PrivacyPolicyPage({ params }: { params: PrivacyPolicyParams }) {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'Pages.privacyPolicy' })
   const lastUpdated = new Date().toISOString().slice(0, 10)
 
   return (

@@ -3,10 +3,14 @@ import { AboutPreview } from "@/components/about-preview"
 import { ArtSection } from "@/components/art-section"
 import { NewsletterForm } from "@/components/newsletter-form"
 import { ContactsSection } from "@/components/contacts-section"
-import { getHomeFeaturedArtworks } from "@/lib/data"
+import { getHomeFeaturedArtworksStatic } from "@/lib/data"
 import type { ArtType } from "@/lib/types"
 import { getTranslations } from 'next-intl/server';
 import ComingSoon from "@/components/ComingSoon"
+
+export function generateStaticParams() {
+  return [{ locale: 'pt' }, { locale: 'en' }];
+}
 
 type HomePageParams = Promise<{ locale: string; }>;
 
@@ -20,12 +24,13 @@ export async function generateMetadata({ params: paramsPromise }: { params: Home
 }
 
 export default async function HomePage({ params: paramsPromise }: { params: HomePageParams }) {
-  const t = await getTranslations('Pages.home');
+  const { locale } = await paramsPromise;
+  const t = await getTranslations({ locale, namespace: 'Pages.home' });
   const artTypes: ArtType[] = ["drawing", "painting", "photography", "poem"]
   const artworksByType = await Promise.all(
     artTypes.map(async (type) => ({
       type,
-      artworks: await getHomeFeaturedArtworks(type),
+      artworks: await getHomeFeaturedArtworksStatic(type),
     }))
   )
 

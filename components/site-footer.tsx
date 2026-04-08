@@ -1,9 +1,12 @@
 import { Link } from "@/i18n/navigation"
 import { Instagram } from "lucide-react"
-import { getLocale, getTranslations } from "next-intl/server"
+import { getTranslations } from "next-intl/server"
 
-export async function SiteFooter() {
-  const locale = await getLocale()
+interface SiteFooterProps {
+  locale: string
+}
+
+export async function SiteFooter({ locale }: SiteFooterProps) {
   const t = await getTranslations({ locale, namespace: "Pages.footer" })
   return (
     <footer className="border-t border-border bg-secondary/50">

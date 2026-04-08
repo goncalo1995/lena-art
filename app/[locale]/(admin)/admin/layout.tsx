@@ -7,6 +7,7 @@ import {
   Mail,
 } from "lucide-react"
 import { AdminSignOut } from "@/components/admin-sign-out"
+import { AdminRevalidateButton } from "@/components/admin-revalidate-button"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -71,7 +72,8 @@ export default function AdminLayout({
             label="Subscritores"
           />
         </nav>
-        <div className="flex flex-col gap-2 mt-auto pt-6 border-t border-sidebar-border">
+        <div className="flex flex-col gap-4 mt-auto pt-6 border-t border-sidebar-border">
+          <AdminRevalidateButton />
           <Link
             href="/"
             className="flex items-center gap-2 text-sm text-sidebar-foreground/70 hover:text-sidebar-foreground transition-colors"

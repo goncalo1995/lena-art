@@ -36,21 +36,21 @@ export default async function proxy(request: NextRequest) {
   const isRewrite = intlResponse.headers.has('x-middleware-rewrite')
   if (isRedirect || isRewrite) return intlResponse
 
-  // Only run Supabase session logic if env vars are set
-  if (
-    process.env.NEXT_PUBLIC_SUPABASE_URL &&
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
-  ) {
-    const response = await updateSession(request)
+  // ── 3. Run Supabase session logic ONLY for admin routes ─────────────────
+  if (isAdminRoute(pathname)) {
+    if (
+      process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+    ) {
+      const response = await updateSession(request)
 
-    // Merge headers produced by next-intl (e.g. locale handling) into the final response.
-    intlResponse.headers.forEach((value, key) => {
-      if (key.toLowerCase() === 'set-cookie') return
-      response.headers.set(key, value)
-    })
+      // Merge headers produced by next-intl (e.g. locale handling) into the final response.
+      intlResponse.headers.forEach((value, key) => {
+        if (key.toLowerCase() === 'set-cookie') return
+        response.headers.set(key, value)
+      })
 
-    // Protect admin routes
-    if (isAdminRoute(request.nextUrl.pathname)) {
+      // Protect admin routes
       const { createServerClient } = await import("@supabase/ssr")
       const supabase = createServerClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -72,18 +72,17 @@ export default async function proxy(request: NextRequest) {
         url.pathname = "/pt/auth/login"
         return NextResponse.redirect(url)
       }
+      
+      return response
     }
 
-    return response
-  }
-
-  // If no Supabase, block admin routes
-  if (isAdminRoute(request.nextUrl.pathname)) {
+    // If no Supabase env vars but it's an admin route, block it
     const url = request.nextUrl.clone()
     url.pathname = "/pt/auth/login"
     return NextResponse.redirect(url)
   }
 
+  // ── 4. For non-admin routes (like root redirect), just return intlResponse ──
   const next = NextResponse.next()
   intlResponse.headers.forEach((value, key) => {
     if (key.toLowerCase() === 'set-cookie') return
@@ -95,6 +94,11 @@ export default async function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!api|trpc|_next/static|_next/image|_vercel|favicon.ico|manifest.webmanifest|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|xml)$).*)',
+    '/((?!api|_next/static|_next/image|_vercel|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)',
+    // Match the root path for locale redirection
+    '/',
+    // Match all admin routes
+    '/(pt|en)/admin/:path*',
+    '/admin/:path*',
   ],
 }

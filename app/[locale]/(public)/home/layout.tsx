@@ -4,7 +4,13 @@ import { SiteFooter } from "@/components/site-footer"
 import { CookieConsentBanner } from "@/components/cookie-consent-banner"
 import { PosthogInit } from "@/components/posthog-init"
 
-export default function PublicLayout({ children }: { children: React.ReactNode }) {
+interface HomeLayoutProps {
+  children: React.ReactNode
+  params: Promise<{ locale: string }>
+}
+
+export default async function HomeLayout({ children, params }: HomeLayoutProps) {
+  const { locale } = await params
   return (
     <>
       <SiteHeader />
@@ -13,7 +19,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
         {children}
       </div>
       <LanguageSwitcher />
-      <SiteFooter />
+      <SiteFooter locale={locale} />
       <CookieConsentBanner />
     </>
   )
