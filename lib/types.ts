@@ -24,15 +24,16 @@ export interface ArtworkWithRelations extends Artwork {
   collection: Collection | null
 }
 
-export type ArtType = "drawing" | "painting" | "photography" | "poem"
+export type ArtType = "drawing" | "painting" | "photography" | "poem" | "watercolor"
 
-export const ART_TYPES: ArtType[] = ["drawing", "painting", "photography", "poem"]
+export const ART_TYPES: ArtType[] = ["drawing", "painting", "photography", "poem", "watercolor"]
 
 export const ART_TYPE_LABELS: Record<string, string> = {
   drawing: "Drawings",
   painting: "Paintings",
   photography: "Photography",
   poem: "Poetry",
+  watercolor: "Watercolor",
 }
 
 export const ART_TYPE_ROUTES: Record<ArtType, string> = {
@@ -40,6 +41,7 @@ export const ART_TYPE_ROUTES: Record<ArtType, string> = {
   painting: "paintings",
   photography: "photography",
   poem: "poetry",
+  watercolor: "watercolor",
 }
 
 export const ROUTE_TO_ART_TYPE: Record<string, ArtType> = {
@@ -47,6 +49,7 @@ export const ROUTE_TO_ART_TYPE: Record<string, ArtType> = {
   paintings: "painting",
   photography: "photography",
   poetry: "poem",
+  watercolor: "watercolor",
 }
 
 // A display item on a listing page - either a collection or standalone artwork

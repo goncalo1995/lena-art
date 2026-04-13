@@ -27,19 +27,19 @@ export default async function AdminDashboardPage() {
           <Button asChild size="sm">
             <Link href="/admin/artworks/new">
               <Plus className="size-4" />
-              Nova Obra
+              Obra
             </Link>
           </Button>
           <Button asChild size="sm" variant="outline">
             <Link href="/admin/collections/new">
               <Plus className="size-4" />
-              Nova Coleção
+              Coleção
             </Link>
           </Button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 lg:grid-cols-5">
         {countsByType.map(({ type, label, count }) => (
           <Card key={type}>
             <CardHeader className="pb-2">

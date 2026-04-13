@@ -12,6 +12,13 @@
       "saving": "A guardar...",
       "viewAll": "Ver Todos"
     },
+    "labels": {
+      "work": "obra",
+      "works": "obras"
+    },
+    "messages": {
+      "noWorksAvailable": "Ainda não há obras disponíveis. Volte mais tarde."
+    },
     "breadcrumb": {
       "home": "Início"
     }
@@ -40,6 +47,10 @@
         "poem": {
           "title": "Poesia",
           "description": "Palavras moldadas em pequenos recipientes de sentimento, escritas ao lado das obras visuais."
+        },
+        "watercolor": {
+          "title": "FotoAguarela",
+          "description": "Fotografias aquosas que capturam a leveza e a fluidez da luz."
         }
       },
       "newsletter": {
@@ -51,6 +62,7 @@
           "emailPlaceholder": "O seu email"
         },
         "submit": "Subscrever",
+        "submitting": "A subscrever...",
         "errors": {
           "missingFields": "O nome e email são obrigatórios",
           "emailInUse": "Este email já está inscrito",
@@ -71,13 +83,20 @@
       "description": "Biografia Description",
       "content": {
         "name": "Helena Colaço Salazar",
-        "p1": "Desde muito jovem revelou interesse pelas artes, gostando de desenhar, ver fotografias, dançar e praticar outros desportos. Aos treze anos perdeu o pai, acontecimento que a levou, de forma espontânea, a escrever poemas e a desenhar, escolhendo a área artística no ensino secundário.",
-        "p2": "Iniciou o seu percurso no teatro, onde trabalhou como atriz durante onze anos.",
-        "p3": "Em 2005 regressou ao desenho através do desenvolvimento da personagem Kelly, da peça de Wayne Jordan, The Drowned World. Desta experiência nasceu a exposição pública de desenhos intitulada O Mundo Imaginário de Kelly. Mais tarde, em 2010, apresentou a sua primeira exposição individual de pintura, Aparências, igualmente resultado de uma peça de teatro com o mesmo nome, apresentada na Sociedade de Instrução Guilherme Cossoul.",
-        "p4": "O desejo de explorar novas formas de expressão para além da representação levou-a a estudar Novas Técnicas de Pintura na Sociedade Nacional de Belas Artes e a frequentar o curso de Fotografia do Instituto Português de Fotografia.",
-        "p5": "Realizou estágios como fotojornalista nos jornais Público e i, tendo também fotografado peças de teatro, concertos, inaugurações, arquitetura e desenvolvido trabalhos de fotografia de autor.",
-        "p6": "Em 2014 mudou-se para Tróia, onde viveu três anos a desenvolver o conceito de Identidade, que a conduziu a um período de vida nómada entre 2017 e 2023. Nesse ano regressou a Tróia e começou a preparar a sua nova exposição individual de pintura, Das Pinturas da Minha Mãe, apresentada na Fábrica do Braço de Prata, em Lisboa, em 2025. Participou também em diversas exposições coletivas de fotografia e pintura ao longo desses anos.",
-        "p7": "Atualmente divide o seu tempo entre Lisboa e o sul de Portugal, expandindo continuamente as suas competências criativas enquanto artista plástica.",
+        "p1": "O seu percurso académico foi sempre ligado à disciplina das artes. Estudou Arquitectura até ao terceiro ano do curso na Universidade Lusíada, o seu conceito em como habitar a cidade fê-la desinteressar-se sobre esta disciplina, ao mesmo tempo inicia-se na arte da interpretação, estudando e trabalhando como actriz ao longo de onze anos na cidade de Lisboa, explorando as facetas das várias personagens, descobrindo um pouco mais de sobre si e sobre o ser humano.",
+        "p2": "Num dos seus últimos espetáculos de teatro ao desenvolver a sua personagem, Kelly, do autor Gary Owen da peça, O Mundo Submerso, as palavras e a mensagem do texto começaram a ganhar uma intensidade tal, que a forma de melhor interiorizar a personagem foi se expressando através do desenho, compilando uma série a que chamou O Mundo Imaginário de Kelly. Este processo foi mais um ponto de viragem no seu percurso.",
+        "p3": "Em 2011 inicia dois cursos. O de Novas Técnicas em Pintura, na Sociedade Nacional de Belas Artes ministrada pelo pintor Paiva Raposo e o de Fotografia, no Instituto Português de Fotografia, explorando as imagens que vê e que sente ao invés de ela própria ser uma imagem.",
+        "p4": "Ainda vivendo em Lisboa, estagiou como fotojornalista no Jornal Público e no Jornal i. Fez fotografia de Arquitectura, de Espetáculos, de Vernissages, e exposições de Fotografia e Pintura.",
+        "p5": "Outra viragem acontece na sua vida quando se sentiu a sufocar na cidade e decide que tem que sair para poder sobreviver, em 2014 passa a viver mais a sul, junto à praia, até 2017. Na sua procura de paz e conexão com a natureza empreende na vivência de Nómada ao longo de cinco anos, viajando por Portugal, Espanha, França, Israel e América Central.",
+        "p6": "Em 2023 volta a fixar-se junto à praia onde começa a desenvolver a sua próxima exposição de Pintura a solo, exibida em 2025 na Fábrica do Braço de Prata, Lisboa. Tendo participado noutras exposições coletivas.",
+        "p7": "Em 2026 está a desenvolver a sua próxima criação artística, com a técnica de Fotoaguarelas, num exercício de fusão entre a fotografia e a pintura, â qual intitula de: Memórias Diluídas",
+        "oldp1": "Desde muito jovem revelou interesse pelas artes, gostando de desenhar, ver fotografias, dançar e praticar outros desportos. Aos treze anos perdeu o pai, acontecimento que a levou, de forma espontânea, a escrever poemas e a desenhar, escolhendo a área artística no ensino secundário.",
+        "oldp2": "Iniciou o seu percurso no teatro, onde trabalhou como atriz durante onze anos.",
+        "oldp3": "Em 2005 regressou ao desenho através do desenvolvimento da personagem Kelly, da peça de Wayne Jordan, The Drowned World. Desta experiência nasceu a exposição pública de desenhos intitulada O Mundo Imaginário de Kelly. Mais tarde, em 2010, apresentou a sua primeira exposição individual de pintura, Aparências, igualmente resultado de uma peça de teatro com o mesmo nome, apresentada na Sociedade de Instrução Guilherme Cossoul.",
+        "oldp4": "O desejo de explorar novas formas de expressão para além da representação levou-a a estudar Novas Técnicas de Pintura na Sociedade Nacional de Belas Artes e a frequentar o curso de Fotografia do Instituto Português de Fotografia.",
+        "oldp5": "Realizou estágios como fotojornalista nos jornais Público e i, tendo também fotografado peças de teatro, concertos, inaugurações, arquitetura e desenvolvido trabalhos de fotografia de autor.",
+        "oldp6": "Em 2014 mudou-se para Tróia, onde viveu três anos a desenvolver o conceito de Identidade, que a conduziu a um período de vida nómada entre 2017 e 2023. Nesse ano regressou a Tróia e começou a preparar a sua nova exposição individual de pintura, Das Pinturas da Minha Mãe, apresentada na Fábrica do Braço de Prata, em Lisboa, em 2025. Participou também em diversas exposições coletivas de fotografia e pintura ao longo desses anos.",
+        "oldp7": "Atualmente divide o seu tempo entre Lisboa e o sul de Portugal, expandindo continuamente as suas competências criativas enquanto artista plástica.",
         "viewWork": "Ver Obras",
         "contact": "Contacto"
       }
@@ -93,7 +112,8 @@
         "drawings": "Desenhos",
         "paintings": "Pinturas",
         "photography": "Fotografia",
-        "poetry": "Poesia"
+        "poetry": "Poesia",
+        "watercolor": "FotoAguarela"
       },
       "a11y": {
         "openMenu": "Abrir menu",
@@ -122,6 +142,7 @@
         "paintings": "Pinturas",
         "photography": "Fotografia",
         "poetry": "Poesia",
+        "watercolor": "FotoAguarela",
         "privacyPolicy": "Política de Privacidade"
       },
       "headline": "Através de linhas, cores, lentes e palavras — uma jornada de autoexpressão, onde cada traço, clique e verso revela uma nova dimensão da alma.",

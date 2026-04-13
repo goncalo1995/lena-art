@@ -48,7 +48,7 @@ export function ArtworkSectionsManager({
     <div>
       <div className="flex items-center justify-between mb-4">
         <h2 className="font-serif text-xl text-foreground">
-          Extra Text Sections
+          Seções de texto extra
         </h2>
         <Button
           size="sm"
@@ -56,7 +56,7 @@ export function ArtworkSectionsManager({
           onClick={() => setShowForm(!showForm)}
         >
           <Plus className="size-4" />
-          Add Section
+          Adicionar Seção
         </Button>
       </div>
 
@@ -65,10 +65,18 @@ export function ArtworkSectionsManager({
           action={handleAdd}
           className="flex flex-col gap-3 mb-6 rounded-lg border border-border p-4"
         >
-          <Input name="title" placeholder="Section title (optional)" />
+          <Input name="title" placeholder="Título (optional)" />
+          <Input name="title_en" placeholder="Título (EN) (optional)" />
           <textarea
             name="content"
-            placeholder="Section content *"
+            placeholder="Conteúdo da seção *"
+            required
+            rows={4}
+            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+          />
+          <textarea
+            name="content_en"
+            placeholder="Conteúdo da seção (EN) *"
             required
             rows={4}
             className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
@@ -81,14 +89,14 @@ export function ArtworkSectionsManager({
             className="w-32"
           />
           <Button type="submit" size="sm" disabled={loading}>
-            {loading ? "Adding..." : "Add"}
+            {loading ? "A adicionar..." : "Adicionar"}
           </Button>
         </form>
       )}
 
       {sections.length === 0 ? (
         <p className="text-sm text-muted-foreground">
-          No extra sections yet.
+          Obra sem seções extras.
         </p>
       ) : (
         <ul className="flex flex-col gap-2">
@@ -114,7 +122,7 @@ export function ArtworkSectionsManager({
                 className="shrink-0"
               >
                 <Trash2 className="size-4 text-destructive" />
-                <span className="sr-only">Delete section</span>
+                <span className="sr-only">Apagar seção</span>
               </Button>
             </li>
           ))}

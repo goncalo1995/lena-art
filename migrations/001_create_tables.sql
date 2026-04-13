@@ -1,9 +1,17 @@
+CREATE TYPE public.artwork_type AS ENUM (
+    'drawing',
+    'painting',
+    'photography',
+    'watercolor',
+    'poem'
+);
+
 -- Collections table
 CREATE TABLE IF NOT EXISTS collections (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   title TEXT NOT NULL,
   slug TEXT UNIQUE NOT NULL,
-  art_type TEXT NOT NULL CHECK (art_type IN ('drawing', 'painting', 'photography', 'poem')),
+  art_type artwork_type NOT NULL,
   short_description TEXT,
   description TEXT,
   cover_image_url TEXT,
@@ -19,7 +27,7 @@ CREATE TABLE IF NOT EXISTS artworks (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   title TEXT NOT NULL,
   slug TEXT UNIQUE NOT NULL,
-  art_type TEXT NOT NULL CHECK (art_type IN ('drawing', 'painting', 'photography', 'poem')),
+  art_type artwork_type NOT NULL,
   collection_id UUID REFERENCES collections(id) ON DELETE SET NULL,
   short_description TEXT,
   description TEXT,

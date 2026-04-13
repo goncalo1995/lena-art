@@ -120,7 +120,7 @@ export function ArtworkMediaManager({
       )} */}
 
       {media.length === 0 ? (
-        <p className="text-sm text-muted-foreground">No extra media yet.</p>
+        <p className="text-sm text-muted-foreground">Sem mídia extra.</p>
       ) : (
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
           {media.map((m) => (

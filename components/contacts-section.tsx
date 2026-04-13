@@ -23,13 +23,6 @@ export async function ContactsSection() {
             colaco.art@yahoo.com
           </a>
           <a
-            href="tel:+351913846901"
-            className="flex items-center gap-3 text-sm text-foreground transition-colors hover:text-primary"
-          >
-            <Phone className="size-5 text-primary" />
-            +351 913 846 901
-          </a>
-          <a
             href="https://instagram.com/colaco_art"
             target="_blank"
             rel="noopener noreferrer"

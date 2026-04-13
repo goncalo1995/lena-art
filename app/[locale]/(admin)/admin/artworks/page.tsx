@@ -23,7 +23,7 @@ export default async function AdminArtworksPage() {
         <Button asChild size="sm">
           <Link href="/admin/artworks/new">
             <Plus className="size-4" />
-            New Artwork
+            Nova Obra
           </Link>
         </Button>
       </div>
@@ -33,19 +33,19 @@ export default async function AdminArtworksPage() {
           <thead className="bg-muted/50">
             <tr>
               <th className="px-4 py-3 text-left font-medium text-muted-foreground">
-                Title
+                Título
               </th>
               <th className="px-4 py-3 text-left font-medium text-muted-foreground hidden sm:table-cell">
-                Type
+                Tipo
               </th>
               <th className="px-4 py-3 text-left font-medium text-muted-foreground hidden md:table-cell">
-                Collection
+                Coleção
               </th>
               <th className="px-4 py-3 text-left font-medium text-muted-foreground hidden lg:table-cell">
-                Published
+                Publicado
               </th>
               <th className="px-4 py-3 text-right font-medium text-muted-foreground">
-                Actions
+                Ações
               </th>
             </tr>
           </thead>
@@ -69,7 +69,7 @@ export default async function AdminArtworksPage() {
                         : "text-muted-foreground"
                     }
                   >
-                    {artwork.is_published ? "Yes" : "No"}
+                    {artwork.is_published ? "Sim" : "Não"}
                   </span>
                 </td>
                 <td className="px-4 py-3 text-right">
@@ -77,7 +77,7 @@ export default async function AdminArtworksPage() {
                     <Button asChild size="icon-sm" variant="ghost">
                       <Link href={`/admin/artworks/${artwork.id}/edit`}>
                         <Pencil className="size-4" />
-                        <span className="sr-only">Edit {artwork.title}</span>
+                        <span className="sr-only">Editar {artwork.title}</span>
                       </Link>
                     </Button>
                     <DeleteArtworkButton id={artwork.id} title={artwork.title} />
@@ -90,7 +90,7 @@ export default async function AdminArtworksPage() {
 
         {artworks.length === 0 && (
           <p className="py-12 text-center text-muted-foreground">
-            No artworks yet. Create your first one.
+            Ainda não há obras. Crie a primeira.
           </p>
         )}
       </div>

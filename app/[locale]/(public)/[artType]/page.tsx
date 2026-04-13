@@ -54,7 +54,7 @@ export default async function ArtListingPage({ params }: PageProps) {
             {label}
           </h1>
           <p className="mt-2 text-muted-foreground">
-            {items.length} {items.length === 1 ? "work" : "works"}
+            {items.length} {items.length === 1 ? t('labels.work') : t('labels.works')}
           </p>
 
           <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -68,7 +68,7 @@ export default async function ArtListingPage({ params }: PageProps) {
                 isPoem={isPoem}
                 badge={
                   item.type === "collection"
-                    ? `${item.artwork_count} works`
+                    ? `${item.artwork_count} ${t('labels.works')}`
                     : undefined
                 }
               />
@@ -77,7 +77,7 @@ export default async function ArtListingPage({ params }: PageProps) {
 
           {items.length === 0 && (
             <p className="mt-12 text-center text-muted-foreground">
-              No works available yet. Check back soon.
+              {t('messages.noWorksAvailable')}
             </p>
           )}
         </div>

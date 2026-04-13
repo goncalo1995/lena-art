@@ -68,7 +68,7 @@ export function NewsletterForm() {
               disabled={status === "loading"}
               className="shrink-0"
             >
-              {status === "loading" ? "Subscribing..." : "Subscribe"}
+              {status === "loading" ? t("newsletter.submitting") : t("newsletter.submit")}
             </Button>
           </form>
         )}

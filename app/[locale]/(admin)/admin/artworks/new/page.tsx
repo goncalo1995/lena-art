@@ -7,7 +7,7 @@ export default async function NewArtworkPage() {
   return (
     <div>
       <h1 className="font-serif text-2xl text-foreground mb-8">
-        New Artwork
+        Nova obra
       </h1>
       <ArtworkForm collections={collections} />
     </div>
