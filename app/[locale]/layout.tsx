@@ -5,7 +5,7 @@ import '../globals.css'
 import { notFound } from 'next/navigation';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
- 
+import { Analytics } from "@vercel/analytics/next"
 
 const _inter = Inter({ subsets: ['latin'] })
 // const _playfair = Playfair_Display({ subsets: ['latin'] })
@@ -49,6 +49,7 @@ export default async function LocaleLayout({children, params}: Props) {
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
         </NextIntlClientProvider>
+        <Analytics />
       </body>
     </html>
   )

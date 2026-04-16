@@ -212,12 +212,12 @@ export function ArtworkForm({ artwork, collections }: ArtworkFormProps) {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <label className="flex flex-col gap-1.5">
             <span className="text-sm text-muted-foreground">
-              Data de Criação
+              Ano de Criação
             </span>
             <Input
               name="creation_date"
-              type="date"
-              defaultValue={artwork?.creation_date || ""}
+              type="text"
+              defaultValue={artwork?.creation_date?.substring(0,4) || ""}
             />
           </label>
 

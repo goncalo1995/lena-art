@@ -33,24 +33,24 @@
       "viewBio": "View Bio",
       "artwork": {
         "drawing": {
-          "title": "Drawing",
-          "description": "Intimate studies in charcoal, graphite and ink that capture the essence of a moment."
+          "title": "Drawings",
+          "description": "Drawing springs from the innermost expression of my being, whether they be simple doodles or elaborate works."
         },
         "painting": {
-          "title": "Painting",
-          "description": "Paintings that explore the relationship between color, form, and emotion."
+          "title": "Paintings",
+          "description": "Painting is freedom, it is gazing into the mirror of my soul, it is daring to make mistakes and move forward."
         },
         "photography": {
-          "title": "Photography",
-          "description": "Photographs that capture the essence of a moment."
+          "title": "Photographs",
+          "description": "A photograph is a moment frozen in the flow of life, illuminating its outline."
         },
         "poem": {
-          "title": "Poetry",
-          "description": "Words shaped into small vessels of feeling, written alongside the visual work."
+          "title": "Poems",
+          "description": "Poetry is the spontaneity of the soul channelling the collective memory of the sorrows and joys of being a human being."
         },
         "watercolor": {
-          "title": "Watercolor",
-          "description": "Watercolor paintings that explore the relationship between color, form, and emotion."
+          "title": "Watercolor Photographs",
+          "description": "Watercolour photographs is the moving image, moments that thaw and dissolve into memories of what once was, capturing the energy behind the photographic image."
         }
       },
       "newsletter": {
@@ -91,7 +91,22 @@
         "p6": "In 2023, he returned to the beachside, where he began work on his next solo painting exhibition, which was shown in 2025 at the Fábrica do Braço de Prata in Lisbon. Having participated in other group exhibitions.",
         "p7": "In 2026, he is developing his next artistic creation, using the photo-watercolour technique, in an exercise in fusing photography and painting, which he has titled: Diluted Memories",
         "viewWork": "View Work",
-        "contact": "Contact"
+        "contact": "Contact",
+        "exhibitionsTitle": "Exhibitions",
+        "exhibitions": [
+          { "year": "2025", "title": "POOL ART SPACE, POPUP OPEN STUDIO", "location": "Comporta Houses", "type": "Photography" },
+          { "year": "2025", "title": "POPUP Art Exhibition \"A´Terra\"", "location": "Gallery of the House of Culture, Comporta", "type": "Photography" },
+          { "year": "2025", "title": "\"Das Pinturas da Minha Mãe\" - Solo Painting Exhibition", "location": "Braço de Prata Factory, Lisbon", "type": "Painting" },
+          { "year": "2024", "title": "\"Art&Fact\" - Collective Art Exhibition", "location": "Gallery of the House of Culture, Comporta", "type": "Photography" },
+          { "year": "2023", "title": "\"100X100\" - Collective Painting Exhibition", "location": "Municipal Museum Carlos Reis, Fish Square, Torres Novas", "type": "Painting" },
+          { "year": "2018", "title": "\"Janelas_77\"", "location": "Margem Sol, Costa da Caparica", "type": "Photography" },
+          { "year": "2017", "title": "\"Janelas_77\"", "location": "SIGC, Lisbon", "type": "Photography" },
+          { "year": "2017", "title": "\"Janelas_77\"", "location": "House of Culture of Comporta", "type": "Photography" },
+          { "year": "2013", "title": "\"Trilho\"", "location": "SIGC, Lisbon", "type": "Photography" },
+          { "year": "2012", "title": "\"Algumas Fotografias 2012\"", "location": "IPF, Lisbon", "type": "Photography" },
+          { "year": "2011", "title": "\"Alunos SNBA 2010/2011\" - Collective Painting Exhibition", "location": "Lisbon", "type": "Painting" },
+          { "year": "2010", "title": "\"Aparências\" - Solo Painting Exhibition", "location": "SIGC, Lisbon", "type": "Painting" }
+        ]
       }
     },
     "header": {
@@ -104,9 +119,9 @@
       "work": {
         "drawings": "Drawings",
         "paintings": "Paintings",
-        "photography": "Photography",
-        "poetry": "Poetry",
-        "watercolor": "Watercolor"
+        "photography": "Photographs",
+        "poetry": "Poems",
+        "watercolor": "Watercolor Photographs"
       },
       "a11y": {
         "openMenu": "Open menu",
@@ -133,9 +148,9 @@
         "bio": "Bio",
         "drawings": "Drawings",
         "paintings": "Paintings",
-        "photography": "Photography",
-        "poetry": "Poetry",
-        "watercolor": "Watercolor",
+        "photography": "Photographs",
+        "poetry": "Poems",
+        "watercolor": "Watercolor Photographs",
         "privacyPolicy": "Privacy Policy"
       },
       "headline": "Through lines, colors, lenses, and words — a journey of self-expression, where each stroke, click, and verse unveils a new dimension of the soul.",

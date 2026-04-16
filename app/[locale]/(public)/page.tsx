@@ -5,8 +5,7 @@ import { NewsletterForm } from "@/components/newsletter-form"
 import { ContactsSection } from "@/components/contacts-section"
 import { getHomeFeaturedArtworksStatic } from "@/lib/data"
 import type { ArtType } from "@/lib/types"
-import { getTranslations } from 'next-intl/server';
-import ComingSoon from "@/components/ComingSoon"
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 export function generateStaticParams() {
   return [{ locale: 'pt' }, { locale: 'en' }];
@@ -23,10 +22,14 @@ export async function generateMetadata({ params: paramsPromise }: { params: Home
   };
 }
 
-export default async function HomePage({ params: paramsPromise }: { params: HomePageParams }) {
-  const { locale } = await paramsPromise;
-  const t = await getTranslations({ locale, namespace: 'Pages.home' });
-  const artTypes: ArtType[] = ["drawing", "painting", "photography", "poem"]
+export default async function HomePage({ params }: { params: HomePageParams }) {
+  const { locale } = await params;
+  
+  // Enable static rendering
+  setRequestLocale(locale);
+
+  const t = await getTranslations('Pages.home');
+  const artTypes: ArtType[] = ["drawing", "painting", "photography", "poem", "watercolor"]
   const artworksByType = await Promise.all(
     artTypes.map(async (type) => ({
       type,
@@ -37,11 +40,10 @@ export default async function HomePage({ params: paramsPromise }: { params: Home
   return (
     <>
       <main>
-        <ComingSoon />
-        {/* <HeroSection />
+        <HeroSection />
         <AboutPreview />
         <div className="divide-y divide-border">
-          {artworksByType.map(({ type, artworks }) => (
+          {artworksByType.filter((item) => item.artworks.length > 0).map(({ type, artworks }) => (
             <ArtSection
               key={type}
               artType={type}
@@ -52,7 +54,7 @@ export default async function HomePage({ params: paramsPromise }: { params: Home
           ))}
         </div>
         <NewsletterForm />
-        <ContactsSection /> */}
+        <ContactsSection />
       </main>
     </>
   )

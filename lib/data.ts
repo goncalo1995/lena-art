@@ -413,9 +413,10 @@ export async function getHomeFeaturedArtworksStatic(
       .limit(8)
     if (data && data.length > 0) return data
   }
-  return placeholderArtworks.filter(
-    (a) => a.art_type === artType && a.is_published && a.is_featured_home
-  )
+  return []
+  // placeholderArtworks.filter(
+  //   (a) => a.art_type === artType && a.is_published && a.is_featured_home
+  // )
 }
 
 // ========== PUBLIC DATA FETCHING (runtime - with cookies) ==========

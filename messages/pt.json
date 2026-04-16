@@ -33,24 +33,24 @@
       "viewBio": "Ver Biografia",
       "artwork": {
         "drawing": {
-          "title": "Desenho",
-          "description": "Estudos íntimos em carvão, grafite e tinta que capturam a essência de um momento."
+          "title": "Desenhos",
+          "description": "O desenho urge da expressão íntima do meu ser, sejam eles gatafunhos ou elaborados."
         },
         "painting": {
-          "title": "Pintura",
-          "description": "Pinturas que exploram a relação entre cor, forma e emoção."
+          "title": "Pinturas",
+          "description": "Pintura é liberdade, é contemplar o espelho da minha alma, é ousar errar e avançar."
         },
         "photography": {
-          "title": "Fotografia",
-          "description": "Fotografias que capturam a essência de um momento."
+          "title": "Fotografias",
+          "description": "Fotografia é um ponto que congela na linha da vida e luz o seu desenho."
         },
         "poem": {
-          "title": "Poesia",
-          "description": "Palavras moldadas em pequenos recipientes de sentimento, escritas ao lado das obras visuais."
+          "title": "Poesias",
+          "description": "Poesia é a espontaneidade da alma canalizando a memória colectiva das dores e das alegrias do se ser, Ser Humano."
         },
         "watercolor": {
-          "title": "FotoAguarela",
-          "description": "Fotografias aquosas que capturam a leveza e a fluidez da luz."
+          "title": "Aguarelas Fotográficas",
+          "description": "FotoAguarelas é a imagem em movimento, momentos que descongelam e se diluem nas memórias do que já foram, imprimindo a energia por detrás da imagem fotográfica."
         }
       },
       "newsletter": {
@@ -83,12 +83,12 @@
       "description": "Biografia Description",
       "content": {
         "name": "Helena Colaço Salazar",
-        "p1": "O seu percurso académico foi sempre ligado à disciplina das artes. Estudou Arquitectura até ao terceiro ano do curso na Universidade Lusíada, o seu conceito em como habitar a cidade fê-la desinteressar-se sobre esta disciplina, ao mesmo tempo inicia-se na arte da interpretação, estudando e trabalhando como actriz ao longo de onze anos na cidade de Lisboa, explorando as facetas das várias personagens, descobrindo um pouco mais de sobre si e sobre o ser humano.",
+        "p1": "O seu percurso académico foi sempre ligado à disciplina das artes. Estudou Arquitectura até ao terceiro ano do curso na Universidade Lusíada, o seu conceito em como habitar a cidade fê-la desinteressar-se sobre esta disciplina e ao mesmo tempo inicia-se na arte da interpretação, estudando e trabalhando como actriz ao longo de onze anos na cidade de Lisboa, explorando as facetas das várias personagens, descobrindo um pouco mais sobre si e sobre o ser humano.",
         "p2": "Num dos seus últimos espetáculos de teatro ao desenvolver a sua personagem, Kelly, do autor Gary Owen da peça, O Mundo Submerso, as palavras e a mensagem do texto começaram a ganhar uma intensidade tal, que a forma de melhor interiorizar a personagem foi se expressando através do desenho, compilando uma série a que chamou O Mundo Imaginário de Kelly. Este processo foi mais um ponto de viragem no seu percurso.",
-        "p3": "Em 2011 inicia dois cursos. O de Novas Técnicas em Pintura, na Sociedade Nacional de Belas Artes ministrada pelo pintor Paiva Raposo e o de Fotografia, no Instituto Português de Fotografia, explorando as imagens que vê e que sente ao invés de ela própria ser uma imagem.",
-        "p4": "Ainda vivendo em Lisboa, estagiou como fotojornalista no Jornal Público e no Jornal i. Fez fotografia de Arquitectura, de Espetáculos, de Vernissages, e exposições de Fotografia e Pintura.",
-        "p5": "Outra viragem acontece na sua vida quando se sentiu a sufocar na cidade e decide que tem que sair para poder sobreviver, em 2014 passa a viver mais a sul, junto à praia, até 2017. Na sua procura de paz e conexão com a natureza empreende na vivência de Nómada ao longo de cinco anos, viajando por Portugal, Espanha, França, Israel e América Central.",
-        "p6": "Em 2023 volta a fixar-se junto à praia onde começa a desenvolver a sua próxima exposição de Pintura a solo, exibida em 2025 na Fábrica do Braço de Prata, Lisboa. Tendo participado noutras exposições coletivas.",
+        "p3": "Em 2011 inicia dois cursos. O de Novas Técnicas em Pintura, na Sociedade Nacional de Belas Artes ministrada pelo pintor Paiva Raposo e o de Fotografia, no Instituto Português de Fotografia, explorando as imagens que vê e que sente.",
+        "p4": "A viver em Lisboa, estagiou como fotojornalista no Jornal Público e no Jornal i. Fez fotografia de Arquitectura, de Espetáculos, de Vernissages, e exposições de Fotografia e Pintura.",
+        "p5": "Outra viragem acontece na sua vida quando se sentiu a sufocar na cidade e decide que tem que sair para poder sobreviver, em 2014 passa a viver mais a sul, junto à praia, até 2017. Na sua procura de paz e conexão com a natureza empreende a vivência de Nómada ao longo de cinco anos, viajando por Portugal, Espanha, França, Israel e América Central.",
+        "p6": "Em 2023 volta a fixar-se junto à praia onde começa a desenvolver a sua próxima exposição de Pintura a solo, exibida em 2025 na Fábrica do Braço de Prata, Lisboa, tendo participado noutras exposições coletivas.",
         "p7": "Em 2026 está a desenvolver a sua próxima criação artística, com a técnica de Fotoaguarelas, num exercício de fusão entre a fotografia e a pintura, â qual intitula de: Memórias Diluídas",
         "oldp1": "Desde muito jovem revelou interesse pelas artes, gostando de desenhar, ver fotografias, dançar e praticar outros desportos. Aos treze anos perdeu o pai, acontecimento que a levou, de forma espontânea, a escrever poemas e a desenhar, escolhendo a área artística no ensino secundário.",
         "oldp2": "Iniciou o seu percurso no teatro, onde trabalhou como atriz durante onze anos.",
@@ -98,7 +98,22 @@
         "oldp6": "Em 2014 mudou-se para Tróia, onde viveu três anos a desenvolver o conceito de Identidade, que a conduziu a um período de vida nómada entre 2017 e 2023. Nesse ano regressou a Tróia e começou a preparar a sua nova exposição individual de pintura, Das Pinturas da Minha Mãe, apresentada na Fábrica do Braço de Prata, em Lisboa, em 2025. Participou também em diversas exposições coletivas de fotografia e pintura ao longo desses anos.",
         "oldp7": "Atualmente divide o seu tempo entre Lisboa e o sul de Portugal, expandindo continuamente as suas competências criativas enquanto artista plástica.",
         "viewWork": "Ver Obras",
-        "contact": "Contacto"
+        "contact": "Contacto",
+        "exhibitionsTitle": "Exposições",
+        "exhibitions": [
+          { "year": "2025", "title": "POOL ART SPACE, POPUP OPEN STUDIO", "location": "Casas da Comporta", "type": "Fotografia" },
+          { "year": "2025", "title": "POPUP Art Exhibition \"A´Terra\"", "location": "Galeria da Casa da Cultura, Comporta", "type": "Fotografia" },
+          { "year": "2025", "title": "\"Das Pinturas da Minha Mãe\" - Exposição Individual", "location": "Fábrica do Braço de Prata, Lisboa", "type": "Pintura" },
+          { "year": "2024", "title": "\"Art&Fact\" - Exposição Coletiva", "location": "Galeria da Casa da Cultura, Comporta", "type": "Fotografia" },
+          { "year": "2023", "title": "\"100X100\" - Exposição Coletiva de Pintura", "location": "Museu Carlos Reis, Praça do Peixe, Torres Novas", "type": "Pintura" },
+          { "year": "2018", "title": "\"Janelas_77\"", "location": "Margem Sol, Costa da Caparica", "type": "Fotografia" },
+          { "year": "2017", "title": "\"Janelas_77\"", "location": "SIGC, Lisboa", "type": "Fotografia" },
+          { "year": "2017", "title": "\"Janelas_77\"", "location": "Casa da Cultura da Comporta", "type": "Fotografia" },
+          { "year": "2013", "title": "\"Trilho\"", "location": "SIGC, Lisboa", "type": "Fotografia" },
+          { "year": "2012", "title": "\"Algumas Fotografias 2012\"", "location": "IPF, Lisboa", "type": "Fotografia" },
+          { "year": "2011", "title": "\"Alunos SNBA 2010/2011\" - Exposição Coletiva de Pintura", "location": "Lisboa", "type": "Pintura" },
+          { "year": "2010", "title": "\"Aparências\" - Exposição Individual", "location": "SIGC, Lisboa", "type": "Pintura" }
+        ]
       }
     },
     "header": {
@@ -111,9 +126,9 @@
       "work": {
         "drawings": "Desenhos",
         "paintings": "Pinturas",
-        "photography": "Fotografia",
-        "poetry": "Poesia",
-        "watercolor": "FotoAguarela"
+        "photography": "Fotografias",
+        "poetry": "Poesias",
+        "watercolor": "Aguarelas Fotográficas"
       },
       "a11y": {
         "openMenu": "Abrir menu",
@@ -140,9 +155,9 @@
         "bio": "Biografia",
         "drawings": "Desenhos",
         "paintings": "Pinturas",
-        "photography": "Fotografia",
-        "poetry": "Poesia",
-        "watercolor": "FotoAguarela",
+        "photography": "Fotografias",
+        "poetry": "Poesias",
+        "watercolor": "Aguarelas Fotográficas",
         "privacyPolicy": "Política de Privacidade"
       },
       "headline": "Através de linhas, cores, lentes e palavras — uma jornada de autoexpressão, onde cada traço, clique e verso revela uma nova dimensão da alma.",

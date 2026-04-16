@@ -7,7 +7,7 @@ export async function HeroSection() {
   return (
     <section className="relative h-[70vh] min-h-[480px] w-full overflow-hidden">
       <Image
-        src="/images/autoretrato.jpg"
+        src="/images/home-autoretrato.jpg"
         alt="Helena Colaço's art studio bathed in warm afternoon light"
         fill
         className="object-cover"

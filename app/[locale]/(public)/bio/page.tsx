@@ -33,6 +33,17 @@ export default async function BioPage({ params }: { params: Promise<{ locale: st
               </h2>
               <div className="relative aspect-video rounded-lg bg-muted">
                 <Image
+                  src="/images/retratro_biografia_cut.jpg"
+                  alt="Helena Colaço - Autoretrato1 "
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 100%"
+                  priority
+                />
+              </div>
+              <hr className="my-6" />
+              <div className="relative aspect-video rounded-lg bg-muted">
+                <Image
                   src="/images/autoretrato.jpg"
                   alt="Helena Colaço - Autoretrato"
                   fill
@@ -63,6 +74,28 @@ export default async function BioPage({ params }: { params: Promise<{ locale: st
                 <p>
                   {t('content.p7')}
                 </p>
+              </div>
+
+              {/* Exhibitions Section */}
+              <div className="mt-12">
+                <h3 className="font-serif text-2xl text-foreground mb-6">
+                  {t('content.exhibitionsTitle')}
+                </h3>
+                <div className="flex flex-col gap-4">
+                  {t.raw('content.exhibitions').map((exhibition: { year: string; title: string; location: string; type: string }, index: number) => (
+                    <div key={index} className="flex flex-col gap-1 pb-4 border-b border-border/50 last:border-0">
+                      <div className="flex items-baseline gap-3">
+                        <span className="text-sm font-medium text-foreground/60">{exhibition.year}</span>
+                        <span className="text-base font-medium text-foreground">{exhibition.title}</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-sm text-foreground/70 pl-12">
+                        <span>{exhibition.location}</span>
+                        <span className="text-foreground/40">·</span>
+                        <span className="italic">{exhibition.type}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
