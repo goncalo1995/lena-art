@@ -388,5 +388,7 @@ export const placeholderSections: ArtworkSection[] = [
     sort_order: 0,
     created_at: "2024-08-20T00:00:00Z",
     updated_at: "2024-08-20T00:00:00Z",
+    content_en: "",
+    title_en: "",
   },
 ]
