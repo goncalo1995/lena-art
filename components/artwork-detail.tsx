@@ -1,7 +1,7 @@
 import Image from "next/image"
 import type { ArtworkWithRelations } from "@/lib/types"
 import { format } from "date-fns"
-import { getTranslations } from "next-intl/server"
+import { getTranslations, getLocale } from "next-intl/server"
 
 interface ArtworkDetailProps {
   artwork: ArtworkWithRelations
@@ -9,6 +9,8 @@ interface ArtworkDetailProps {
 
 export async function ArtworkDetail({ artwork }: ArtworkDetailProps) {
   const t = await getTranslations()
+  const locale = await getLocale()
+  const isEn = locale === "en"
   const isPoem = artwork.art_type === "poem"
   const showTitle = artwork.title && artwork.title.trim() !== "" && artwork.title !== "Untitled"
 
@@ -85,18 +87,23 @@ export async function ArtworkDetail({ artwork }: ArtworkDetailProps) {
       {/* Extra sections */}
       {artwork.sections && artwork.sections.length > 0 && (
         <div className="mt-12 flex flex-col gap-8">
-          {artwork.sections.map((section) => (
-            <div key={section.id}>
-              {section.title && (
-                <h2 className="font-serif text-xl text-foreground mb-3">
-                  {section.title}
-                </h2>
-              )}
-              <p className="text-base leading-relaxed text-foreground/80 whitespace-pre-line">
-                {section.content}
-              </p>
-            </div>
-          ))}
+          {artwork.sections.map((section) => {
+            // Use EN if locale is EN and EN content exists, otherwise fall back to PT
+            const title = isEn && section.title_en ? section.title_en : section.title
+            const content = isEn && section.content_en ? section.content_en : section.content
+            return (
+              <div key={section.id}>
+                {title && (
+                  <h2 className="font-serif text-xl text-foreground mb-3">
+                    {title}
+                  </h2>
+                )}
+                <p className="text-base leading-relaxed text-foreground/80 whitespace-pre-line">
+                  {content}
+                </p>
+              </div>
+            )
+          })}
         </div>
       )}
 

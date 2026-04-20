@@ -716,6 +716,50 @@ export async function refreshMediaPage() {
   }
 }
 
+export async function updateArtworkMediaSortOrder(mediaId: string, newSortOrder: number) {
+  const supabase = await getSupabaseClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) throw new Error("Unauthorized")
+
+  // Get the media item to find its artwork
+  const { data: media, error: fetchError } = await supabase
+    .from("artwork_media")
+    .select("artwork_id")
+    .eq("id", mediaId)
+    .single()
+
+  if (fetchError) throw new Error(fetchError.message)
+
+  // Update the sort order
+  const { error: updateError } = await supabase
+    .from("artwork_media")
+    .update({ sort_order: newSortOrder })
+    .eq("id", mediaId)
+
+  if (updateError) throw new Error(updateError.message)
+
+  // Revalidate if linked to artwork
+  if (media?.artwork_id) {
+    const { data: artwork, error: artworkError } = await supabase
+      .from("artworks")
+      .select("art_type, slug, collections!left(slug)")
+      .eq("id", media.artwork_id)
+      .single()
+
+    if (artworkError) {
+      console.error("Failed to fetch artwork for revalidation:", artworkError)
+    } else if (artwork) {
+      await revalidateAllLocales({
+        artType: artwork.art_type,
+        collectionSlug: artwork.collections?.slug,
+        slug: artwork.slug,
+      })
+    }
+  }
+
+  return { success: true }
+}
+
 // ========== ARTWORK SECTIONS ==========
 
 export async function addArtworkSection(

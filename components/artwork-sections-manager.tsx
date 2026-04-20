@@ -105,15 +105,39 @@ export function ArtworkSectionsManager({
               key={s.id}
               className="flex items-start justify-between gap-4 rounded-md border border-border px-4 py-3"
             >
-              <div className="min-w-0">
-                {s.title && (
-                  <p className="text-sm font-medium text-foreground">
-                    {s.title}
+              <div className="min-w-0 flex-1">
+                {/* PT Content */}
+                <div className="mb-2">
+                  <span className="text-xs font-medium text-primary">PT</span>
+                  {s.title && (
+                    <p className="text-sm font-medium text-foreground">
+                      {s.title}
+                    </p>
+                  )}
+                  <p className="text-sm text-muted-foreground line-clamp-2">
+                    {s.content}
                   </p>
-                )}
-                <p className="text-sm text-muted-foreground line-clamp-2">
-                  {s.content}
-                </p>
+                </div>
+
+                {/* EN Content */}
+                <div className="border-t border-border/50 pt-2">
+                  <span className="text-xs font-medium text-primary/70">EN</span>
+                  {s.title_en && (
+                    <p className="text-sm font-medium text-foreground/80">
+                      {s.title_en}
+                    </p>
+                  )}
+                  {s.content_en && (
+                    <p className="text-sm text-muted-foreground/80 line-clamp-2">
+                      {s.content_en}
+                    </p>
+                  )}
+                  {!s.title_en && !s.content_en && (
+                    <p className="text-xs text-muted-foreground italic">
+                      Sem tradução EN
+                    </p>
+                  )}
+                </div>
               </div>
               <Button
                 size="icon-sm"

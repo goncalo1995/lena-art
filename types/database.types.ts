@@ -62,28 +62,34 @@ export type Database = {
         Row: {
           artwork_id: string
           content: string
+          content_en: string | null
           created_at: string | null
           id: string
           sort_order: number | null
           title: string | null
+          title_en: string | null
           updated_at: string | null
         }
         Insert: {
           artwork_id: string
           content: string
+          content_en?: string | null
           created_at?: string | null
           id?: string
           sort_order?: number | null
           title?: string | null
+          title_en?: string | null
           updated_at?: string | null
         }
         Update: {
           artwork_id?: string
           content?: string
+          content_en?: string | null
           created_at?: string | null
           id?: string
           sort_order?: number | null
           title?: string | null
+          title_en?: string | null
           updated_at?: string | null
         }
         Relationships: [
@@ -98,7 +104,7 @@ export type Database = {
       }
       artworks: {
         Row: {
-          art_type: string
+          art_type: Database["public"]["Enums"]["artwork_type"]
           collection_id: string | null
           cover_image_url: string | null
           created_at: string | null
@@ -122,7 +128,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
-          art_type: string
+          art_type: Database["public"]["Enums"]["artwork_type"]
           collection_id?: string | null
           cover_image_url?: string | null
           created_at?: string | null
@@ -146,7 +152,7 @@ export type Database = {
           user_id: string
         }
         Update: {
-          art_type?: string
+          art_type?: Database["public"]["Enums"]["artwork_type"]
           collection_id?: string | null
           cover_image_url?: string | null
           created_at?: string | null
@@ -181,7 +187,7 @@ export type Database = {
       }
       collections: {
         Row: {
-          art_type: string
+          art_type: Database["public"]["Enums"]["artwork_type"]
           cover_image_url: string | null
           created_at: string | null
           description: string | null
@@ -198,7 +204,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
-          art_type: string
+          art_type: Database["public"]["Enums"]["artwork_type"]
           cover_image_url?: string | null
           created_at?: string | null
           description?: string | null
@@ -215,7 +221,7 @@ export type Database = {
           user_id: string
         }
         Update: {
-          art_type?: string
+          art_type?: Database["public"]["Enums"]["artwork_type"]
           cover_image_url?: string | null
           created_at?: string | null
           description?: string | null
@@ -254,6 +260,18 @@ export type Database = {
         }
         Relationships: []
       }
+      subscriber_count: {
+        Row: {
+          count: number | null
+        }
+        Insert: {
+          count?: number | null
+        }
+        Update: {
+          count?: number | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -262,7 +280,12 @@ export type Database = {
       is_admin: { Args: never; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      artwork_type:
+        | "drawing"
+        | "painting"
+        | "photography"
+        | "watercolor"
+        | "poem"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -389,6 +412,14 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      artwork_type: [
+        "drawing",
+        "painting",
+        "photography",
+        "watercolor",
+        "poem",
+      ],
+    },
   },
 } as const
