@@ -33,17 +33,6 @@ export default async function BioPage({ params }: { params: Promise<{ locale: st
               </h2>
               <div className="relative aspect-video rounded-lg bg-muted">
                 <Image
-                  src="/images/retratro_biografia_cut.jpg"
-                  alt="Helena Colaço - Autoretrato1 "
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 100%"
-                  priority
-                />
-              </div>
-              <hr className="my-6" />
-              <div className="relative aspect-video rounded-lg bg-muted">
-                <Image
                   src="/images/autoretrato.jpg"
                   alt="Helena Colaço - Autoretrato"
                   fill

@@ -11,9 +11,10 @@ interface ArtSectionProps {
   label: string
   description: string
   artworks: ArtworkWithCollectionSlug[]
+  locale: string
 }
 
-export async function ArtSection({ artType, label, description, artworks }: ArtSectionProps) {
+export async function ArtSection({ artType, label, description, artworks, locale }: ArtSectionProps) {
   const t = await getTranslations("Main.buttons")
   const route = ART_TYPE_ROUTES[artType]
   const isPoem = artType === "poem"
@@ -40,8 +41,8 @@ export async function ArtSection({ artType, label, description, artworks }: ArtS
         {artworks.map((artwork) => (
           <ArtworkCard
             key={artwork.id}
-            title={artwork.title}
-            shortDescription={artwork.short_description}
+            title={locale === 'pt' ? artwork.title : artwork.title_en || artwork.title}
+            shortDescription={locale === 'pt' ? artwork.short_description : artwork.short_description_en || artwork.short_description}
             coverImageUrl={artwork.cover_image_url}
             href={`/${route}/${artwork.collections?.slug ? artwork.collections.slug + '/' : ''}${artwork.slug}`}
             isPoem={isPoem}

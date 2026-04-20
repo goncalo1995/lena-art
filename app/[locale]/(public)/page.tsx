@@ -50,6 +50,7 @@ export default async function HomePage({ params }: { params: HomePageParams }) {
               label={t(`artwork.${type}.title`)}
               description={t(`artwork.${type}.description`)}
               artworks={artworks}
+              locale={locale}
             />
           ))}
         </div>

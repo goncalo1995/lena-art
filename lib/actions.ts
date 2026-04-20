@@ -729,7 +729,9 @@ export async function addArtworkSection(
   if (!user) throw new Error("Unauthorized")
 
   const title = (formData.get("title") as string) || null
+  const title_en = (formData.get("title_en") as string) || null
   const content = formData.get("content") as string
+  const content_en = (formData.get("content_en") as string) || null
   const sort_order = parseInt(
     (formData.get("sort_order") as string) || "0"
   )
@@ -744,7 +746,9 @@ export async function addArtworkSection(
   const { error } = await supabase.from("artwork_sections").insert({
     artwork_id: artworkId,
     title,
+    title_en,
     content,
+    content_en,
     sort_order,
   })
 
