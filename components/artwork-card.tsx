@@ -57,7 +57,7 @@ export function ArtworkCard({
           )}
         </div>
       )}
-      <div className="flex flex-1 flex-col gap-2 p-4">
+      <div className="flex flex-1 flex-col gap-2 p-4 bg-background">
         <h3 className="font-serif text-base text-foreground group-hover:text-primary transition-colors line-clamp-1">
           {title}
         </h3>
