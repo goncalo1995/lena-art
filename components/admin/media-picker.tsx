@@ -11,16 +11,17 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { createClient } from '@/lib/supabase/client'
 import type { Artwork, ArtworkMediaWithArtwork } from '@/lib/types'
 import { MediaUploader } from './media-uploader'
-import { addArtworkMedia } from '@/lib/actions'
+import { addArtworkMedia, addCollectionMedia } from '@/lib/actions'
 
 interface MediaPickerProps {
   value?: string
   onChange: (url: string) => void
   onClose?: () => void
   artworkId?: string // For filtering media by artwork
+  collectionId?: string // For filtering media by collection
 }
 
-export function MediaPicker({ value, onChange, onClose, artworkId }: MediaPickerProps) {
+export function MediaPicker({ value, onChange, onClose, artworkId, collectionId }: MediaPickerProps) {
   const [open, setOpen] = useState(false)
   const [urlInput, setUrlInput] = useState(value || '')
   const [recentMedia, setRecentMedia] = useState<ArtworkMediaWithArtwork[]>([])
@@ -73,7 +74,7 @@ export function MediaPicker({ value, onChange, onClose, artworkId }: MediaPicker
   const handleSelect = async (url: string, mediaType?: 'image' | 'video') => {
     // Clean the URL
     const cleanUrl = url.replace(/([^:]\/)\/+/g, '$1')
-    
+
     // If we have an artworkId, save to Supabase automatically
     if (artworkId && cleanUrl && !cleanUrl.startsWith('blob:')) {
       try {
@@ -82,14 +83,30 @@ export function MediaPicker({ value, onChange, onClose, artworkId }: MediaPicker
         formData.append('media_type', mediaType || 'image')
         formData.append('caption', caption)
         formData.append('sort_order', '0')
-        
+
         await addArtworkMedia(artworkId, formData)
         console.log('Media saved to database:', cleanUrl)
       } catch (error) {
         console.error('Failed to save media to database:', error)
       }
     }
-    
+
+    // If we have a collectionId, save to Supabase automatically
+    if (collectionId && cleanUrl && !cleanUrl.startsWith('blob:')) {
+      try {
+        const formData = new FormData()
+        formData.append('media_url', cleanUrl)
+        formData.append('media_type', mediaType || 'image')
+        formData.append('caption', caption)
+        formData.append('sort_order', '0')
+
+        await addCollectionMedia(collectionId, formData)
+        console.log('Collection media saved to database:', cleanUrl)
+      } catch (error) {
+        console.error('Failed to save collection media to database:', error)
+      }
+    }
+
     onChange(cleanUrl)
     setOpen(false)
     onClose?.()
@@ -106,14 +123,14 @@ export function MediaPicker({ value, onChange, onClose, artworkId }: MediaPicker
       
       <DialogContent className="max-w-4xl max-h-[80vh]">
         <DialogHeader>
-          <DialogTitle>Select Media</DialogTitle>
+          <DialogTitle>Selecionar Media</DialogTitle>
           <p className="text-sm text-muted-foreground">
-            Choose from existing media. To upload new files, go to the Media Library.
+            Escolha da biblioteca de media. Para fazer upload de novos arquivos, vá para a Biblioteca de Media.
           </p>
         </DialogHeader>
 
         {/* Add caption input here */}
-        {artworkId && (
+        {(artworkId || collectionId) && (
           <div className="px-1 mb-2">
             <Input
               placeholder="Caption (optional)"
@@ -128,7 +145,7 @@ export function MediaPicker({ value, onChange, onClose, artworkId }: MediaPicker
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="upload">Upload</TabsTrigger>
             <TabsTrigger value="url">URL</TabsTrigger>
-            <TabsTrigger value="recent">Recent</TabsTrigger>
+            <TabsTrigger value="recent">Recentes</TabsTrigger>
             {/* <TabsTrigger value="artwork">By Artwork</TabsTrigger> */}
           </TabsList>
 
@@ -154,13 +171,13 @@ export function MediaPicker({ value, onChange, onClose, artworkId }: MediaPicker
                 placeholder="Paste image/video URL"
               />
               <Button onClick={() => handleSelect(urlInput)}>
-                Use URL
+                Confirmar
               </Button>
             </div>
             
             {urlInput && (
               <div className="mt-4 border rounded-lg p-4">
-                <p className="text-sm mb-2">Preview:</p>
+                <p className="text-sm mb-2">Previsualização:</p>
                 <MediaPreview url={urlInput} />
               </div>
             )}
@@ -170,15 +187,15 @@ export function MediaPicker({ value, onChange, onClose, artworkId }: MediaPicker
           <TabsContent value="recent" className="flex-1">
             <ScrollArea className="h-[400px]">
               {loading ? (
-                <p className="text-center py-4">Loading...</p>
+                <p className="text-center py-4">A carregar...</p>
               ) : recentMedia.length === 0 ? (
                 <div className="text-center py-8">
-                  <p className="text-muted-foreground">No media found</p>
+                  <p className="text-muted-foreground">Nenhum media encontrado</p>
                   <Button 
                     variant="link" 
                     onClick={() => window.open('/pt/admin/media', '_blank')}
                   >
-                    Go to Media Library to upload
+                    Ir para a Biblioteca de Media para fazer upload
                   </Button>
                 </div>
               ) : (
@@ -243,7 +260,7 @@ function MediaPreview({ url }: { url: string }) {
   if (error) {
     return (
       <div className="aspect-video bg-muted rounded-lg flex items-center justify-center">
-        <p className="text-sm text-muted-foreground">Failed to load preview</p>
+        <p className="text-sm text-muted-foreground">Erro a carregar a pré-visualização</p>
       </div>
     )
   }
@@ -287,7 +304,7 @@ function MediaCard({ media, onSelect, selected }: any) {
     >
       {error ? (
         <div className="w-full h-full bg-muted flex items-center justify-center">
-          <span className="text-xs text-muted-foreground">Error</span>
+          <span className="text-xs text-muted-foreground">Erro</span>
         </div>
       ) : isVideo ? (
         <video 

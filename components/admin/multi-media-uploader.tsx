@@ -209,7 +209,7 @@ export function MultiMediaUploader({
             <Upload className="w-6 h-6 text-muted-foreground" />
           </div>
           <div>
-            <p className="text-sm font-medium">Arraste e solte ou clique para fazer upload de múltiplos arquivos</p>
+            <p className="text-sm font-medium">Clique para fazer upload de múltiplos arquivos</p>
             <p className="text-xs text-muted-foreground mt-1">
               PNG, JPG, GIF, WEBP, MP4 up to {maxFileSize}MB cada (max {maxFiles} ficheiros)
             </p>

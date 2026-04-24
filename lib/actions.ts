@@ -422,25 +422,46 @@ export async function deleteCollection(id: string) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) throw new Error("Unauthorized")
 
-  // Get collection info and delete in one go
-  const { data: collection, error } = await supabase
+  // Get collection info including media and cover image before deleting
+  const { data: collection, error: fetchError } = await supabase
+    .from("collections")
+    .select(`
+      art_type,
+      slug,
+      cover_image_url,
+      media:artwork_media(media_url)
+    `)
+    .eq("id", id)
+    .single()
+
+  if (fetchError) throw new Error(fetchError.message)
+
+  // Collect all media URLs for cleanup
+  const mediaUrls = []
+  if (collection?.cover_image_url) mediaUrls.push(collection.cover_image_url)
+  if (collection?.media) mediaUrls.push(...collection.media.map(m => m.media_url))
+
+  // Delete from database first (cascade will handle artwork_media via FK)
+  const { error } = await supabase
     .from("collections")
     .delete()
     .eq("id", id)
-    .select(`
-      art_type,
-      slug
-    `)
-    .single()
 
   if (error) throw new Error(error.message)
 
+  // Clean up R2 files (don't throw if this fails, just log)
+  try {
+    await cleanupArtworkMedia(mediaUrls)
+  } catch (r2Error) {
+    console.error('Failed to delete R2 files for collection:', id, r2Error)
+  }
+
   if (collection) {
     await revalidateAllLocales({
-    artType: collection.art_type,
-    slug: '', // No artwork slug needed
-    collectionSlug: collection.slug
-  });
+      artType: collection.art_type,
+      slug: '', // No artwork slug needed
+      collectionSlug: collection.slug
+    });
   }
 
   return { success: true }
@@ -578,35 +599,7 @@ export async function deleteArtworkMedia(id: string) {
     // Store info before delete
     const { artwork_id, media_url } = media
 
-    // Safety: block deletion if the same URL is still referenced elsewhere.
-    // Otherwise we'd delete the R2 object and leave broken DB references.
-    const [{ data: otherRefs, error: otherRefsError }, { data: coverRefs, error: coverRefsError }] =
-      await Promise.all([
-        supabase
-          .from("artwork_media")
-          .select("id")
-          .eq("media_url", media_url)
-          .neq("id", id)
-          .limit(1),
-        supabase
-          .from("artworks")
-          .select("id")
-          .eq("cover_image_url", media_url)
-          .limit(1),
-      ])
-
-    if (otherRefsError) throw new Error(otherRefsError.message)
-    if (coverRefsError) throw new Error(coverRefsError.message)
-
-    const isReferencedElsewhere = (otherRefs?.length || 0) > 0 || (coverRefs?.length || 0) > 0
-    if (isReferencedElsewhere) {
-      return {
-        success: false,
-        error: "inUse",
-      }
-    }
-
-    // Delete from Supabase first (so if R2 fails, DB is clean)
+    // Delete from Supabase first (always delete the reference)
     const { error: deleteError } = await supabase
       .from("artwork_media")
       .delete()
@@ -614,11 +607,31 @@ export async function deleteArtworkMedia(id: string) {
 
     if (deleteError) throw new Error(deleteError.message)
 
-    // Then delete from R2 (don't throw if this fails, just log)
-    try {
-      await cleanupSingleFile(media_url)
-    } catch (r2Error) {
-      console.error('Failed to delete from R2, but DB record is removed:', r2Error)
+    // Check if the URL is still referenced elsewhere before cleaning up R2
+    const [{ data: otherRefs }, { data: coverRefs }] = await Promise.all([
+      supabase
+        .from("artwork_media")
+        .select("id")
+        .eq("media_url", media_url)
+        .limit(1),
+      supabase
+        .from("artworks")
+        .select("id")
+        .eq("cover_image_url", media_url)
+        .limit(1),
+    ])
+
+    const isReferencedElsewhere = (otherRefs?.length || 0) > 0 || (coverRefs?.length || 0) > 0
+
+    // Only delete from R2 if URL is not referenced elsewhere
+    if (!isReferencedElsewhere) {
+      try {
+        await cleanupSingleFile(media_url)
+      } catch (r2Error) {
+        console.error('Failed to delete from R2, but DB record is removed:', r2Error)
+      }
+    } else {
+      console.log('Skipping R2 cleanup - URL still referenced elsewhere:', media_url)
     }
 
     // Revalidate based on whether it was linked to an artwork
@@ -759,6 +772,201 @@ export async function updateArtworkMediaSortOrder(mediaId: string, newSortOrder:
 
   return { success: true }
 }
+
+// ========== COLLECTION MEDIA ==========
+
+export async function addCollectionMedia(collectionId: string | null, formData: FormData) {
+  const supabase = await getSupabaseClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) throw new Error("Unauthorized")
+
+  const media_url = formData.get("media_url") as string
+  const media_type = formData.get("media_type") as "image" | "video"
+  const caption = (formData.get("caption") as string) || null
+  const file_name = formData.get("file_name") as string
+  const file_size = formData.get("file_size") as string
+  const file_size_number = parseInt(file_size)
+  const sort_order = parseInt((formData.get("sort_order") as string) || "0")
+
+  try {
+    // Get collection info for revalidation
+    let collection = null
+    if (collectionId) {
+      const { data: collectionData } = await supabase
+        .from("collections")
+        .select("art_type, slug")
+        .eq("id", collectionId)
+        .single()
+
+      collection = collectionData
+    }
+
+    const { error } = await supabase
+      .from("artwork_media")
+      .insert({
+        collection_id: collectionId,
+        artwork_id: null, // Explicitly null for collection media
+        media_url,
+        media_type,
+        caption,
+        file_name,
+        file_size: file_size_number,
+        sort_order,
+      })
+
+    if (error) throw new Error(error.message)
+
+    if (collection) {
+      await revalidateAllLocales({
+        artType: collection.art_type,
+        collectionSlug: collection.slug,
+        slug: '',
+      });
+    }
+
+    return { success: true }
+  } catch (error) {
+    console.error('Failed to add collection media:', error)
+    throw error
+  }
+}
+
+export async function deleteCollectionMedia(id: string) {
+  const supabase = await getSupabaseClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) throw new Error("Unauthorized")
+
+  try {
+    // First, get the media info to get the URL and collection
+    const { data: media, error: fetchError } = await supabase
+      .from("artwork_media")
+      .select("collection_id, media_url")
+      .eq("id", id)
+      .maybeSingle()
+
+    if (fetchError) throw new Error(fetchError.message)
+
+    if (!media) {
+      console.error('Media not found')
+      return { success: true }
+    }
+
+    // Store info before delete
+    const { collection_id, media_url } = media
+
+    // Delete from Supabase first (always delete the reference)
+    const { error: deleteError } = await supabase
+      .from("artwork_media")
+      .delete()
+      .eq("id", id)
+
+    if (deleteError) throw new Error(deleteError.message)
+
+    // Check if the URL is still referenced elsewhere before cleaning up R2
+    const [{ data: otherRefs }, { data: coverRefs }] = await Promise.all([
+      supabase
+        .from("artwork_media")
+        .select("id")
+        .eq("media_url", media_url)
+        .limit(1),
+      supabase
+        .from("collections")
+        .select("id")
+        .eq("cover_image_url", media_url)
+        .limit(1),
+    ])
+
+    const isReferencedElsewhere = (otherRefs?.length || 0) > 0 || (coverRefs?.length || 0) > 0
+
+    // Only delete from R2 if URL is not referenced elsewhere
+    if (!isReferencedElsewhere) {
+      try {
+        await cleanupSingleFile(media_url)
+      } catch (r2Error) {
+        console.error('Failed to delete from R2, but DB record is removed:', r2Error)
+      }
+    } else {
+      console.log('Skipping R2 cleanup - URL still referenced elsewhere:', media_url)
+    }
+
+    // Revalidate if linked to a collection
+    if (collection_id) {
+      const { data: collection, error: collectionError } = await supabase
+        .from("collections")
+        .select("art_type, slug")
+        .eq("id", collection_id)
+        .single()
+
+      if (collectionError) {
+        console.error('Failed to fetch collection for revalidation:', collectionError)
+      } else if (collection) {
+        await revalidateAllLocales({
+          artType: collection.art_type,
+          collectionSlug: collection.slug,
+          slug: '',
+        })
+      }
+    } else {
+      // Revalidate media library page
+      const { routing } = await import('@/i18n/routing')
+      for (const locale of routing.locales) {
+        revalidatePath(`/${locale}/admin/media`)
+      }
+    }
+
+    console.log('Successfully deleted collection media:', id)
+    return { success: true }
+
+  } catch (error) {
+    console.error('Failed to delete collection media:', error)
+    throw error
+  }
+}
+
+export async function updateCollectionMediaSortOrder(mediaId: string, newSortOrder: number) {
+  const supabase = await getSupabaseClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) throw new Error("Unauthorized")
+
+  // Get the media item to find its collection
+  const { data: media, error: fetchError } = await supabase
+    .from("artwork_media")
+    .select("collection_id")
+    .eq("id", mediaId)
+    .single()
+
+  if (fetchError) throw new Error(fetchError.message)
+
+  // Update the sort order
+  const { error: updateError } = await supabase
+    .from("artwork_media")
+    .update({ sort_order: newSortOrder })
+    .eq("id", mediaId)
+
+  if (updateError) throw new Error(updateError.message)
+
+  // Revalidate if linked to collection
+  if (media?.collection_id) {
+    const { data: collection, error: collectionError } = await supabase
+      .from("collections")
+      .select("art_type, slug")
+      .eq("id", media.collection_id)
+      .single()
+
+    if (collectionError) {
+      console.error("Failed to fetch collection for revalidation:", collectionError)
+    } else if (collection) {
+      await revalidateAllLocales({
+        artType: collection.art_type,
+        collectionSlug: collection.slug,
+        slug: '',
+      })
+    }
+  }
+
+  return { success: true }
+}
+
 
 // ========== ARTWORK SECTIONS ==========
 

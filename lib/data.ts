@@ -4,6 +4,7 @@ import type {
   ArtworkWithCollectionSlug,
   ArtworkWithRelations,
   Collection,
+  CollectionWithRelations,
   ListingItem,
   NewsletterSubscriber,
 } from "./types"
@@ -141,12 +142,19 @@ export async function getCollectionBySlugStatic(
       .eq("is_published", true)
       .single()
     if (collection) {
-      const { data: artworks } = await supabase
-        .from("artworks")
-        .select("*")
-        .eq("collection_id", collection.id)
-        .eq("is_published", true)
-        .order("sort_order")
+      const [{ data: artworks }, { data: media }] = await Promise.all([
+        supabase
+          .from("artworks")
+          .select("*")
+          .eq("collection_id", collection.id)
+          .eq("is_published", true)
+          .order("sort_order"),
+        supabase
+          .from("artwork_media")
+          .select("*")
+          .eq("collection_id", collection.id)
+          .order("sort_order"),
+      ])
 
       const localizedCollection = {
         ...collection,
@@ -163,7 +171,7 @@ export async function getCollectionBySlugStatic(
         })
       ) as Artwork[]
 
-      return { collection: localizedCollection, artworks: localizedArtworks }
+      return { collection: localizedCollection, artworks: localizedArtworks, media: media || [] }
     }
   }
   // Fallback
@@ -173,6 +181,9 @@ export async function getCollectionBySlugStatic(
   if (!collection) return null
   const artworks = placeholderArtworks.filter(
     (a) => a.collection_id === collection.id && a.is_published
+  )
+  const media = placeholderMedia.filter(
+    (m) => m.collection_id === collection.id
   )
 
   const localizedCollection = {
@@ -190,7 +201,7 @@ export async function getCollectionBySlugStatic(
     })
   ) as Artwork[]
 
-  return { collection: localizedCollection, artworks: localizedArtworks }
+  return { collection: localizedCollection, artworks: localizedArtworks, media }
 }
 
 export async function getArtworkBySlugStatic(
@@ -886,15 +897,30 @@ export async function getArtworkById(
 
 export async function getCollectionById(
   id: string
-): Promise<Collection | null> {
+): Promise<CollectionWithRelations | null> {
   const supabase = await trySupabase()
   if (supabase) {
-    const { data } = await supabase
+    const { data: collection } = await supabase
       .from("collections")
       .select("*")
       .eq("id", id)
       .single()
-    if (data) return data
+    if (collection) {
+      const { data: media } = await supabase
+        .from("artwork_media")
+        .select("*")
+        .eq("collection_id", collection.id)
+        .order("sort_order")
+      return {
+        ...collection,
+        media: media || [],
+      }
+    }
   }
-  return placeholderCollections.find((c) => c.id === id) || null
+  const collection = placeholderCollections.find((c) => c.id === id)
+  if (!collection) return null
+  return {
+    ...collection,
+    media: placeholderMedia.filter((m) => m.collection_id === id),
+  }
 }

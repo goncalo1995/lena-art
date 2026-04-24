@@ -142,6 +142,7 @@ export default async function SlugPage({ params }: PageProps) {
               <CollectionView
                 collection={collectionData.collection}
                 artworks={collectionData.artworks}
+                media={collectionData.media}
               />
             </div>
           </div>

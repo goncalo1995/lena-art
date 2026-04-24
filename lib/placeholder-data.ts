@@ -358,6 +358,7 @@ export const placeholderMedia: ArtworkMedia[] = [
   {
     id: "m1",
     artwork_id: "a1",
+    collection_id: null,
     media_url: "/placeholder-art.jpg",
     media_type: "image",
     caption: "Detail of the morning light on the cork oaks",
@@ -369,6 +370,7 @@ export const placeholderMedia: ArtworkMedia[] = [
   {
     id: "m2",
     artwork_id: "a1",
+    collection_id: null,
     media_url: "/placeholder-art.jpg",
     media_type: "image",
     caption: "Work in progress, studio shot",

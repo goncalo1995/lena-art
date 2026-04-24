@@ -11,6 +11,7 @@ const intlMiddleware = createMiddleware({
 const PUBLIC_FILE_PATTERNS = [
   '/robots.txt',
   '/sitemap.xml',
+  '/manifest.json',
   '/favicon.ico',
   '/manifest.webmanifest',
   // add others if needed: apple-touch-icon, browserconfig.xml, etc.

@@ -13,6 +13,15 @@ export type ArtworkMediaWithArtwork = ArtworkMedia & {
   artworks: Pick<Artwork, 'id' | 'title' | 'art_type'> | null
 }
 
+// Extended type for media with collection relation
+export type CollectionMedia = ArtworkMedia & {
+  collection_id: string | null
+}
+
+export type CollectionMediaWithCollection = CollectionMedia & {
+  collections: Pick<Collection, 'id' | 'title' | 'art_type'> | null
+}
+
 export type ArtworkWithCollectionSlug = Artwork & {
   collections?: Pick<Collection, 'slug'> | null
 }
@@ -22,6 +31,10 @@ export interface ArtworkWithRelations extends Artwork {
   sections: ArtworkSection[]
   media: ArtworkMedia[]
   collection: Collection | null
+}
+
+export interface CollectionWithRelations extends Collection {
+  media: CollectionMedia[]
 }
 
 export type ArtType = "drawing" | "painting" | "photography" | "poem" | "watercolor"

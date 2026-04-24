@@ -12,7 +12,7 @@ export default async function AdminSubscribersPage() {
     <div>
       <div className="flex items-center justify-between gap-4 mb-8">
         <h1 className="font-serif text-2xl text-foreground">{subscribersCount} Subscritores</h1>
-        <Button variant="outline" asChild>
+        <Button asChild>
           <a href="/api/admin/subscribers/export">
             Exportar todos
           </a>

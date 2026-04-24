@@ -14,7 +14,8 @@
     },
     "labels": {
       "work": "work",
-      "works": "works"
+      "works": "works",
+      "collection": "Collection"
     },
     "messages": {
       "noWorksAvailable": "No works available yet. Come back later."

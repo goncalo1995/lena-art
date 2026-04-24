@@ -18,6 +18,7 @@ export type Database = {
         Row: {
           artwork_id: string | null
           caption: string | null
+          collection_id: string | null
           created_at: string | null
           file_name: string | null
           file_size: number | null
@@ -29,6 +30,7 @@ export type Database = {
         Insert: {
           artwork_id?: string | null
           caption?: string | null
+          collection_id?: string | null
           created_at?: string | null
           file_name?: string | null
           file_size?: number | null
@@ -40,6 +42,7 @@ export type Database = {
         Update: {
           artwork_id?: string | null
           caption?: string | null
+          collection_id?: string | null
           created_at?: string | null
           file_name?: string | null
           file_size?: number | null
@@ -54,6 +57,13 @@ export type Database = {
             columns: ["artwork_id"]
             isOneToOne: false
             referencedRelation: "artworks"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "artwork_media_collection_id_fkey"
+            columns: ["collection_id"]
+            isOneToOne: false
+            referencedRelation: "collections"
             referencedColumns: ["id"]
           },
         ]

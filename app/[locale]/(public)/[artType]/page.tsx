@@ -67,8 +67,10 @@ export default async function ArtListingPage({ params }: PageProps) {
                 href={`/${route}/${item.slug}`}
                 isPoem={isPoem}
                 badge={
-                  item.type === "collection"
+                  item.type === "collection" && item.artwork_count
                     ? `${item.artwork_count} ${t('labels.works')}`
+                    : item.type === "collection"
+                    ? t('labels.collection')
                     : undefined
                 }
               />

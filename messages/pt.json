@@ -14,7 +14,8 @@
     },
     "labels": {
       "work": "obra",
-      "works": "obras"
+      "works": "obras",
+      "collection": "Coleção"
     },
     "messages": {
       "noWorksAvailable": "Ainda não há obras disponíveis. Volte mais tarde."
