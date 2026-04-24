@@ -38,7 +38,7 @@ export default function AdminLayout({
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
-      <aside className="hidden w-56 shrink-0 flex-col border-r border-border bg-sidebar px-4 py-6 md:flex">
+      <aside className="hidden w-56 shrink-0 flex-col border-r border-border bg-sidebar px-4 py-6 md:flex sticky top-0 h-screen">
         <Link
           href="/admin"
           className="font-serif text-lg tracking-wide text-sidebar-foreground mb-8"
