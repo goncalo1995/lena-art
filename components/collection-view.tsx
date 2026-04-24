@@ -39,11 +39,11 @@ export async function CollectionView({
         ))}
       </div>
 
-      {artworks.length === 0 && (
+      {/* {artworks.length === 0 && (
         <p className="mt-10 text-center text-muted-foreground">
           {t("noWorks")}
         </p>
-      )}
+      )} */}
     </div>
   )
 }

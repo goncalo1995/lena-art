@@ -41,6 +41,9 @@ export default async function AdminArtworksPage() {
               <th className="px-4 py-3 text-left font-medium text-muted-foreground hidden md:table-cell">
                 Coleção
               </th>
+              <th className="px-4 py-3 text-left font-medium text-muted-foreground hidden md:table-cell">
+                Ordem
+              </th>
               <th className="px-4 py-3 text-left font-medium text-muted-foreground hidden lg:table-cell">
                 Publicado
               </th>
@@ -60,6 +63,9 @@ export default async function AdminArtworksPage() {
                 </td>
                 <td className="px-4 py-3 text-muted-foreground hidden md:table-cell">
                   {getCollectionName(artwork.collection_id) || "---"}
+                </td>
+                <td className="px-4 py-3 text-muted-foreground hidden md:table-cell">
+                  {artwork.sort_order}
                 </td>
                 <td className="px-4 py-3 hidden lg:table-cell">
                   <span

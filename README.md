@@ -5,7 +5,6 @@ Website for Helena Colaço Salazar
 
 - [X] Deploy to Vercel
 - [X] Buy domain
-- [ ] Posthog account + Authorized Domains and update app .env
 - [X] Setup domain in cloudflare
 - [X] setup domain in vercel
 - [X] update url in robots.ts and sitemap
@@ -13,9 +12,8 @@ Website for Helena Colaço Salazar
 - [X] Configure custom bucket domain and add to next.config
 
 - [X] Set up analytics
-- [ ] trigger google search to index the site
 
 ## Maybe
-- [ ] favicon
+- [X] favicon
 - [ ] preciso colleçoes como features na home ou apenas obras específicas?
 - [ ] share button para partilhar link facilmente + imagem share whatsapp
