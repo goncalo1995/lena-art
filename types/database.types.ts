@@ -122,6 +122,7 @@ export type Database = {
           description: string | null
           description_en: string | null
           dimensions: string | null
+          featured_sort_order: number | null
           id: string
           is_featured_home: boolean | null
           is_published: boolean | null
@@ -146,6 +147,7 @@ export type Database = {
           description?: string | null
           description_en?: string | null
           dimensions?: string | null
+          featured_sort_order?: number | null
           id?: string
           is_featured_home?: boolean | null
           is_published?: boolean | null
@@ -170,6 +172,7 @@ export type Database = {
           description?: string | null
           description_en?: string | null
           dimensions?: string | null
+          featured_sort_order?: number | null
           id?: string
           is_featured_home?: boolean | null
           is_published?: boolean | null
@@ -202,7 +205,9 @@ export type Database = {
           created_at: string | null
           description: string | null
           description_en: string | null
+          featured_sort_order: number | null
           id: string
+          is_featured_home: boolean | null
           is_published: boolean | null
           short_description: string | null
           short_description_en: string | null
@@ -219,7 +224,9 @@ export type Database = {
           created_at?: string | null
           description?: string | null
           description_en?: string | null
+          featured_sort_order?: number | null
           id?: string
+          is_featured_home?: boolean | null
           is_published?: boolean | null
           short_description?: string | null
           short_description_en?: string | null
@@ -236,7 +243,9 @@ export type Database = {
           created_at?: string | null
           description?: string | null
           description_en?: string | null
+          featured_sort_order?: number | null
           id?: string
+          is_featured_home?: boolean | null
           is_published?: boolean | null
           short_description?: string | null
           short_description_en?: string | null

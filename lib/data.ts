@@ -1,10 +1,10 @@
 import type {
   ArtType,
   Artwork,
-  ArtworkWithCollectionSlug,
   ArtworkWithRelations,
   Collection,
   CollectionWithRelations,
+  FeaturedItem,
   ListingItem,
   NewsletterSubscriber,
 } from "./types"
@@ -411,45 +411,159 @@ async function trySupabase() {
 
 export async function getHomeFeaturedArtworksStatic(
   artType: ArtType
-): Promise<ArtworkWithCollectionSlug[]> {
+): Promise<FeaturedItem[]> {
   const supabase = getStaticSupabase()
   if (supabase) {
-    const { data } = await supabase
+    // Fetch featured artworks
+    const { data: artworks } = await supabase
       .from("artworks")
       .select("*, collections(slug)")
       .eq("art_type", artType)
       .eq("is_published", true)
       .eq("is_featured_home", true)
-      .order("sort_order")
+      .order("featured_sort_order")
       .limit(8)
-    if (data && data.length > 0) return data
+
+    // Fetch featured collections
+    const { data: collections } = await supabase
+      .from("collections")
+      .select("*")
+      .eq("art_type", artType)
+      .eq("is_published", true)
+      .eq("is_featured_home", true)
+      .order("featured_sort_order")
+      .limit(8)
+
+    // Transform to FeaturedItem type
+    const artworkItems: FeaturedItem[] = (artworks || []).map((a: Artwork & { collections: { slug: string } | null }) => ({
+      type: "artwork" as const,
+      id: a.id,
+      title: a.title,
+      title_en: a.title_en,
+      slug: a.slug,
+      short_description: a.short_description,
+      short_description_en: a.short_description_en,
+      cover_image_url: a.cover_image_url,
+      featured_sort_order: a.featured_sort_order,
+      collection_slug: a.collections?.slug || null,
+    }))
+
+    const collectionItems: FeaturedItem[] = (collections || []).map((c: Collection) => ({
+      type: "collection" as const,
+      id: c.id,
+      title: c.title,
+      title_en: c.title_en,
+      slug: c.slug,
+      short_description: c.short_description,
+      short_description_en: c.short_description_en,
+      cover_image_url: c.cover_image_url,
+      featured_sort_order: c.featured_sort_order,
+    }))
+
+    // Combine and sort by featured_sort_order
+    const combined = [...artworkItems, ...collectionItems].sort(
+      (a, b) => (a.featured_sort_order || 0) - (b.featured_sort_order || 0)
+    )
+
+    if (combined.length > 0) return combined.slice(0, 8)
   }
   return []
-  // placeholderArtworks.filter(
-  //   (a) => a.art_type === artType && a.is_published && a.is_featured_home
-  // )
 }
 
 // ========== PUBLIC DATA FETCHING (runtime - with cookies) ==========
 
 export async function getHomeFeaturedArtworks(
   artType: ArtType
-): Promise<ArtworkWithCollectionSlug[]> {
+): Promise<FeaturedItem[]> {
   const supabase = await trySupabase()
   if (supabase) {
-    const { data } = await supabase
+    // Fetch featured artworks
+    const { data: artworks } = await supabase
       .from("artworks")
       .select("*, collections(slug)")
       .eq("art_type", artType)
       .eq("is_published", true)
       .eq("is_featured_home", true)
-      .order("sort_order")
+      .order("featured_sort_order")
       .limit(8)
-    if (data && data.length > 0) return data
+
+    // Fetch featured collections
+    const { data: collections } = await supabase
+      .from("collections")
+      .select("*")
+      .eq("art_type", artType)
+      .eq("is_published", true)
+      .eq("is_featured_home", true)
+      .order("featured_sort_order")
+      .limit(8)
+
+    // Transform to FeaturedItem type
+    const artworkItems: FeaturedItem[] = (artworks || []).map((a: Artwork & { collections: { slug: string } | null }) => ({
+      type: "artwork" as const,
+      id: a.id,
+      title: a.title,
+      title_en: a.title_en,
+      slug: a.slug,
+      short_description: a.short_description,
+      short_description_en: a.short_description_en,
+      cover_image_url: a.cover_image_url,
+      featured_sort_order: a.featured_sort_order,
+      collection_slug: a.collections?.slug || null,
+    }))
+
+    const collectionItems: FeaturedItem[] = (collections || []).map((c: Collection) => ({
+      type: "collection" as const,
+      id: c.id,
+      title: c.title,
+      title_en: c.title_en,
+      slug: c.slug,
+      short_description: c.short_description,
+      short_description_en: c.short_description_en,
+      cover_image_url: c.cover_image_url,
+      featured_sort_order: c.featured_sort_order,
+    }))
+
+    // Combine and sort by featured_sort_order
+    const combined = [...artworkItems, ...collectionItems].sort(
+      (a, b) => (a.featured_sort_order || 0) - (b.featured_sort_order || 0)
+    )
+
+    if (combined.length > 0) return combined.slice(0, 8)
   }
-  return placeholderArtworks.filter(
-    (a) => a.art_type === artType && a.is_published && a.is_featured_home
-  )
+
+  // Fallback to placeholder data
+  const artworkItems: FeaturedItem[] = placeholderArtworks
+    .filter((a) => a.art_type === artType && a.is_published && a.is_featured_home)
+    .map((a) => ({
+      type: "artwork" as const,
+      id: a.id,
+      title: a.title,
+      title_en: a.title_en,
+      slug: a.slug,
+      short_description: a.short_description,
+      short_description_en: a.short_description_en,
+      cover_image_url: a.cover_image_url,
+      featured_sort_order: a.featured_sort_order ?? a.sort_order,
+      collection_slug: a.collections?.slug || null,
+    }))
+
+  const collectionItems: FeaturedItem[] = placeholderCollections
+    .filter((c) => c.art_type === artType && c.is_published && c.is_featured_home)
+    .map((c) => ({
+      type: "collection" as const,
+      id: c.id,
+      title: c.title,
+      title_en: c.title_en,
+      slug: c.slug,
+      short_description: c.short_description,
+      short_description_en: c.short_description_en,
+      cover_image_url: c.cover_image_url,
+      featured_sort_order: c.featured_sort_order ?? c.sort_order,
+    }))
+
+  return [...artworkItems, ...collectionItems]
+    .sort((a, b) => (a.featured_sort_order || 0) - (b.featured_sort_order || 0))
+    .slice(0, 8)
 }
 
 export async function getListingItems(

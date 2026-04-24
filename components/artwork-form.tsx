@@ -246,11 +246,20 @@ export function ArtworkForm({ artwork, collections }: ArtworkFormProps) {
           </label>
 
           <label className="flex flex-col gap-1.5">
-            <span className="text-sm text-muted-foreground">Ordenação</span>
+            <span className="text-sm text-muted-foreground">Ordenação nas Listagens</span>
             <Input
               name="sort_order"
               type="number"
               defaultValue={artwork?.sort_order || 0}
+            />
+          </label>
+
+          <label className="flex flex-col gap-1.5">
+            <span className="text-sm text-muted-foreground">Ordenação na Página Inicial</span>
+            <Input
+              name="featured_sort_order"
+              type="number"
+              defaultValue={artwork?.featured_sort_order || 0}
             />
           </label>
         </div>

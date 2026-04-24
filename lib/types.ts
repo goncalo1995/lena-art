@@ -76,3 +76,27 @@ export interface ListingItem {
   sort_order: number | null
   artwork_count?: number // for collections
 }
+
+// A featured item for the home page - artworks (with collection slug) or collections
+export type FeaturedItem = {
+  type: "artwork"
+  id: string
+  title: string
+  title_en: string | null
+  slug: string
+  short_description: string | null
+  short_description_en: string | null
+  cover_image_url: string | null
+  featured_sort_order: number | null
+  collection_slug: string | null
+} | {
+  type: "collection"
+  id: string
+  title: string
+  title_en: string | null
+  slug: string
+  short_description: string | null
+  short_description_en: string | null
+  cover_image_url: string | null
+  featured_sort_order: number | null
+}

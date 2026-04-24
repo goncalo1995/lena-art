@@ -171,26 +171,53 @@ export function CollectionForm({ collection }: CollectionFormProps) {
         <input type="hidden" name="cover_image_url" value={coverImage} />
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <label className="flex flex-col gap-1.5">
-          <span className="text-sm text-muted-foreground">Ordenação</span>
-          <Input
-            name="sort_order"
-            type="number"
-            defaultValue={collection?.sort_order || 0}
-          />
-        </label>
-      </div>
+      <fieldset className="flex flex-col gap-4">
+        <legend className="font-serif text-lg text-foreground mb-2">
+          Definições de Exibição
+        </legend>
 
-      <label className="flex items-center gap-2">
-        <input
-          type="checkbox"
-          name="is_published"
-          defaultChecked={collection?.is_published ?? true}
-          className="size-4 rounded border-input"
-        />
-        <span className="text-sm text-foreground">Publicado</span>
-      </label>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <label className="flex flex-col gap-1.5">
+            <span className="text-sm text-muted-foreground">Ordenação nas Listagens</span>
+            <Input
+              name="sort_order"
+              type="number"
+              defaultValue={collection?.sort_order || 0}
+            />
+          </label>
+
+          <label className="flex flex-col gap-1.5">
+            <span className="text-sm text-muted-foreground">Ordenação na Página Inicial</span>
+            <Input
+              name="featured_sort_order"
+              type="number"
+              defaultValue={(collection as any)?.featured_sort_order || 0}
+            />
+          </label>
+        </div>
+
+        <div className="flex gap-6">
+          <label className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              name="is_published"
+              defaultChecked={collection?.is_published ?? true}
+              className="size-4 rounded border-input"
+            />
+            <span className="text-sm text-foreground">Publicado</span>
+          </label>
+
+          <label className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              name="is_featured_home"
+              defaultChecked={(collection as any)?.is_featured_home ?? false}
+              className="size-4 rounded border-input"
+            />
+            <span className="text-sm text-foreground">Destacado na Página Inicial</span>
+          </label>
+        </div>
+      </fieldset>
 
       <div className="flex gap-3">
         <Button type="submit" disabled={loading}>

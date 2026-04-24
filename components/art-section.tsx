@@ -1,7 +1,7 @@
 import { Link } from "@/i18n/navigation"
 import { ArrowRight } from "lucide-react"
 import { ArtworkCard } from "./artwork-card"
-import type { Artwork, ArtType, ArtworkWithCollectionSlug } from "@/lib/types"
+import type { ArtType, FeaturedItem } from "@/lib/types"
 import { ART_TYPE_ROUTES } from "@/lib/types"
 import { getTranslations } from "next-intl/server"
 import HorizontalScroll from "@/components/HorizontalScroll"
@@ -10,7 +10,7 @@ interface ArtSectionProps {
   artType: ArtType
   label: string
   description: string
-  artworks: ArtworkWithCollectionSlug[]
+  artworks: FeaturedItem[]
   locale: string
 }
 
@@ -38,17 +38,27 @@ export async function ArtSection({ artType, label, description, artworks, locale
       </div>
 
       <HorizontalScroll>
-        {artworks.map((artwork) => (
-          <ArtworkCard
-            key={artwork.id}
-            title={locale === 'pt' ? artwork.title : artwork.title_en || artwork.title}
-            shortDescription={locale === 'pt' ? artwork.short_description : artwork.short_description_en || artwork.short_description}
-            coverImageUrl={artwork.cover_image_url}
-            href={`/${route}/${artwork.collections?.slug ? artwork.collections.slug + '/' : ''}${artwork.slug}`}
-            isPoem={isPoem}
-            className="w-[280px] shrink-0"
-          />
-        ))}
+        {artworks.map((item) => {
+          const title = locale === 'pt' ? item.title : item.title_en || item.title
+          const shortDescription = locale === 'pt' ? item.short_description : item.short_description_en || item.short_description
+
+          // Build href based on item type
+          const href = item.type === 'collection'
+            ? `/${route}/${item.slug}`
+            : `/${route}/${item.collection_slug ? item.collection_slug + '/' : ''}${item.slug}`
+
+          return (
+            <ArtworkCard
+              key={item.id}
+              title={title}
+              shortDescription={shortDescription}
+              coverImageUrl={item.cover_image_url}
+              href={href}
+              isPoem={isPoem}
+              className="w-[280px] shrink-0"
+            />
+          )
+        })}
       </HorizontalScroll>
     </section>
   )

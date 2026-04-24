@@ -116,6 +116,7 @@ export async function createArtwork(formData: FormData) {
   const is_published = formData.has('is_published')
   const is_featured_home = formData.has('is_featured_home')
   const sort_order = parseInt((formData.get("sort_order") as string) || "0")
+  const featured_sort_order = parseInt((formData.get("featured_sort_order") as string) || "0")
 
   let collectionSlug: string | undefined;
   if (collection_id) {
@@ -148,6 +149,7 @@ export async function createArtwork(formData: FormData) {
       is_published,
       is_featured_home,
       sort_order,
+      featured_sort_order,
       user_id: user.id,
     })
     .select()
@@ -202,6 +204,7 @@ export async function updateArtwork(id: string, formData: FormData) {
   const is_published = formData.has('is_published')
   const is_featured_home = formData.has('is_featured_home')
   const sort_order = parseInt((formData.get("sort_order") as string) || "0")
+  const featured_sort_order = parseInt((formData.get("featured_sort_order") as string) || "0")
 
   const title_en = (formData.get("title_en") as string) || null
   
@@ -240,6 +243,7 @@ export async function updateArtwork(id: string, formData: FormData) {
       is_published,
       is_featured_home,
       sort_order,
+      featured_sort_order,
       updated_at: new Date().toISOString(),
     })
     .eq("id", id)
@@ -326,7 +330,9 @@ export async function createCollection(formData: FormData) {
   const description_en = (formData.get("description_en") as string) || null
   const cover_image_url = (formData.get("cover_image_url") as string) || null
   const is_published = formData.has('is_published')
+  const is_featured_home = formData.has('is_featured_home')
   const sort_order = parseInt((formData.get("sort_order") as string) || "0")
+  const featured_sort_order = parseInt((formData.get("featured_sort_order") as string) || "0")
 
   const { data, error } = await supabase
     .from("collections")
@@ -341,7 +347,9 @@ export async function createCollection(formData: FormData) {
       description_en,
       cover_image_url,
       is_published,
+      is_featured_home,
       sort_order,
+      featured_sort_order,
       user_id: user.id,
     })
     .select()
@@ -384,7 +392,9 @@ export async function updateCollection(id: string, formData: FormData) {
   const description_en = (formData.get("description_en") as string) || null
   const cover_image_url = (formData.get("cover_image_url") as string) || null
   const is_published = formData.has('is_published')
+  const is_featured_home = formData.has('is_featured_home')
   const sort_order = parseInt((formData.get("sort_order") as string) || "0")
+  const featured_sort_order = parseInt((formData.get("featured_sort_order") as string) || "0")
 
   const { error } = await supabase
     .from("collections")
@@ -399,7 +409,9 @@ export async function updateCollection(id: string, formData: FormData) {
       description_en,
       cover_image_url,
       is_published,
+      is_featured_home,
       sort_order,
+      featured_sort_order,
       updated_at: new Date().toISOString(),
     })
     .eq("id", id)
