@@ -16,7 +16,7 @@ export default async function AdminDashboardPage() {
   const countsByType = ART_TYPES.map((type) => ({
     type,
     label: ART_TYPE_LABELS[type],
-    count: artworks.filter((a) => a.art_type === type).length,
+    count: artworks.filter((a) => a.art_type === type && a.is_published).length,
   }))
 
   return (
@@ -39,7 +39,7 @@ export default async function AdminDashboardPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
         {countsByType.map(({ type, label, count }) => (
           <Card key={type}>
             <CardHeader className="pb-2">

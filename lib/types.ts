@@ -39,7 +39,7 @@ export interface CollectionWithRelations extends Collection {
 
 export type ArtType = "drawing" | "painting" | "photography" | "poem" | "watercolor"
 
-export const ART_TYPES: ArtType[] = ["drawing", "painting", "photography", "poem", "watercolor"]
+export const ART_TYPES: ArtType[] = ["drawing", "painting", "photography", "watercolor"]
 
 export const ART_TYPE_LABELS: Record<string, string> = {
   drawing: "Drawings",

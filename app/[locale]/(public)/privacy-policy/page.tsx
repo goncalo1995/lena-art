@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: PrivacyPolicyParams
 export default async function PrivacyPolicyPage({ params }: { params: PrivacyPolicyParams }) {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'Pages.privacyPolicy' })
-  const lastUpdated = new Date().toISOString().slice(0, 10)
+  const lastUpdated = "2026-03-09"
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-16">

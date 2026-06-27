@@ -1,7 +1,7 @@
 "use client"
 
 import { usePathname } from "next/navigation"
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { ChevronDown, Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Link } from "@/i18n/navigation"
@@ -12,6 +12,7 @@ export function SiteHeader() {
   const t = useTranslations("Pages.header")
   const [mobileOpen, setMobileOpen] = useState(false)
   const [workOpen, setWorkOpen] = useState(false)
+  const desktopDropdownRef = useRef<HTMLLIElement>(null)
 
   const workLinks = useMemo(
     () => [
@@ -19,7 +20,7 @@ export function SiteHeader() {
       { label: t("work.paintings"), href: "/paintings" },
       { label: t("work.photography"), href: "/photography" },
       { label: t("work.watercolor"), href: "/watercolor" },
-      { label: t("work.poetry"), href: "/poetry" },
+      // { label: t("work.poetry"), href: "/poetry" },
     ],
     [t]
   )
@@ -32,6 +33,24 @@ export function SiteHeader() {
       document.body.style.overflow = previousOverflow
     }
   }, [mobileOpen])
+
+  // Close desktop dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+      if (
+        desktopDropdownRef.current &&
+        !desktopDropdownRef.current.contains(e.target as Node)
+      ) {
+        setWorkOpen(false)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+    document.addEventListener("touchstart", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+      document.removeEventListener("touchstart", handleClickOutside)
+    }
+  }, [])
 
   useEffect(() => {
     setMobileOpen(false)
@@ -59,7 +78,7 @@ export function SiteHeader() {
 
       {/* Main content layer */}
       <div className="relative z-10 border-b border-border/40">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 sm:px-8 md:px-10 py-4 md:py-5">
+        <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-10 py-4 lg:py-5">
           <Link
             href="/"
             className="font-serif text-xl sm:text-2xl tracking-tight text-foreground/90 hover:text-foreground transition-colors"
@@ -81,8 +100,9 @@ export function SiteHeader() {
               </Link>
             </li>
 
-            <li className="relative group">
+            <li ref={desktopDropdownRef} className="relative group">
               <button
+                onClick={() => setWorkOpen((v) => !v)}
                 className={cn(
                   "flex items-center gap-1.5 text-base tracking-wide transition-colors hover:text-primary/90",
                   workLinks.some((l) => pathname.startsWith(l.href))
@@ -91,15 +111,28 @@ export function SiteHeader() {
                 )}
               >
                 {t("nav.work")}
-                <ChevronDown className="size-4 transition-transform group-hover:rotate-180 duration-300" />
+                <ChevronDown
+                  className={cn(
+                    "size-4 transition-transform duration-300",
+                    workOpen ? "rotate-180" : "group-hover:rotate-180"
+                  )}
+                />
               </button>
 
-              <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 pointer-events-none group-hover:pointer-events-auto">
+              <div
+                className={cn(
+                  "absolute top-full left-1/2 -translate-x-1/2 pt-3 transition-all duration-200",
+                  workOpen
+                    ? "opacity-100 visible pointer-events-auto"
+                    : "opacity-0 invisible pointer-events-none group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto"
+                )}
+              >
                 <ul className="flex flex-col bg-card/95 backdrop-blur-sm border border-border/60 rounded-xl shadow-xl py-2.5 min-w-[180px] text-sm">
                   {workLinks.map((link) => (
                     <li key={link.href}>
                       <Link
                         href={link.href}
+                        onClick={() => setWorkOpen(false)}
                         className={cn(
                           "block px-5 py-2.5 transition-colors hover:bg-muted/70 hover:text-primary",
                           pathname.startsWith(link.href) ? "text-primary" : "text-foreground/90"
