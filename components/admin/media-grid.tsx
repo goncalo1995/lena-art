@@ -13,18 +13,19 @@ import {
   DialogHeader, 
   DialogTitle,
 } from '@/components/ui/dialog'
-import { Copy, Trash2, ExternalLink, Image as ImageIcon, Video } from 'lucide-react'
+import { Copy, Trash2, ExternalLink, Image as ImageIcon, Video, Link2Off } from 'lucide-react'
 import { deleteArtworkMedia, updateArtworkMediaCaption } from '@/lib/actions'
 import { useRouter } from 'next/navigation'
-import type { ArtworkMedia } from '@/lib/types'
+import type { ArtworkMediaWithArtwork } from '@/lib/types'
+import { ART_TYPE_LABELS } from '@/lib/types'
 
 interface MediaGridProps {
-  media: ArtworkMedia[]
+  media: ArtworkMediaWithArtwork[]
 }
 
 export function MediaGrid({ media }: MediaGridProps) {
   const router = useRouter()
-  const [selectedItem, setSelectedItem] = useState<ArtworkMedia | null>(null)
+  const [selectedItem, setSelectedItem] = useState<ArtworkMediaWithArtwork | null>(null)
   const [copied, setCopied] = useState(false)
   const [view, setView] = useState<'grid' | 'list'>('grid')
   const [captionDraft, setCaptionDraft] = useState('')
@@ -153,6 +154,25 @@ export function MediaGrid({ media }: MediaGridProps) {
                 </div>
               )}
 
+              {/* Linked artwork */}
+              <div className="px-3 pb-2">
+                {item.artworks ? (
+                  <Link
+                    href={`/admin/artworks/${item.artworks.id}/edit`}
+                    className="flex items-center gap-1 text-xs text-primary hover:underline truncate"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <ExternalLink className="size-3 shrink-0" />
+                    <span className="truncate">{item.artworks.title}</span>
+                  </Link>
+                ) : (
+                  <span className="flex items-center gap-1 text-xs text-amber-500">
+                    <Link2Off className="size-3" />
+                    Não ligado
+                  </span>
+                )}
+              </div>
+
               {/* Sticky actions */}
               <div className="mt-auto flex items-center justify-between gap-1 px-2 py-2 border-t bg-background">
                 <Button
@@ -217,10 +237,23 @@ export function MediaGrid({ media }: MediaGridProps) {
                 <p className="text-sm font-medium truncate">
                   {item.file_name || 'Untitled'}
                 </p>
+                {item.artworks ? (
+                  <Link
+                    href={`/admin/artworks/${item.artworks.id}/edit`}
+                    className="flex items-center gap-1 text-xs text-primary hover:underline truncate"
+                  >
+                    <ExternalLink className="size-3 shrink-0" />
+                    <span className="truncate">{item.artworks.title}</span>
+                    <span className="text-muted-foreground">({ART_TYPE_LABELS[item.artworks.art_type]})</span>
+                  </Link>
+                ) : (
+                  <span className="flex items-center gap-1 text-xs text-amber-500">
+                    <Link2Off className="size-3" />
+                    Não ligado a nenhuma obra
+                  </span>
+                )}
                 {item.caption && (
-                  <p className="text-xs truncate">
-                    {item.caption}
-                  </p>
+                  <p className="text-xs text-muted-foreground truncate">{item.caption}</p>
                 )}
                 <p className="text-xs text-muted-foreground">
                   {item.media_type} · {formatDate(item.created_at)}
@@ -308,6 +341,27 @@ export function MediaGrid({ media }: MediaGridProps) {
                   <p className="font-medium">
                     {formatDate(selectedItem.created_at)}
                   </p>
+                </div>
+                <div className="col-span-2">
+                  <p className="text-muted-foreground mb-1">Obra ligada</p>
+                  {selectedItem.artworks ? (
+                    <Link
+                      href={`/admin/artworks/${selectedItem.artworks.id}/edit`}
+                      target="_blank"
+                      className="inline-flex items-center gap-1.5 text-sm text-primary hover:underline font-medium"
+                    >
+                      <ExternalLink className="size-3.5" />
+                      {selectedItem.artworks.title}
+                      <span className="text-muted-foreground font-normal">
+                        ({ART_TYPE_LABELS[selectedItem.artworks.art_type]})
+                      </span>
+                    </Link>
+                  ) : (
+                    <span className="inline-flex items-center gap-1.5 text-sm text-amber-500">
+                      <Link2Off className="size-3.5" />
+                      Não ligado a nenhuma obra
+                    </span>
+                  )}
                 </div>
                 <div className="col-span-2 space-y-2">
                   <div className="flex items-center justify-between gap-3">

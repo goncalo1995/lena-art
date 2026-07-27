@@ -4,6 +4,7 @@ import { MediaGrid } from '@/components/admin/media-grid'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { getLocale } from 'next-intl/server'
 import { MultiMediaUploader } from '@/components/admin/multi-media-uploader'
+import type { ArtworkMediaWithArtwork } from '@/lib/types'
 
 export default async function MediaPage() {
   const supabase = await createClient()
@@ -22,30 +23,36 @@ export default async function MediaPage() {
     `)
     .order('created_at', { ascending: false })
 
+  const typed = (allMedia || []) as ArtworkMediaWithArtwork[]
+
   // Get images only
-  const images = allMedia?.filter(m => m.media_type === 'image') || []
+  const images = typed.filter(m => m.media_type === 'image')
   
   // Get videos only
-  const videos = allMedia?.filter(m => m.media_type === 'video') || []
+  const videos = typed.filter(m => m.media_type === 'video')
+
+  // Unused: not linked to any artwork
+  const unused = typed.filter(m => !m.artwork_id)
 
   return (
     <div className="p-6 space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-serif">Imagens e Vídeos</h1>
         <p className="text-sm text-muted-foreground">
-          {allMedia?.length || 0} items
+          {typed.length} items
+          {unused.length > 0 && (
+            <span className="ml-2 text-amber-500 font-medium">· {unused.length} não utilizados</span>
+          )}
         </p>
       </div>
       <div className="w-full">
-        <MultiMediaUploader 
-          maxFiles={20}
-        />
-    </div>
+        <MultiMediaUploader maxFiles={20} />
+      </div>
 
       <Tabs defaultValue="all" className="space-y-6">
         <TabsList>
           <TabsTrigger value="all">
-            Todos ({allMedia?.length || 0})
+            Todos ({typed.length})
           </TabsTrigger>
           <TabsTrigger value="images">
             Imagens ({images.length})
@@ -53,10 +60,13 @@ export default async function MediaPage() {
           <TabsTrigger value="videos">
             Vídeos ({videos.length})
           </TabsTrigger>
+          <TabsTrigger value="unused">
+            Não utilizados ({unused.length})
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="all">
-          <MediaGrid media={allMedia || []} />
+          <MediaGrid media={typed} />
         </TabsContent>
 
         <TabsContent value="images">
@@ -65,6 +75,19 @@ export default async function MediaPage() {
 
         <TabsContent value="videos">
           <MediaGrid media={videos} />
+        </TabsContent>
+
+        <TabsContent value="unused">
+          {unused.length === 0 ? (
+            <div className="text-center py-12 border rounded-lg bg-muted/10">
+              <p className="text-muted-foreground">Sem ficheiros não utilizados 🎉</p>
+              <p className="text-sm text-muted-foreground mt-1">
+                Todos os ficheiros estão ligados a uma obra.
+              </p>
+            </div>
+          ) : (
+            <MediaGrid media={unused} />
+          )}
         </TabsContent>
       </Tabs>
     </div>
